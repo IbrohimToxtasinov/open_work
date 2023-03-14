@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:open_work/data/repositories/storage_repository.dart';
-import 'package:open_work/ui/widgets/global_button.dart';
-import 'package:open_work/utils/color.dart';
 import 'package:open_work/utils/constants.dart';
+
+import '../widgets/little_global_button.dart';
 
 class RoleScreen extends StatelessWidget {
   const RoleScreen({super.key});
@@ -26,20 +26,20 @@ class RoleScreen extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  GlobalButton(
+                  LittleGlobalButton(
                     isActive: true,
                     buttonText: "Worker",
                     onTap: () {
                       StorageRepository.putString("role", "worker");
-                      Navigator.pushNamed(context, loginPage);
+                      Navigator.pushReplacementNamed(context, loginPage);
                     },
                   ),
-                  GlobalButton(
+                  LittleGlobalButton(
                     isActive: true,
                     buttonText: "Client",
                     onTap: () {
                       StorageRepository.putString("role", "Client");
-                      Navigator.pushNamed(context, loginPage);
+                      Navigator.pushReplacementNamed(context, loginPage);
                     },
                   ),
                 ],

@@ -15,32 +15,9 @@ class AuthAppBar extends StatelessWidget implements PreferredSize{
         statusBarIconBrightness: Brightness.light,
         statusBarBrightness: Brightness.light,
       ),
+      leading: null,
       backgroundColor: const Color(0xFF002766),
-      title: Padding(
-        padding: const EdgeInsets.only(left: 40),
-        child: Row(
-          children: [
-            TextButton(
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              child: Row(
-                children: const [
-                  Icon(
-                    Icons.arrow_back_ios,
-                    color: MyColors.white,
-                    size: 20,
-                  ),
-                  Text(
-                    "Back",
-                    style: TextStyle(color: MyColors.white, fontSize: 16),
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
-      ),
+      title: Text("Login")
     );
   }
 

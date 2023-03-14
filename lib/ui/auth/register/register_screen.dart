@@ -29,7 +29,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFF002766),
-      appBar: const AuthAppBar(),
+      appBar:  AuthAppBar(),
       body: Container(
         height: double.infinity,
         width: double.infinity,
@@ -49,9 +49,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 const TextsWidget(),
                 SizedBox(height: 125.h),
                 MyTextField(
+                  isPassword: false,
                   validate: (value) {},
                   onPressed: () {},
-                  isVisiblity: false,
+                  isVisibility: false,
                   prefixIcon: const Icon(Icons.person_2_outlined),
                   maxLines: 1,
                   controller: _userNameController,
@@ -59,9 +60,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 ),
                 SizedBox(height: 30.h),
                 MyTextField(
+                  isPassword: false,
                   validate: (value) {},
                   onPressed: () {},
-                  isVisiblity: false,
+                  isVisibility: false,
                   prefixIcon: const Icon(Icons.people_outline),
                   maxLines: 1,
                   controller: _surNameController,
@@ -69,9 +71,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 ),
                 SizedBox(height: 30.h),
                 MyTextField(
+                  isPassword: false,
                   validate: (value) {},
                   onPressed: () {},
-                  isVisiblity: false,
+                  isVisibility: false,
                   prefixIcon: const Icon(Icons.email_outlined),
                   maxLines: 1,
                   controller: _emailController,
@@ -79,13 +82,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 ),
                 SizedBox(height: 30.h),
                 MyTextField(
+                  isPassword: true,
                   validate: (value) {},
                   onPressed: () {
                     setState(() {
                       isVisiblity = !isVisiblity;
                     });
                   },
-                  isVisiblity: isVisiblity,
+                  isVisibility: isVisiblity,
                   prefixIcon: const Icon(Icons.lock_outline),
                   maxLines: 1,
                   controller: _passwordController,

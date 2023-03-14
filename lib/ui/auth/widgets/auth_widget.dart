@@ -32,11 +32,9 @@ class AuthWidget extends StatelessWidget {
               ),
             ),
             InkWell(
-              onTap: () {
-                onTap;
-              },
+              onTap: onTap,
               child: Text(
-                "Sign in",
+                "Sign Up",
                 style: TextStyle(
                   color: const Color(0xFFFB5353),
                   fontWeight: FontWeight.w700,
