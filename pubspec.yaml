@@ -61,6 +61,7 @@ dependencies:
   stop_watch_timer: ^2.0.0
   shared_preferences: ^2.0.17
   get_it: ^7.2.0
+  bloc: ^8.1.1
 
   firebase_messaging: ^14.2.5
   firebase_core: ^2.3.0
