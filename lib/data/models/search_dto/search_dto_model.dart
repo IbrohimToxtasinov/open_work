@@ -1,3 +1,1 @@
-class SearchDtoModel {
-
-}
+class SearchDtoModel {}

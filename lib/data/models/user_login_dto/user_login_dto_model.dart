@@ -13,4 +13,3 @@ class UserLoginDtoModel {
         password: json["password"] as String? ?? "");
   }
 }
-
