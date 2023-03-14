@@ -11,25 +11,24 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return
-    // MultiBlocProvider(
-    //   providers: [
-    //     BlocProvider(create: (context) => GetUserCubit()),
-    //     BlocProvider(create: (context) => GetHomeDataCubit()),
-    //     BlocProvider(create: (context) => BottomNavCubit()),
-    //     BlocProvider(create: (context) => ConnectivityCubit()),
-    //     BlocProvider(create: (context) => LoginBloc()),
-    //     BlocProvider(create: (context) => SignUpBloc()),
-    //     BlocProvider(create: (context) => getIt<NotificationCacherBloc>()),
-    //     BlocProvider(create: (context) => getIt<NotificationReaderBloc>()),
-    //     BlocProvider(create: (context) => getIt<CategoryCubit>()),
-    //
-    //   ],
-    //   child:
-    MyApp()
-    // )
-    ;
+        // MultiBlocProvider(
+        //   providers: [
+        //     BlocProvider(create: (context) => GetUserCubit()),
+        //     BlocProvider(create: (context) => GetHomeDataCubit()),
+        //     BlocProvider(create: (context) => BottomNavCubit()),
+        //     BlocProvider(create: (context) => ConnectivityCubit()),
+        //     BlocProvider(create: (context) => LoginBloc()),
+        //     BlocProvider(create: (context) => SignUpBloc()),
+        //     BlocProvider(create: (context) => getIt<NotificationCacherBloc>()),
+        //     BlocProvider(create: (context) => getIt<NotificationReaderBloc>()),
+        //     BlocProvider(create: (context) => getIt<CategoryCubit>()),
+        //
+        //   ],
+        //   child:
+        MyApp()
+        // )
+        ;
   }
 }
 
@@ -45,7 +44,7 @@ class MyApp extends StatelessWidget {
       builder: (context, child) => AdaptiveTheme(
         light: AppTheme.lightTheme,
         dark: AppTheme.darkTheme,
-        initial: AdaptiveThemeMode.light,
+        initial: AdaptiveThemeMode.dark,
         builder: (light, dark) => MaterialApp(
           localizationsDelegates: context.localizationDelegates,
           supportedLocales: context.supportedLocales,
