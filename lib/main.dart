@@ -7,6 +7,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:open_work/app/app.dart';
 import 'package:open_work/app/bloc_observer.dart';
 
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:open_work/ui/router.dart';
+import 'package:open_work/utils/constants.dart';
+
 Future<void> main() async {
   SystemChrome.setSystemUIOverlayStyle(
     const SystemUiOverlayStyle(

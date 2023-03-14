@@ -8,15 +8,11 @@ class MyColors {
   // Primary
   static const Color primary = Color(0xFF2972FE);
 
-
   static const Color mainDark = Color(0xFF111216);
   static const Color mainLight = Color(0xFFFFFFFF);
 
-  static const Color error = Color(0xFFE90B0B);
-
-
-
-
+  static const Color red = Color(0xFFFB5353);
+  static const Color whiteBlack = Color(0xFFE2E2E2);
 
   // Neutral
   static const Color neutralBlack = Color(0xFF09101D);
@@ -58,7 +54,10 @@ class MyColors {
   static const Color actionSecondaryInverted = Color(0xFFFFFFFF);
 
   // Others
-  static const otherGradient1 = [ Color(0xFF6499FF),Color(0xFF2972FE),];
+  static const otherGradient1 = [
+    Color(0xFF6499FF),
+    Color(0xFF2972FE),
+  ];
   static const otherGradient2 = [Color(0xFFFFB800), Color(0xFFFFDA7B)];
   static List<Color> otherGradient3 = [
     Color(0xFFFF1843).withOpacity(0.9),
@@ -90,6 +89,4 @@ class MyColors {
   static const Color editWeight = Color(0xFFFFFFFF);
   static const Color editA5A9B6 = Color(0xFFA5A9B6);
   static const Color edit333743 = Color(0xFF333743);
-
-  
 }
