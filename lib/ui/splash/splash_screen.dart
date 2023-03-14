@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:open_work/utils/constants.dart';
 import 'package:open_work/data/repositories/storage_repository.dart';
 import 'package:open_work/utils/app_images.dart';
 import 'package:open_work/utils/color.dart';
-import 'package:open_work/utils/constants.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class SplashScreen extends StatefulWidget {

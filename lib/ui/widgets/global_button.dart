@@ -16,16 +16,16 @@ class GlobalButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 170.w,
+      width: double.infinity,
       height: 56.h,
       decoration: BoxDecoration(
-        color: isActive ? MyColors.red : MyColors.red.withOpacity(0.4),
-        borderRadius: BorderRadius.circular(90.r),
+        color: isActive ? const Color(0xFFFB5353) : const Color(0xFFFEEBEB),
+        borderRadius: BorderRadius.circular(15.r),
       ),
       child: ElevatedButton(
         onPressed: isActive ? onTap : null,
         style: ElevatedButton.styleFrom(
-          backgroundColor: MyColors.red,
+          backgroundColor: const Color(0xFFFB5353),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(15.r),
           ),
@@ -34,7 +34,7 @@ class GlobalButton extends StatelessWidget {
           buttonText,
           style: TextStyle(
             fontSize: 16.sp,
-            color: Colors.white,
+            color: isActive ? MyColors.white : const Color(0xFFFB5353),
             fontWeight: FontWeight.w400,
           ),
         ),
