@@ -9,14 +9,14 @@ import 'package:open_work/ui/widgets/global_button.dart';
 import 'package:open_work/utils/color.dart';
 import 'package:open_work/utils/constants.dart';
 
-class RegisterScreen extends StatefulWidget {
-  const RegisterScreen({Key? key}) : super(key: key);
+class UserRegisterScreen extends StatefulWidget {
+  const UserRegisterScreen({Key? key}) : super(key: key);
 
   @override
-  State<RegisterScreen> createState() => _RegisterScreenState();
+  State<UserRegisterScreen> createState() => _UserRegisterScreenState();
 }
 
-class _RegisterScreenState extends State<RegisterScreen> {
+class _UserRegisterScreenState extends State<UserRegisterScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController _userNameController = TextEditingController();
   final TextEditingController _surNameController = TextEditingController();

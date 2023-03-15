@@ -1,6 +1,9 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:open_work/bloc/auth/auth_bloc.dart';
+import 'package:open_work/data/repositories/auth_repo.dart';
 import '../../utils/constants.dart';
 import 'package:adaptive_theme/adaptive_theme.dart';
 import '../ui/router.dart';
@@ -11,24 +14,20 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return
-        // MultiBlocProvider(
-        //   providers: [
-        //     BlocProvider(create: (context) => GetUserCubit()),
-        //     BlocProvider(create: (context) => GetHomeDataCubit()),
-        //     BlocProvider(create: (context) => BottomNavCubit()),
-        //     BlocProvider(create: (context) => ConnectivityCubit()),
-        //     BlocProvider(create: (context) => LoginBloc()),
-        //     BlocProvider(create: (context) => SignUpBloc()),
-        //     BlocProvider(create: (context) => getIt<NotificationCacherBloc>()),
-        //     BlocProvider(create: (context) => getIt<NotificationReaderBloc>()),
-        //     BlocProvider(create: (context) => getIt<CategoryCubit>()),
-        //
-        //   ],
-        //   child:
-        MyApp()
-        // )
-        ;
+    return MultiRepositoryProvider(
+      providers: [
+        RepositoryProvider(
+          create: (context) => AuthRepo(),
+        ),
+      ],
+      child: MultiBlocProvider(providers: [
+        BlocProvider(
+          create: (context) => AuthBloc(
+            context.read<AuthRepo>(),
+          ),
+        ),
+      ], child: MyApp()),
+    );
   }
 }
 

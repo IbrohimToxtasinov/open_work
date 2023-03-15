@@ -8,6 +8,7 @@ import 'package:open_work/app/app.dart';
 import 'package:open_work/app/bloc_observer.dart';
 
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:open_work/services/get_it.dart';
 import 'package:open_work/ui/router.dart';
 import 'package:open_work/utils/constants.dart';
 
@@ -18,8 +19,8 @@ Future<void> main() async {
       statusBarColor: Colors.transparent, // status bar color
     ),
   );
-  // setup();
-  // WidgetsFlutterBinding.ensureInitialized();
+  setup();
+  WidgetsFlutterBinding.ensureInitialized();
   // await Firebase.initializeApp();
   // await FirebaseMessaging.instance.subscribeToTopic("zamin_news");
   // FirebaseMessaging.onBackgroundMessage(getIt<NotificationService>().firebaseMessagingBackgroundHandler);
@@ -38,7 +39,7 @@ Future<void> main() async {
         Locale('uz', 'UZ'),
       ],
       //fallbackLocale: const Locale('uz', 'UZ'),
-      startLocale:  const Locale('en','EN'),
+      startLocale: const Locale('en', 'EN'),
       path: "assets/translations",
       //saveLocale: true,
       child: App(),

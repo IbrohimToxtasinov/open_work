@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:open_work/ui/auth/register/register_screen.dart';
+import 'package:open_work/ui/auth/register/user_register_screen.dart';
+import 'package:open_work/ui/client_box/client_home_page/client_home_screen.dart';
 import 'package:open_work/ui/role/role_screen.dart';
-import 'package:open_work/ui/tab_box/home_page/home_screen.dart';
-import 'package:open_work/ui/tab_box/tab_box.dart';
+import 'package:open_work/ui/client_box/client_tab_box.dart';
 import 'package:open_work/utils/constants.dart';
 import 'auth/login/login_screen.dart';
 import 'auth/option/option_screen.dart';
@@ -19,7 +19,7 @@ class MyRouter {
         return navigateTo(
             NoInternetScreen(voidCallback: settings.arguments as VoidCallback));
       case tabBox:
-        return navigateTo(const TabBox());
+        return navigateTo(const ClientTabBox());
       case splashPage:
         return navigateTo(const SplashScreen());
       case optionPage:
@@ -27,11 +27,9 @@ class MyRouter {
       case loginPage:
         return navigateTo(const LoginScreen());
       case registerPage:
-        return navigateTo(const RegisterScreen());
+        return navigateTo(const UserRegisterScreen());
       case role:
         return navigateTo(const RoleScreen());
-      case homePage:
-        return navigateTo(const HomeScreen());
       default:
         return navigateTo(
           Scaffold(
