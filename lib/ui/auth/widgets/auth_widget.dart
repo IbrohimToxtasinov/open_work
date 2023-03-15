@@ -2,9 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class AuthWidget extends StatelessWidget {
-  const AuthWidget({Key? key, required this.onTap}) : super(key: key);
+  const AuthWidget({
+    Key? key,
+    required this.onTap,
+    required this.title,
+  }) : super(key: key);
 
   final VoidCallback onTap;
+  final String title;
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +39,7 @@ class AuthWidget extends StatelessWidget {
             InkWell(
               onTap: onTap,
               child: Text(
-                "Sign Up",
+                title,
                 style: TextStyle(
                   color: const Color(0xFFFB5353),
                   fontWeight: FontWeight.w700,
@@ -42,6 +47,7 @@ class AuthWidget extends StatelessWidget {
                 ),
               ),
             ),
+            SizedBox(height: 50.h),
           ],
         ),
       ],

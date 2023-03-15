@@ -13,6 +13,8 @@ class MyTextField extends StatefulWidget {
     required this.isVisibility,
     required this.validate,
     required this.isPassword,
+    required this.textInputType,
+    required this.textInputAction,
   }) : super(key: key);
 
   final String hintText;
@@ -23,6 +25,8 @@ class MyTextField extends StatefulWidget {
   final VoidCallback onPressed;
   ValueChanged<String> validate;
   final bool isVisibility;
+  final TextInputType textInputType;
+  final TextInputAction textInputAction;
 
   @override
   State<MyTextField> createState() => _MyTextFieldState();
@@ -48,6 +52,8 @@ class _MyTextFieldState extends State<MyTextField> {
       maxLines: widget.maxLines,
       style: TextStyle(color: Colors.black, fontSize: 20.sp),
       cursorColor: MyColors.black,
+      keyboardType: widget.textInputType,
+      textInputAction: widget.textInputAction,
       obscureText: widget.isPassword ? widget.isVisibility : false,
       controller: widget.controller,
       decoration: InputDecoration(
@@ -59,9 +65,9 @@ class _MyTextFieldState extends State<MyTextField> {
                 icon: widget.isVisibility
                     ? const Icon(Icons.visibility_off, color: Color(0xFFB7B7B7))
                     : const Icon(Icons.visibility, color: Color(0xFFB7B7B7)))
-            : const Icon(
+            : Icon(
                 Icons.done_all,
-                color: Colors.green,
+                color: isEmpty ? const Color(0xFFF9F9F9) : Colors.green,
               ),
         prefixIcon: widget.prefixIcon,
         hintText: widget.hintText,

@@ -29,7 +29,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFF002766),
-      appBar:  AuthAppBar(),
+      appBar: const AuthAppBar(title: 'Register'),
       body: Container(
         height: double.infinity,
         width: double.infinity,
@@ -41,6 +41,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
           color: MyColors.white,
         ),
         child: SingleChildScrollView(
+          physics: const BouncingScrollPhysics(),
           child: Form(
             key: _formKey,
             child: Column(
@@ -49,39 +50,56 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 const TextsWidget(),
                 SizedBox(height: 125.h),
                 MyTextField(
+                  textInputType: TextInputType.text,
+                  textInputAction: TextInputAction.next,
                   isPassword: false,
                   validate: (value) {},
                   onPressed: () {},
                   isVisibility: false,
-                  prefixIcon: const Icon(Icons.person_2_outlined),
+                  prefixIcon: const Icon(
+                    Icons.person_2_outlined,
+                    color: Color(0xFFB7B7B7),
+                  ),
                   maxLines: 1,
                   controller: _userNameController,
                   hintText: "Username",
                 ),
                 SizedBox(height: 30.h),
                 MyTextField(
+                  textInputType: TextInputType.text,
+                  textInputAction: TextInputAction.next,
                   isPassword: false,
                   validate: (value) {},
                   onPressed: () {},
                   isVisibility: false,
-                  prefixIcon: const Icon(Icons.people_outline),
+                  prefixIcon: const Icon(
+                    Icons.people_outline,
+                    color: Color(0xFFB7B7B7),
+                  ),
                   maxLines: 1,
                   controller: _surNameController,
                   hintText: "Surname",
                 ),
                 SizedBox(height: 30.h),
                 MyTextField(
+                  textInputType: TextInputType.emailAddress,
+                  textInputAction: TextInputAction.next,
                   isPassword: false,
                   validate: (value) {},
                   onPressed: () {},
                   isVisibility: false,
-                  prefixIcon: const Icon(Icons.email_outlined),
+                  prefixIcon: const Icon(
+                    Icons.email_outlined,
+                    color: Color(0xFFB7B7B7),
+                  ),
                   maxLines: 1,
                   controller: _emailController,
                   hintText: "Email",
                 ),
                 SizedBox(height: 30.h),
                 MyTextField(
+                  textInputType: TextInputType.text,
+                  textInputAction: TextInputAction.done,
                   isPassword: true,
                   validate: (value) {},
                   onPressed: () {
@@ -90,7 +108,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     });
                   },
                   isVisibility: isVisiblity,
-                  prefixIcon: const Icon(Icons.lock_outline),
+                  prefixIcon: const Icon(
+                    Icons.lock_outline,
+                    color: Color(0xFFB7B7B7),
+                  ),
                   maxLines: 1,
                   controller: _passwordController,
                   hintText: "Password",
@@ -105,6 +126,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 ),
                 SizedBox(height: 34.h),
                 AuthWidget(
+                  title: "Sign in",
                   onTap: () {
                     Navigator.pushNamed(context, loginPage);
                   },
