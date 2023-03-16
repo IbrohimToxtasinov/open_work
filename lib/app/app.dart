@@ -3,8 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:open_work/bloc/auth/auth_bloc.dart';
+import 'package:open_work/cubits/tab/tab_cubit.dart';
 import 'package:open_work/data/repositories/auth_repo.dart';
 import 'package:open_work/ui/client_box/client_home_page/client_home_screen.dart';
+import 'package:open_work/ui/worker_box/worker_tab_box.dart';
 import '../../utils/constants.dart';
 import 'package:adaptive_theme/adaptive_theme.dart';
 import '../ui/router.dart';
@@ -27,6 +29,14 @@ class App extends StatelessWidget {
             context.read<AuthRepo>(),
           )..add( CheckAuth()),
         ),
+        BlocProvider(
+          create: (context) => AuthBloc(
+            context.read<AuthRepo>(),
+          ),
+        ),
+        BlocProvider(
+          create: (context) => BottomNavCubit()
+          ),
       ], child: MyApp()),
     );
   }
