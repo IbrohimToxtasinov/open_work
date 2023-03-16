@@ -12,6 +12,7 @@ class BusynessesBloc extends Bloc<BusynessesEvent, BusynessesState> {
   BusynessesBloc() : super(BusynessesState(status: BusynessStatus.PURE,busynesses: [],errorMessage: '')) {
     on<GetWorkerBusynessesEvent>(getWorkerBusynesses);
     on<CreateBusynessesEvent>(createWorkerBusynesses);
+    on<DeleteBusynessByIdEvent>(deleteWorkerBusynessesById);
   }
 
   void getWorkerBusynesses(GetWorkerBusynessesEvent event, emit) async {
@@ -35,5 +36,17 @@ class BusynessesBloc extends Bloc<BusynessesEvent, BusynessesState> {
     }
 
   }
+
+  void deleteWorkerBusynessesById(DeleteBusynessByIdEvent event, emit) async {
+    emit(state.copyWith(status: BusynessStatus.DELETINGINPROGRESS));
+    MyResponse myResponse = await getIt<BusynessRepository>().deleteBusynessById(event.busynessId);
+    if(myResponse.errorMessage.isEmpty){
+      emit(state.copyWith(status: BusynessStatus.DELETINGINSUCCES));
+    }else{
+      emit(state.copyWith(status: BusynessStatus.DELETINGINFAILURY,errorMessage: myResponse.errorMessage));
+    }
+
+  }
+
 
 }
