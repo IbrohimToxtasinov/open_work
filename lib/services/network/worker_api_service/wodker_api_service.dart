@@ -73,6 +73,22 @@ class WorkerApiService extends WorkerApiClient{
    }
 
 
+   Future<MyResponse> getWorkerInfo() async{
+     MyResponse myResponse = MyResponse();
+     try{
+       Response response = await dio.get("${dio.options.baseUrl}workers/worker");
+       if(response.statusCode==200){
+         myResponse.data=response.data;
+         myResponse.statusCode=response.statusCode;
+       }
+     }catch(e){
+       myResponse.errorMessage=e.toString();
+     }
+     return myResponse;
+
+   }
+
+
 
 
 
