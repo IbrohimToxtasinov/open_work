@@ -11,6 +11,7 @@ part 'busynesses_state.dart';
 class BusynessesBloc extends Bloc<BusynessesEvent, BusynessesState> {
   BusynessesBloc() : super(BusynessesState(status: BusynessStatus.PURE,busynesses: [],errorMessage: '')) {
     on<GetWorkerBusynessesEvent>(getWorkerBusynesses);
+    on<CreateBusynessesEvent>(createWorkerBusynesses);
   }
 
   void getWorkerBusynesses(GetWorkerBusynessesEvent event, emit) async {
@@ -23,4 +24,16 @@ class BusynessesBloc extends Bloc<BusynessesEvent, BusynessesState> {
     }
 
   }
+
+  void createWorkerBusynesses(CreateBusynessesEvent event, emit) async {
+    emit(state.copyWith(status: BusynessStatus.CREATINGINPROGRESS));
+    MyResponse myResponse = await getIt<BusynessRepository>().createBusyness(start: event.starts, end: event.ends);
+    if(myResponse.errorMessage.isEmpty){
+      emit(state.copyWith(status: BusynessStatus.CREARINGINSUCCESS));
+    }else{
+      emit(state.copyWith(status: BusynessStatus.CREATINGINFAOLURY,errorMessage: myResponse.errorMessage));
+    }
+
+  }
+
 }

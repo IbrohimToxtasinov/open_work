@@ -9,4 +9,10 @@ class GetWorkerBusynessesEvent extends BusynessesEvent{
   GetWorkerBusynessesEvent({required this.workerId});
 }
 class DeleteBusynessByIdEvent extends BusynessesEvent{}
-class CreateBusynessesEvent extends BusynessesEvent{}
+
+class CreateBusynessesEvent extends BusynessesEvent{
+  DateTime starts;
+  DateTime ends;
+
+  CreateBusynessesEvent({required this.starts,required this.ends});
+}
