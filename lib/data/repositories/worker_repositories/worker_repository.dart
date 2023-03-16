@@ -10,6 +10,4 @@ class WorkerRepository{
 
   Future<MyResponse> updateWorkerInfo({required String name,required String surname,required String email,required String phone,required String password,File? file}) async =>
       await getIt<WorkerApiService>().updateWorker(name: name, surname: surname, email: email, phone: phone, password: password);
-
-
 }

@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:open_work/data/models/my_response/my_response_model.dart';
-import 'package:open_work/data/models/worker_login_dto/worker_login_dto_model.dart';
 import 'package:open_work/services/network/worker_api_service/worker_api_client.dart';
 
 class WorkerApiService extends WorkerApiClient{
@@ -27,6 +26,23 @@ class WorkerApiService extends WorkerApiClient{
     }
     return myResponse;
   }
+
+  Future<MyResponse> getBusynesses({required int workerId, required int itemCount}) async{
+    MyResponse myResponse = MyResponse();
+    try{
+      Response response = await dio.get("${dio.options.baseUrl}busynesses/$workerId?page=$itemCount");
+      if(response.statusCode==200){
+        myResponse.data=response.data;
+        myResponse.statusCode=response.statusCode;
+      }
+    }catch(e){
+      myResponse.errorMessage=e.toString();
+    }
+    return myResponse;
+
+  }
+
+
 
 
 
@@ -56,7 +72,6 @@ class WorkerApiService extends WorkerApiClient{
      }
      return myResponse;
    }
-
 
    Future<MyResponse> deleteWorker() async{
      MyResponse myResponse = MyResponse();
