@@ -14,11 +14,10 @@ class AuthState extends Equatable {
   final UserRole userRole;
 
   AuthState copyWith(
-    AuthStatus? authStatus,
-    String? errorText,
-    FormStatus? formStatus,
-    UserRole? userRole,
-  ) =>
+          {AuthStatus? authStatus,
+          String? errorText,
+          FormStatus? formStatus,
+          UserRole? userRole}) =>
       AuthState(
         formStatus: formStatus ?? this.formStatus,
         authStatus: authStatus ?? this.authStatus,
@@ -39,6 +38,7 @@ enum AuthStatus {
   pure,
   authenticated,
   unauthenticated,
+  registered
 }
 
 enum UserRole {

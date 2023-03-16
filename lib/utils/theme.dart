@@ -7,14 +7,14 @@ class AppTheme {
     highlightColor: Colors.white,
     appBarTheme: const AppBarTheme(
       iconTheme: IconThemeData(
-        color: MyColors.black,
+        color: Colors.deepPurpleAccent,
       ),
       backgroundColor: MyColors.white,
       elevation: 0,
       systemOverlayStyle: SystemUiOverlayStyle(
         statusBarBrightness: Brightness.light,
         statusBarIconBrightness: Brightness.dark,
-        statusBarColor: MyColors.white,
+        statusBarColor: MyColors.transparent,
       ),
     ),
     dialogBackgroundColor: MyColors.neutral1,
@@ -55,7 +55,8 @@ class AppTheme {
       systemOverlayStyle: SystemUiOverlayStyle(
         statusBarBrightness: Brightness.dark,
         statusBarIconBrightness: Brightness.light,
-        statusBarColor: MyColors.mainDark,
+             statusBarColor: MyColors.transparent,
+
       ),
     ),
     dialogBackgroundColor: MyColors.neutral1,

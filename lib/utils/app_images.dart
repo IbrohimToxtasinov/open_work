@@ -8,6 +8,8 @@ class AppImages {
   static const questionImage = 'assets/images/question_image.png';
   static const editProfile = "assets/images/edit_profile.png";
   static const uzb = 'assets/images/flags/flag_uzb.png';
+  static const appbarLogo = 'assets/images/appbar_logo.png';
+  static const defaultProfileImg = 'assets/images/default_profiel_img';
   static const rus = 'assets/images/flags/flag_rus.png';
   static const eng = 'assets/images/flags/flag_eng.png';
   static const courseDetailBackground =
