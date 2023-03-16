@@ -4,6 +4,9 @@ part of 'busynesses_bloc.dart';
 abstract class BusynessesEvent {}
 
 
-class GetWorkerBusynessesEvent extends BusynessesEvent{}
+class GetWorkerBusynessesEvent extends BusynessesEvent{
+  int workerId;
+  GetWorkerBusynessesEvent({required this.workerId});
+}
 class DeleteBusynessByIdEvent extends BusynessesEvent{}
 class CreateBusynessesEvent extends BusynessesEvent{}
