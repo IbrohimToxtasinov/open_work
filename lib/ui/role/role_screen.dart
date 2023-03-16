@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:open_work/bloc/auth/auth_bloc.dart';
 import 'package:open_work/data/repositories/storage_repository.dart';
 import 'package:open_work/utils/constants.dart';
 
@@ -30,16 +32,18 @@ class RoleScreen extends StatelessWidget {
                     isActive: true,
                     buttonText: "Worker",
                     onTap: () {
-                      StorageRepository.putString("role", "worker");
-                      Navigator.pushReplacementNamed(context, loginPage);
+                      BlocProvider.of<AuthBloc>(context)
+                          .add(UpdateUserRole(role: "worker"));
+                      Navigator.pushNamed(context, loginPage);
                     },
                   ),
                   LittleGlobalButton(
                     isActive: true,
                     buttonText: "Client",
                     onTap: () {
-                      StorageRepository.putString("role", "Client");
-                      Navigator.pushReplacementNamed(context, loginPage);
+                      BlocProvider.of<AuthBloc>(context)
+                          .add(UpdateUserRole(role: "client"));
+                      Navigator.pushNamed(context, loginPage);
                     },
                   ),
                 ],

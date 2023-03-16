@@ -14,10 +14,12 @@ class AuthState extends Equatable {
   final UserRole userRole;
 
   AuthState copyWith(
+  {
     AuthStatus? authStatus,
     String? errorText,
     FormStatus? formStatus,
     UserRole? userRole,
+}
   ) =>
       AuthState(
         formStatus: formStatus ?? this.formStatus,

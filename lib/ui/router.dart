@@ -19,7 +19,7 @@ class MyRouter {
       case noInternetRoute:
         return navigateTo(
             NoInternetScreen(voidCallback: settings.arguments as VoidCallback));
-      case tabBox:
+      case clientTabBox:
         return navigateTo(const ClientTabBox());
       case splashPage:
         return navigateTo(const SplashScreen());
