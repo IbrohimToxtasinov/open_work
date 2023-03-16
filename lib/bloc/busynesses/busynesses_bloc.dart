@@ -18,7 +18,6 @@ class BusynessesBloc extends Bloc<BusynessesEvent, BusynessesState> {
     }else{
       emit(state.copyWith(status: BusynessStatus.GETTINGINFAILURY,errorMessage: myResponse.errorMessage));
     }
-
   }
 
   void createWorkerBusynesses(CreateBusynessesEvent event, emit) async {
