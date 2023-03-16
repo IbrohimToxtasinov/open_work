@@ -1,5 +1,11 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:open_work/data/models/category/category_model.dart';
+import 'package:open_work/data/models/comment_create_dto/comment_create_dto_model.dart';
+import 'package:open_work/data/models/update_user_dto/update_user_dto_model.dart';
+import 'package:open_work/data/models/user_info/user_info_model.dart';
+import 'package:open_work/data/models/user_info_base/user_info_base_model.dart';
+import 'package:open_work/data/models/worker_register_dto/worker_register_dto_model.dart';
 import 'package:open_work/data/repositories/storage_repository.dart';
 import 'package:open_work/services/network/api_service/api_client.dart';
 import '../../../data/models/my_response/my_response_model.dart';
@@ -29,7 +35,7 @@ class ApiService extends ApiClient {
   }
 
   Future<MyResponse> registerWorker({
-    required UserRegisterDtoModel userRegisterDtoModel,
+    required WorkerRegisterDtoModel workerRegisterDtoModel,
   }) async {
     Dio dio = Dio();
 
@@ -37,7 +43,7 @@ class ApiService extends ApiClient {
     try {
       Response response = await dio.post(
         "http://3.126.92.10/workers/register",
-        data: userRegisterDtoModel.toJson(),
+        data: workerRegisterDtoModel.toJson(),
       );
       if (response.statusCode! >= 200 && response.statusCode! < 300) {
         myResponse.data = response.data;
@@ -58,6 +64,31 @@ class ApiService extends ApiClient {
       Dio dio = Dio();
       Response response = await dio.post(
         "http://3.126.92.10/users/login",
+        data: {
+          "email": email,
+          "password": password,
+        },
+      );
+      if (response.statusCode! >= 200 && response.statusCode! < 300) {
+        myResponse.data = response.data;
+        await StorageRepository.putString("token", response.data.toString());
+      }
+    } catch (error) {
+      debugPrint("LOGIN ERROR:$error");
+      myResponse.errorMessage = error.toString();
+    }
+    return myResponse;
+  }
+
+  Future<MyResponse> loginWorker({
+    required String password,
+    required String email,
+  }) async {
+    MyResponse myResponse = MyResponse(errorMessage: '');
+    try {
+      Dio dio = Dio();
+      Response response = await dio.post(
+        "http://3.126.92.10/workers/login",
         data: {
           "email": email,
           "password": password,
@@ -97,11 +128,60 @@ class ApiService extends ApiClient {
   }
 
 //------------------------CATEGORIES------------------------
+  Future<MyResponse> getAllCategories() async {
+    MyResponse myResponse = MyResponse(errorMessage: '');
+    try {
+      Response response = await dio.get("${dio.options.baseUrl}categories");
+      if (response.statusCode! >= 200 && response.statusCode! < 300) {
+        myResponse.data = (response.data as List?)
+                ?.map((e) => CategoryModel.fromJson(e))
+                .toList() ??
+            [];
+      }
+    } catch (error) {
+      debugPrint("GET ALL CATEGORIES ERROR: $error");
+      myResponse.errorMessage = error.toString();
+    }
+    return myResponse;
+  }
 
 //------------------------COMMENTS--------------------------
+  Future<MyResponse> createComment({
+    required CommentCreateDtoModel commentCreateDtoModel,
+  }) async {
+    MyResponse myResponse = MyResponse(errorMessage: '');
+    try {
+      Response response = await dio.post("${dio.options.baseUrl}comments",
+          data: commentCreateDtoModel.toJson());
+      if (response.statusCode! >= 200 && response.statusCode! < 300) {
+        myResponse.data = response.data;
+      }
+    } catch (error) {
+      debugPrint("CREATE COMMENT ERROR:$error");
+      myResponse.errorMessage = error.toString();
+    }
+    return myResponse;
+  }
+
+  Future<MyResponse> getWorkerCommentsById({required int workerId}) async {
+    MyResponse myResponse = MyResponse(errorMessage: '');
+    try {
+      Response response =
+          await dio.get("${dio.options.baseUrl}comments/worker/$workerId");
+      if (response.statusCode! >= 200 && response.statusCode! < 300) {
+        myResponse.data = (response.data as List?)
+                ?.map((e) => CategoryModel.fromJson(e))
+                .toList() ??
+            [];
+      }
+    } catch (error) {
+      debugPrint("GET WORKER COMMENTS BY ID ERROR :$error");
+      myResponse.errorMessage = error.toString();
+    }
+    return myResponse;
+  }
 
 //------------------------CONFIRMATION----------------------
-
   Future<MyResponse> confirmEmail({required String email}) async {
     Dio dio = Dio();
 
@@ -140,6 +220,65 @@ class ApiService extends ApiClient {
   }
 
 //------------------------CLIENTS---------------------------
+  Future<MyResponse> getClientInfo() async {
+    MyResponse myResponse = MyResponse(errorMessage: '');
+    try {
+      Response response = await dio.get("${dio.options.baseUrl}users/me");
+      if (response.statusCode! >= 200 && response.statusCode! < 300) {
+        myResponse.data = UserInfoModel.fromJson(response.data);
+      }
+    } catch (error) {
+      debugPrint("GET CLIENT INFO ERROR:$error");
+      myResponse.errorMessage = error.toString();
+    }
+    return myResponse;
+  }
+
+  Future<MyResponse> getClientInfoBase() async {
+    MyResponse myResponse = MyResponse(errorMessage: '');
+    try {
+      Response response = await dio.get("${dio.options.baseUrl}users/me/base");
+      if (response.statusCode! >= 200 && response.statusCode! < 300) {
+        myResponse.data = UserInfoBaseModel.fromJson(response.data);
+      }
+    } catch (error) {
+      debugPrint("GET CLIENT INFO BASE ERROR:$error");
+      myResponse.errorMessage = error.toString();
+    }
+    return myResponse;
+  }
+
+  Future<MyResponse> deleteClient() async {
+    MyResponse myResponse = MyResponse(errorMessage: '');
+    try {
+      Response response = await dio.delete("${dio.options.baseUrl}users");
+      if (response.statusCode! >= 200 && response.statusCode! < 300) {
+        myResponse.data = response.data;
+      }
+    } catch (error) {
+      debugPrint("DELETE CLIENT ERROR:$error");
+      myResponse.errorMessage = error.toString();
+    }
+    return myResponse;
+  }
+
+  Future<MyResponse> putClient(
+      {required UpdateUserDtoModel updateUserDtoModel}) async {
+    MyResponse myResponse = MyResponse(errorMessage: '');
+    try {
+      Response response = await dio.put(
+        '${dio.options.baseUrl}/users',
+        data: updateUserDtoModel,
+      );
+      if (response.statusCode! >= 200 && response.statusCode! < 300) {
+        myResponse.data = response.data;
+      }
+    } catch (error) {
+      debugPrint("UPDATE CLIENT ERROR: $error");
+      myResponse.errorMessage = error.toString();
+    }
+    return myResponse;
+  }
 
 //------------------------WORKERS---------------------------
 }
