@@ -8,7 +8,7 @@ part 'busynesses_event.dart';
 part 'busynesses_state.dart';
 
 class BusynessesBloc extends Bloc<BusynessesEvent, BusynessesState> {
-  BusynessesBloc() : super(BusynessesState()) {
+  BusynessesBloc() : super(BusynessesState(status: BusynessStatus.PURE,busynesses: [],errorMessage: '')) {
     on<BusynessesEvent>((event, emit) {
       // TODO: implement event handler
     });
