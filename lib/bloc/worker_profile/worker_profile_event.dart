@@ -1,5 +1,7 @@
 part of 'worker_profile_bloc.dart';
 
-abstract class WorkerProfileEvent extends Equatable {
-  const WorkerProfileEvent();
-}
+abstract class WorkerProfileEvent {}
+
+class GetWorkerInfoEvent extends WorkerProfileEvent{}
+class DeleteWorkerEvent extends WorkerProfileEvent{}
+class UpdateWorkerInfoEvent extends WorkerProfileEvent{}
