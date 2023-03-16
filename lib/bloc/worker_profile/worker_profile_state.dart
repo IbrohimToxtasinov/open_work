@@ -1,10 +1,47 @@
+// ignore_for_file: must_be_immutable
+
 part of 'worker_profile_bloc.dart';
 
-abstract class WorkerProfileState extends Equatable {
-  const WorkerProfileState();
+class WorkerProfileState extends Equatable {
+  WorkerProfileState(
+      {required this.status, required this.worker, required this.errorMessage});
+
+  WorkerStatus status;
+  dynamic worker; //worker model yozish kere
+  String errorMessage;
+
+
+
+  copyWith({WorkerStatus? status, dynamic worker, String? errorMessage}) =>
+      WorkerProfileState(
+          status: status ?? this.status,
+          errorMessage: errorMessage ?? this.errorMessage,
+          worker: worker ?? this.worker);
+
+  @override
+  // TODO: implement props
+  List<Object?> get props => [status, worker,errorMessage];
 }
 
-class WorkerProfileInitial extends WorkerProfileState {
-  @override
-  List<Object> get props => [];
+enum WorkerStatus {
+  //PURE
+  PURE,
+
+  //GET WORKER INFO
+
+  GETTINGWORKERINFOINPROGRESS,
+  GETTINGWORKERINFOINSUCCESS,
+  GETTINGWORKERINFOINFAILURY,
+
+  //DELETE WORKER
+
+  DELETINGWORKERINPROGRESS,
+  DELETINGWORKERINSUCCESS,
+  DELETINGWORKERINFAILURY,
+
+  //UPDATE WORKER INFO
+
+  UPDATEWORKERINFOINPROGRESS,
+  UPDATEWORKERINFOINSUCCESS,
+  UPDATEWORKERINFOINFAILURY,
 }

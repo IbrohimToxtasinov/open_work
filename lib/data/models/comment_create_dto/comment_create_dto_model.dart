@@ -15,4 +15,12 @@ class CommentCreateDtoModel {
       satisfied: json["satisfied"] as bool? ?? false,
       workerId: json["workerId"] as int? ?? 0,);
   }
+
+  Map<String, dynamic> toJson() {
+    return {
+      "content": content,
+      "satisfied": satisfied,
+      "workerId": workerId,
+    };
+  }
 }

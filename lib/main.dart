@@ -9,8 +9,8 @@ import 'package:open_work/app/bloc_observer.dart';
 
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:open_work/services/get_it.dart';
-import 'package:open_work/ui/router.dart';
-import 'package:open_work/utils/constants.dart';
+
+import 'data/repositories/storage_repository.dart';
 
 Future<void> main() async {
   SystemChrome.setSystemUIOverlayStyle(
@@ -24,8 +24,8 @@ Future<void> main() async {
   // await Firebase.initializeApp();
   // await FirebaseMessaging.instance.subscribeToTopic("zamin_news");
   // FirebaseMessaging.onBackgroundMessage(getIt<NotificationService>().firebaseMessagingBackgroundHandler);
-  // Bloc.observer = AppBlocObserver();
-  // await StorageRepository.getInstance();
+  Bloc.observer = AppBlocObserver();
+  await StorageRepository.getInstance();
   // await EasyLocalization.ensureInitialized();
   // SystemChrome.setPreferredOrientations([
   //   DeviceOrientation.portraitUp,

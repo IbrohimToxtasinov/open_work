@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:open_work/ui/auth/widgets/auth_appbar.dart';
 import 'package:open_work/ui/auth/widgets/auth_widget.dart';
@@ -8,6 +9,10 @@ import 'package:open_work/ui/auth/widgets/texts_widget.dart';
 import 'package:open_work/ui/widgets/global_button.dart';
 import 'package:open_work/utils/color.dart';
 import 'package:open_work/utils/constants.dart';
+
+import '../../../bloc/auth/auth_bloc.dart';
+import '../../../data/models/form_status/form_status.dart';
+import '../../../data/models/user_login_dto/user_login_dto_model.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -95,17 +100,42 @@ class _LoginScreenState extends State<LoginScreen> {
                 GlobalButton(
                   onTap: () {
                     _formKey.currentState!.validate();
+                    print(_emailController.text);
+                    print(_passwordController.text);
+                    BlocProvider.of<AuthBloc>(context).add(
+                      LoginClient(
+                        userLoginDtoModel: UserLoginDtoModel(
+                          email: _emailController.text,
+                          password: _passwordController.text,
+                        ),
+                      ),
+                    );
                   },
                   isActive: true,
                   buttonText: "Login",
                 ),
                 SizedBox(height: 40.h),
-                AuthWidget(
-                  title: "Sign up",
-                  onTap: () {
-                    Navigator.pushNamed(context, registerPage);
+                BlocListener<AuthBloc, AuthState>(
+                  listener: (context, state) {
+                    if (state.authStatus == AuthStatus.authenticated) {
+                      if (state.userRole == UserRole.client) {
+                        Navigator.pushNamedAndRemoveUntil(
+                            context, clientTabBox, (route) => false);
+                      } else {
+                        Navigator.pushNamedAndRemoveUntil(
+                            context, workerTabBox, (route) => false);
+                      }
+                    }
+
+                    if (state.formStatus == FormStatus.loading) {}
                   },
-                ),
+                  child: AuthWidget(
+                    title: "Sign up",
+                    onTap: () {
+                      Navigator.pushNamed(context, registerPage);
+                    },
+                  ),
+                )
               ],
             ),
           ),
