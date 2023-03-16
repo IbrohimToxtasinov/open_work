@@ -19,7 +19,6 @@ class WorkerProfileBloc extends Bloc<WorkerProfileEvent, WorkerProfileState> {
     }else{
       emit(state.copyWith(status: WorkerStatus.GETTINGWORKERINFOINFAILURY,errorMessage: myResponse.errorMessage));
     }
-
   }
 
   Future<void> deleteWorker(event, emit) async {

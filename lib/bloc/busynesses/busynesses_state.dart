@@ -24,7 +24,6 @@ class BusynessesState extends Equatable {
       required this.busynesses});
 
   @override
-  // TODO: implement props
   List<Object?> get props => [
     status,
     errorMessage,
@@ -34,21 +33,21 @@ class BusynessesState extends Equatable {
 
 enum BusynessStatus {
   //GET
-  GETTINGINPROGRESS,
-  GETTINGINFAILURY,
-  GETTINGINSUCCESS,
+  gettingInProgress,
+  gettingInFailure,
+  gettingInSuccess,
 
   //DELETE
 
-  DELETINGINPROGRESS,
-  DELETINGINSUCCES,
-  DELETINGINFAILURY,
+  deletingInProgress,
+  deletingInSuccess,
+  deletingInFailure,
 
   //CREATE
 
-  CREATINGINPROGRESS,
-  CREARINGINSUCCESS,
-  CREATINGINFAOLURY,
+  creatingInProgress,
+  creatingInSuccess,
+  creatingInFailure,
 
   //PURE
   PURE
