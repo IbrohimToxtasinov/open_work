@@ -4,9 +4,10 @@ import 'package:open_work/data/models/on_boarding_model/on_boarding_model.dart';
 import 'package:open_work/data/repositories/storage_repository.dart';
 import 'package:open_work/ui/on_boarding/widget/on_boarding_item.dart';
 import 'package:open_work/ui/on_boarding/widget/post_indicator.dart';
-import 'package:open_work/ui/widgets/global_button.dart';
 import 'package:open_work/utils/color.dart';
 import 'package:open_work/utils/constants.dart';
+
+import '../widgets/little_global_button.dart';
 
 class OnBoardingScreen extends StatefulWidget {
   const OnBoardingScreen({Key? key}) : super(key: key);
@@ -75,7 +76,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                     ),
                   ),
                 ),
-                GlobalButton(
+                LittleGlobalButton(
                     isActive: true,
                     buttonText: "Next",
                     onTap: () {
