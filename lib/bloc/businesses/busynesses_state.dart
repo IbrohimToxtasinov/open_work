@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable, constant_identifier_names
+
 part of 'busynesses_bloc.dart';
 
 @immutable

@@ -1,15 +1,10 @@
-import 'package:bloc/bloc.dart';
-import 'package:equatable/equatable.dart';
-import 'package:meta/meta.dart';
-import 'package:open_work/data/models/my_response/my_response_model.dart';
-import 'package:open_work/data/repositories/worker_repositories/busyness_repository.dart';
-import 'package:open_work/services/get_it.dart';
+import 'package:open_work/utils/file_importer/file_importer.dart';
 
 part 'busynesses_event.dart';
 part 'busynesses_state.dart';
 
 class BusynessesBloc extends Bloc<BusynessesEvent, BusynessesState> {
-  BusynessesBloc() : super(BusynessesState(status: BusynessStatus.PURE,busynesses: [],errorMessage: '')) {
+  BusynessesBloc() : super(BusynessesState(status: BusynessStatus.PURE,busynesses: List.empty(),errorMessage: '')) {
     on<GetWorkerBusynessesEvent>(getWorkerBusynesses);
     on<CreateBusynessesEvent>(createWorkerBusynesses);
     on<DeleteBusynessByIdEvent>(deleteWorkerBusynessesById);
