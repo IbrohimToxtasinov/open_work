@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:open_work/ui/client_box/client_home_page/client_home_screen.dart';
 import 'package:open_work/ui/client_box/client_profile/client_profile_screen.dart';
-import 'package:open_work/ui/worker_box/worker_home_page/worker_home_screen.dart';
 
 import '../../cubits/tab/tab_cubit.dart';
 
@@ -11,7 +10,7 @@ class ClientTabBox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List pages = [WorkerHomeScreen(), ClientProfileScreen()];
+    List pages = [ClientHomeScreen(), ClientProfileScreen()];
     return Scaffold(
       body: BlocBuilder<BottomNavCubit, int>(
         builder: (context, state) => pages[state],
