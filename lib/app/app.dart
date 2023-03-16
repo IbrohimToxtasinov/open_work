@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:open_work/bloc/auth/auth_bloc.dart';
 import 'package:open_work/data/repositories/auth_repo.dart';
+import 'package:open_work/ui/client_box/client_home_page/client_home_screen.dart';
 import '../../utils/constants.dart';
 import 'package:adaptive_theme/adaptive_theme.dart';
 import '../ui/router.dart';
@@ -43,7 +44,7 @@ class MyApp extends StatelessWidget {
       builder: (context, child) => AdaptiveTheme(
         light: AppTheme.lightTheme,
         dark: AppTheme.darkTheme,
-        initial: AdaptiveThemeMode.dark,
+        initial: AdaptiveThemeMode.light,
         builder: (light, dark) => MaterialApp(
           localizationsDelegates: context.localizationDelegates,
           supportedLocales: context.supportedLocales,
@@ -53,7 +54,8 @@ class MyApp extends StatelessWidget {
           darkTheme: dark,
           debugShowCheckedModeBanner: false,
           onGenerateRoute: MyRouter.generateRoute,
-          initialRoute: splashPage,
+         // initialRoute: clientHomeScreen,
+          home: ClientHomeScreen(),
         ),
       ),
     );
