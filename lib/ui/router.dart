@@ -22,6 +22,8 @@ class MyRouter {
         return navigateTo(const ClientTabBox());
       case splashPage:
         return navigateTo(const SplashScreen());
+      case clientHomeScreen:
+        return navigateTo(const ClientHomeScreen());
       case optionPage:
         return navigateTo(const OptionScreen());
       case loginPage:
