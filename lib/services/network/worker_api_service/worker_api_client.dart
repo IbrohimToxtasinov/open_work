@@ -8,8 +8,7 @@ class WorkerApiClient {
   }
 
   late Dio dio;
-  String workerToken = '';
-
+  String workerToken = 'eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTI1NiIsInR5cCI6IkpXVCJ9.eyJJZCI6IjEwIiwiRW1haWwiOiJzYW1hbmRhcmFoYWRqb25vdnNzQGdtYWlsLmNvbSIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6IldvcmtlciIsImV4cCI6MTY4MTYyNzM4NCwiaXNzIjoib3BlbndvcmsudXoiLCJhdWQiOiJvcGVud29yay51eiJ9.b3dStJYWTDIkYeDgjAA7y3NQZmNmBPqeiI9c7bDH0DQ';
   _init() {
     dio = Dio(
       BaseOptions(
@@ -23,7 +22,7 @@ class WorkerApiClient {
       debugPrint('ERROR OCCURRED:${error.response?.statusCode}');
       return handler.next(error);
     }), onRequest: (requestOptions, handler) {
-      String token = StorageRepository.getString("token");
+      String token = StorageRepository.getString("token",defValue: workerToken);
       requestOptions.headers["Authorization"] = "Bearer $token";
       requestOptions.headers["accept"] = "application/json";
       return handler.next(requestOptions);
