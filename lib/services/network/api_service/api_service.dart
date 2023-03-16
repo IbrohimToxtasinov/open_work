@@ -5,6 +5,8 @@ import 'package:open_work/data/models/comment_create_dto/comment_create_dto_mode
 import 'package:open_work/data/models/update_user_dto/update_user_dto_model.dart';
 import 'package:open_work/data/models/user_info/user_info_model.dart';
 import 'package:open_work/data/models/user_info_base/user_info_base_model.dart';
+import 'package:open_work/data/models/user_login_dto/user_login_dto_model.dart';
+import 'package:open_work/data/models/worker_login_dto/worker_login_dto_model.dart';
 import 'package:open_work/data/models/worker_register_dto/worker_register_dto_model.dart';
 import 'package:open_work/data/repositories/storage_repository.dart';
 import 'package:open_work/services/network/api_service/api_client.dart';
@@ -56,45 +58,18 @@ class ApiService extends ApiClient {
   }
 
   Future<MyResponse> loginUser({
-    required String password,
-    required String email,
+    required UserLoginDtoModel userLoginDtoModel,
+    required String path,
   }) async {
     MyResponse myResponse = MyResponse(errorMessage: '');
     try {
       Dio dio = Dio();
       Response response = await dio.post(
-        "http://3.126.92.10/users/login",
-        data: {
-          "email": email,
-          "password": password,
-        },
+        "http://3.126.92.10/$path/login",
+        data: userLoginDtoModel.toJson(),
       );
       if (response.statusCode! >= 200 && response.statusCode! < 300) {
-        myResponse.data = response.data;
-        await StorageRepository.putString("token", response.data.toString());
-      }
-    } catch (error) {
-      debugPrint("LOGIN ERROR:$error");
-      myResponse.errorMessage = error.toString();
-    }
-    return myResponse;
-  }
-
-  Future<MyResponse> loginWorker({
-    required String password,
-    required String email,
-  }) async {
-    MyResponse myResponse = MyResponse(errorMessage: '');
-    try {
-      Dio dio = Dio();
-      Response response = await dio.post(
-        "http://3.126.92.10/workers/login",
-        data: {
-          "email": email,
-          "password": password,
-        },
-      );
-      if (response.statusCode! >= 200 && response.statusCode! < 300) {
+        debugPrint("LOGIN SUCCESS");
         myResponse.data = response.data;
         await StorageRepository.putString("token", response.data.toString());
       }

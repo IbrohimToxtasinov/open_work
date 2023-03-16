@@ -7,72 +7,64 @@ import 'package:open_work/utils/app_images.dart';
 import 'package:open_work/utils/color.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class SplashScreen extends StatefulWidget {
+class SplashScreen extends StatelessWidget {
   const SplashScreen({Key? key}) : super(key: key);
-
-  @override
-  State<SplashScreen> createState() => _SplashScreenState();
-}
-
-class _SplashScreenState extends State<SplashScreen> {
-  @override
-  void initState() {
-    super.initState();
-    onNextPage();
-  }
-
-  onNextPage() {
-    Future.delayed(const Duration(seconds: 3), () async {
-      bool firstTime = StorageRepository.getBool("first_time", defValue: false);
-      if (firstTime == false) {
-        Navigator.pushReplacementNamed(context, onBoarding);
-      } else {
-      }
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: BlocListener<AuthBloc, AuthState>(
-        listener: (context, state){
-          if(state.authStatus == AuthStatus.authenticated){
-            if(state.userRole == UserRole.worker){
-              Navigator.pushNamedAndRemoveUntil(context, clientTabBox, (route) => false);
-            }else{
-              Navigator.pushNamedAndRemoveUntil(context, clientTabBox, (route) => false);
-            }
+        body: BlocListener<AuthBloc, AuthState>(
+      listener: (context, state) {
+        print("STATE KELDI");
+        if (state.authStatus == AuthStatus.authenticated) {
+          if (state.userRole == UserRole.client) {
+            Navigator.pushNamedAndRemoveUntil(
+                context, clientTabBox, (route) => false);
+          } else {
+            Navigator.pushNamedAndRemoveUntil(
+                context, workerTabBox, (route) => false);
           }
-        },
-        child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Image.asset(AppImages.appLogo, height: 150, width: 150),
-              SizedBox(height: 8.h),
-              RichText(
-                text: TextSpan(
-                  text: 'Home\n',
-                  style: TextStyle(
-                      color: MyColors.red,
-                      fontSize: 40.sp,
-                      fontWeight: FontWeight.w700),
-                  children: <TextSpan>[
-                    TextSpan(
-                      text: 'Chores',
-                      style: TextStyle(
-                        fontSize: 35.sp,
-                        color: Colors.black,
-                        fontWeight: FontWeight.w300,
-                      ),
+        } else {
+          Future.delayed(const Duration(seconds: 3), () async {
+            bool firstTime =
+                StorageRepository.getBool("first_time", defValue: false);
+            if (firstTime == false) {
+              Navigator.pushReplacementNamed(context, onBoarding);
+            } else {
+              Navigator.pushNamedAndRemoveUntil(
+                  context, role, (route) => false);
+            }
+          });
+        }
+      },
+      child: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Image.asset(AppImages.appLogo, height: 150, width: 150),
+            SizedBox(height: 8.h),
+            RichText(
+              text: TextSpan(
+                text: 'Home\n',
+                style: TextStyle(
+                    color: MyColors.red,
+                    fontSize: 40.sp,
+                    fontWeight: FontWeight.w700),
+                children: <TextSpan>[
+                  TextSpan(
+                    text: 'Chores',
+                    style: TextStyle(
+                      fontSize: 35.sp,
+                      color: Colors.black,
+                      fontWeight: FontWeight.w300,
                     ),
-                  ],
-                ),
-              )
-            ],
-          ),
+                  ),
+                ],
+              ),
+            )
+          ],
         ),
-      )
-    );
+      ),
+    ));
   }
 }

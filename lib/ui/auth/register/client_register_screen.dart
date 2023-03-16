@@ -1,22 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:open_work/bloc/auth/auth_bloc.dart';
+import 'package:open_work/data/models/form_status/form_status.dart';
+import 'package:open_work/data/models/user_register_dto/user_register_dto_model.dart';
 import 'package:open_work/ui/auth/widgets/auth_appbar.dart';
 import 'package:open_work/ui/auth/widgets/auth_widget.dart';
 import 'package:open_work/ui/auth/widgets/my_text_field_widget.dart';
 import 'package:open_work/ui/auth/widgets/texts_widget.dart';
 import 'package:open_work/ui/widgets/global_button.dart';
 import 'package:open_work/utils/color.dart';
-import 'package:open_work/utils/constants.dart';
 
-class UserRegisterScreen extends StatefulWidget {
-  const UserRegisterScreen({Key? key}) : super(key: key);
+class ClientRegisterScreen extends StatefulWidget {
+  const ClientRegisterScreen({Key? key}) : super(key: key);
 
   @override
-  State<UserRegisterScreen> createState() => _UserRegisterScreenState();
+  State<ClientRegisterScreen> createState() => _ClientRegisterScreenState();
 }
 
-class _UserRegisterScreenState extends State<UserRegisterScreen> {
+class _ClientRegisterScreenState extends State<ClientRegisterScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController _userNameController = TextEditingController();
   final TextEditingController _surNameController = TextEditingController();
@@ -120,17 +123,41 @@ class _UserRegisterScreenState extends State<UserRegisterScreen> {
                 GlobalButton(
                   onTap: () {
                     _formKey.currentState!.validate();
+                    print(_userNameController.text);
+                    print(_surNameController.text);
+                    print(_emailController.text);
+                    print(_passwordController.text);
+                    BlocProvider.of<AuthBloc>(context).add(
+                      RegisterClient(
+                        userRegisterDtoModel: UserRegisterDtoModel(
+                            name: _userNameController.text,
+                            surname: _surNameController.text,
+                            email: _emailController.text,
+                            password: _passwordController.text),
+                      ),
+                    );
                   },
                   isActive: true,
                   buttonText: "Create account",
                 ),
                 SizedBox(height: 34.h),
-                AuthWidget(
-                  title: "Sign in",
-                  onTap: () {
-                    Navigator.pushNamed(context, loginPage);
+                BlocListener<AuthBloc, AuthState>(
+                  listener: (context, state) {
+                    if (state.authStatus == AuthStatus.registered) {
+                      Navigator.pop(context);
+                    }
+
+                    if(state.formStatus == FormStatus.loading){
+
+                    }
                   },
-                ),
+                  child: AuthWidget(
+                    title: "Sign in",
+                    onTap: () {
+                      Navigator.pop(context);
+                    },
+                  ),
+                )
               ],
             ),
           ),

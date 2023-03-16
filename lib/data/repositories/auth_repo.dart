@@ -1,3 +1,5 @@
+import 'package:open_work/data/models/user_login_dto/user_login_dto_model.dart';
+import 'package:open_work/data/models/worker_register_dto/worker_register_dto_model.dart';
 import 'package:open_work/services/get_it.dart';
 import 'package:open_work/services/network/api_service/api_service.dart';
 
@@ -17,16 +19,25 @@ class AuthRepo {
             email: email,
           );
 
-  Future<MyResponse> registerUser({
+  Future<MyResponse> registerClient({
     required UserRegisterDtoModel userRegisterDtoModel,
   }) =>
       getIt
           .get<ApiService>()
           .registerClient(userRegisterDtoModel: userRegisterDtoModel);
 
-  Future<MyResponse> loginUser({
-    required String password,
-    required String email,
+  Future<MyResponse> registerWorker({
+    required WorkerRegisterDtoModel workerRegisterDtoModel,
   }) =>
-      getIt.get<ApiService>().loginUser(password: password, email: email);
+      getIt
+          .get<ApiService>()
+          .registerWorker(workerRegisterDtoModel: workerRegisterDtoModel);
+
+  Future<MyResponse> loginUser(
+          {required UserLoginDtoModel userLoginDtoModel,
+          required String path}) =>
+      getIt.get<ApiService>().loginUser(
+            userLoginDtoModel: userLoginDtoModel,
+            path: path,
+          );
 }
