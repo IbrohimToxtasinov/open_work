@@ -3,6 +3,7 @@ import 'package:open_work/ui/auth/register/user_register_screen.dart';
 import 'package:open_work/ui/client_box/client_home_page/client_home_screen.dart';
 import 'package:open_work/ui/role/role_screen.dart';
 import 'package:open_work/ui/client_box/client_tab_box.dart';
+import 'package:open_work/ui/worker_box/worker_home_page/worker_home_screen.dart';
 import 'package:open_work/utils/constants.dart';
 import 'auth/login/login_screen.dart';
 import 'auth/option/option_screen.dart';
@@ -30,6 +31,9 @@ class MyRouter {
         return navigateTo(const UserRegisterScreen());
       case role:
         return navigateTo(const RoleScreen());
+      case workerHomeScreen:
+        return navigateTo( const WorkerHomeScreen());
+
       default:
         return navigateTo(
           Scaffold(

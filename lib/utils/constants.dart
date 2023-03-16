@@ -12,6 +12,7 @@ const String optionPage = '/option_route';
 const String notificationRoute = '/notification_route';
 const String setting = '/settings_page';
 const String role = '/role_screen';
+const String workerHomeScreen = '/workerHomeScreen';
 
 myHeight(context) => MediaQuery.of(context).size.height;
 myWidth(context) => MediaQuery.of(context).size.width;
