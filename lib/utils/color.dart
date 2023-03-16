@@ -85,8 +85,12 @@ class MyColors {
   static const Color bgColour = Color(0xFF111216);
 
   // Edit Profile
-  static const Color editBackground = Color(0xFF111216);
+  static const Color editBackground = Color(0xFFE5E5E5);
   static const Color editWeight = Color(0xFFFFFFFF);
   static const Color editA5A9B6 = Color(0xFFA5A9B6);
   static const Color edit333743 = Color(0xFF333743);
+  static const Color TextColor = Color(0xFFB7B7B7);
+
+
+
 }
