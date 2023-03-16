@@ -25,4 +25,47 @@ class WorkerApiService extends WorkerApiClient{
     return myResponse;
   }
 
+
+
+  //Worker info CRUD
+   Future<MyResponse> createWorker({required DateTime start, required DateTime end}) async{
+     MyResponse myResponse = MyResponse();
+     Map<String,dynamic> data ={
+       "start": start.toIso8601String(),
+       "end": end.toIso8601String()
+     };
+
+     try{
+       Response response = await dio.post("${dio.options.baseUrl}busynesses",data: data);
+       if(response.statusCode==200){
+         myResponse.data=response.data;
+         myResponse.statusCode=response.statusCode;
+       }
+     }catch(e){
+       myResponse.errorMessage=e.toString();
+     }
+     return myResponse;
+   }
+
+
+   Future<MyResponse> deleteWorker() async{
+     MyResponse myResponse = MyResponse();
+     try{
+       Response response = await dio.delete("${dio.options.baseUrl}workers");
+       if(response.statusCode==200){
+         myResponse.data=response.data;
+         myResponse.statusCode=response.statusCode;
+       }
+     }catch(e){
+       myResponse.errorMessage=e.toString();
+     }
+     return myResponse;
+   }
+
+
+
+
+
+
+
 }
