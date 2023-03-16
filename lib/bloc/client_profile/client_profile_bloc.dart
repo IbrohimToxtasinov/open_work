@@ -32,14 +32,14 @@ class ClientProfileBloc extends Bloc<ClientProfileEvent, ClientProfileState> {
             ),
           ),
         ) {
-    on<GetClientInfoEvent>(getWorkerInfo);
-    on<DeleteClientEvent>(deleteWorker);
-    on<UpdateClientInfoEvent>(updateWorkerInfo);
+    on<GetClientInfoEvent>(getClientInfo);
+    on<DeleteClientEvent>(deleteClient);
+    on<UpdateClientInfoEvent>(updateClientInfo);
   }
 
   ClientProfileRepo clientProfileRepo;
 
-  Future<void> getWorkerInfo(event, emit) async {
+  Future<void> getClientInfo(event, emit) async {
     emit(state.copyWith(status: ClientStatus.GETTINGCLIENTINFOINPROGRESS));
     MyResponse myResponse = await clientProfileRepo.getClientInfo();
     if (myResponse.errorMessage.isEmpty) {
@@ -53,7 +53,7 @@ class ClientProfileBloc extends Bloc<ClientProfileEvent, ClientProfileState> {
     }
   }
 
-  Future<void> deleteWorker(event, emit) async {
+  Future<void> deleteClient(event, emit) async {
     emit(state.copyWith(status: ClientStatus.DELETINGCLIENTINPROGRESS));
     MyResponse myResponse = await clientProfileRepo.deleteClient();
     if (myResponse.errorMessage.isEmpty) {
@@ -67,7 +67,7 @@ class ClientProfileBloc extends Bloc<ClientProfileEvent, ClientProfileState> {
     }
   }
 
-  Future<void> updateWorkerInfo(UpdateClientInfoEvent event, emit) async {
+  Future<void> updateClientInfo(UpdateClientInfoEvent event, emit) async {
     emit(state.copyWith(status: ClientStatus.UPDATECLIENTINFOINPROGRESS));
     MyResponse myResponse = await clientProfileRepo.putClient(
         updateUserDtoModel: event.updateUserDtoModel);
