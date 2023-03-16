@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:dio/dio.dart';
 import 'package:open_work/data/models/my_response/my_response_model.dart';
+import 'package:open_work/data/models/worker_login_dto/worker_login_dto_model.dart';
 import 'package:open_work/services/network/worker_api_service/worker_api_client.dart';
 
 class WorkerApiService extends WorkerApiClient{
@@ -28,15 +31,22 @@ class WorkerApiService extends WorkerApiClient{
 
 
   //Worker info CRUD
-   Future<MyResponse> createWorker({required DateTime start, required DateTime end}) async{
+   Future<MyResponse> updateWorker({required String name,required String surname,required String email,required String phone,required String password,File? file}) async{
+
      MyResponse myResponse = MyResponse();
-     Map<String,dynamic> data ={
-       "start": start.toIso8601String(),
-       "end": end.toIso8601String()
-     };
+     FormData data = FormData.fromMap(
+         {
+           "Name":name,
+           "Surname":surname,
+           "Email":email,
+           "Phone":phone,
+           "Password":password,
+           "Image": file==null?null: await MultipartFile.fromFile(file.path)
+         }
+     );
 
      try{
-       Response response = await dio.post("${dio.options.baseUrl}busynesses",data: data);
+       Response response = await dio.put("${dio.options.baseUrl}workers",data: data);
        if(response.statusCode==200){
          myResponse.data=response.data;
          myResponse.statusCode=response.statusCode;
