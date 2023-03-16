@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 const String splashPage = '/';
 const String mainPage = '/main_page';
-const String tabBox = '/tab_page';
+const String clientTabBox = '/client_tab_page';
 const String workerUpdateProfile = '/update_profile';
 const String homePage = '/home_page';
 const String loginPage = '/login_page';

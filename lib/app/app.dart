@@ -25,7 +25,7 @@ class App extends StatelessWidget {
         BlocProvider(
           create: (context) => AuthBloc(
             context.read<AuthRepo>(),
-          ),
+          )..add( CheckAuth()),
         ),
       ], child: MyApp()),
     );
@@ -54,8 +54,8 @@ class MyApp extends StatelessWidget {
           darkTheme: dark,
           debugShowCheckedModeBanner: false,
           onGenerateRoute: MyRouter.generateRoute,
-         // initialRoute: clientHomeScreen,
-          home: ClientHomeScreen(),
+          initialRoute: splashPage,
+          // home: ClientHomeScreen(),
         ),
       ),
     );
