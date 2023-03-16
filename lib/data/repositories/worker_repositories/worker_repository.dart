@@ -1,7 +1,4 @@
-import 'dart:io';
-import 'package:open_work/data/models/my_response/my_response_model.dart';
-import 'package:open_work/services/get_it.dart';
-import 'package:open_work/services/network/worker_api_service/worker_api_service.dart';
+import 'package:open_work/utils/file_importer/file_importer.dart';
 
 class WorkerRepository{
   Future<MyResponse> getWorkerInfo() async => await getIt<WorkerApiService>().getWorkerInfo();

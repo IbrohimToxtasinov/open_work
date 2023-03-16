@@ -24,7 +24,7 @@ Future<void> main() async {
   // await Firebase.initializeApp();
   // await FirebaseMessaging.instance.subscribeToTopic("zamin_news");
   // FirebaseMessaging.onBackgroundMessage(getIt<NotificationService>().firebaseMessagingBackgroundHandler);
-  // Bloc.observer = AppBlocObserver();
+  Bloc.observer = AppBlocObserver();
   // await StorageRepository.getInstance();
   // await EasyLocalization.ensureInitialized();
   // SystemChrome.setPreferredOrientations([
