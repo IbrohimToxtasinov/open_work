@@ -7,6 +7,7 @@ part 'worker_profile_state.dart';
 class WorkerProfileBloc extends Bloc<WorkerProfileEvent, WorkerProfileState> {
   WorkerProfileBloc() : super(WorkerProfileState(status: WorkerStatus.PURE,worker: null,errorMessage: '')) {
     on<GetWorkerInfoEvent>(getWorkerInfo);
+    on<DeleteWorkerEvent>(deleteWorker);
   }
 
 
@@ -20,4 +21,17 @@ class WorkerProfileBloc extends Bloc<WorkerProfileEvent, WorkerProfileState> {
     }
 
   }
+
+  Future<void> deleteWorker(event, emit) async {
+    emit(state.copyWith(status: WorkerStatus.DELETINGWORKERINPROGRESS));
+    MyResponse myResponse = await getIt<WorkerRepository>().deleteWorker();
+    if(myResponse.errorMessage.isEmpty){
+      emit(state.copyWith(status: WorkerStatus.DELETINGWORKERINSUCCESS,));
+    }else{
+      emit(state.copyWith(status: WorkerStatus.DELETINGWORKERINFAILURY,errorMessage: myResponse.errorMessage));
+    }
+
+  }
+
+
 }
