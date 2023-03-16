@@ -4,4 +4,22 @@ abstract class WorkerProfileEvent {}
 
 class GetWorkerInfoEvent extends WorkerProfileEvent{}
 class DeleteWorkerEvent extends WorkerProfileEvent{}
-class UpdateWorkerInfoEvent extends WorkerProfileEvent{}
+class UpdateWorkerInfoEvent extends WorkerProfileEvent{
+  // name: name, surname: surname, email: email, phone: phone, password: password
+
+  String name;
+  String surname;
+  String email;
+  String phone;
+  String password;
+  File? image;
+
+  UpdateWorkerInfoEvent({
+    required this.password,
+    required this.phone,
+    required this.email,
+    required this.surname,
+    required this.name,
+     this.image
+});
+}

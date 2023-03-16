@@ -1,4 +1,3 @@
-import 'package:open_work/bloc/busynesses/busynesses_bloc.dart';
 import 'package:open_work/utils/file_importer/file_importer.dart';
 
 part 'worker_profile_event.dart';
@@ -8,6 +7,7 @@ class WorkerProfileBloc extends Bloc<WorkerProfileEvent, WorkerProfileState> {
   WorkerProfileBloc() : super(WorkerProfileState(status: WorkerStatus.PURE,worker: null,errorMessage: '')) {
     on<GetWorkerInfoEvent>(getWorkerInfo);
     on<DeleteWorkerEvent>(deleteWorker);
+    on<UpdateWorkerInfoEvent>(updateWorkerInfo);
   }
 
 
@@ -32,6 +32,18 @@ class WorkerProfileBloc extends Bloc<WorkerProfileEvent, WorkerProfileState> {
     }
 
   }
+
+  Future<void> updateWorkerInfo(UpdateWorkerInfoEvent event, emit) async {
+    emit(state.copyWith(status: WorkerStatus.UPDATEWORKERINFOINPROGRESS));
+    MyResponse myResponse = await getIt<WorkerRepository>().updateWorkerInfo(name: event.name, surname: event.surname, email:event.email, phone: event.phone, password: event.password,file: event.image);
+    if(myResponse.errorMessage.isEmpty){
+      emit(state.copyWith(status: WorkerStatus.UPDATEWORKERINFOINSUCCESS));
+    }else{
+      emit(state.copyWith(status: WorkerStatus.UPDATEWORKERINFOINFAILURY,errorMessage: myResponse.errorMessage));
+    }
+
+  }
+
 
 
 }
