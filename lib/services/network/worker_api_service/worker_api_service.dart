@@ -42,6 +42,20 @@ class WorkerApiService extends WorkerApiClient{
 
   }
 
+   Future<MyResponse> deleteBusynessById(int busynessId) async{
+     MyResponse myResponse = MyResponse();
+     try{
+       Response response = await dio.delete("${dio.options.baseUrl}busynesses/$busynessId");
+       if(response.statusCode==200){
+         myResponse.data=response.data;
+         myResponse.statusCode=response.statusCode;
+       }
+     }catch(e){
+       myResponse.errorMessage=e.toString();
+     }
+     return myResponse;
+   }
+
 
 
 
