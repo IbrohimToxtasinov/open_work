@@ -10,6 +10,7 @@ import 'package:open_work/ui/auth/widgets/auth_widget.dart';
 import 'package:open_work/ui/auth/widgets/my_text_field_widget.dart';
 import 'package:open_work/ui/auth/widgets/texts_widget.dart';
 import 'package:open_work/ui/widgets/global_button.dart';
+import 'package:open_work/ui/widgets/my_animated_snackbar.dart';
 import 'package:open_work/utils/color.dart';
 
 class ClientRegisterScreen extends StatefulWidget {
@@ -148,7 +149,16 @@ class _ClientRegisterScreenState extends State<ClientRegisterScreen> {
                     }
 
                     if(state.formStatus == FormStatus.loading){
-
+                      Navigator.pop(context);
+                      MySnackBar(
+                        context,
+                        notification: state.errorText,
+                        color: Colors.red,
+                        icon: const Icon(
+                          Icons.error,
+                          color: Colors.white,
+                        ),
+                      );
                     }
                   },
                   child: AuthWidget(
