@@ -4,12 +4,12 @@ part of 'busynesses_bloc.dart';
 
 @immutable
 class BusynessesState extends Equatable {
-  BusynessStatus status;
+  FormStatus status;
   String? errorMessage;
   List? busynesses;
 
   copyWith({
-    BusynessStatus? status,
+    FormStatus? status,
     String? errorMessage,
     List? busynesses,
   }) =>
@@ -31,24 +31,3 @@ class BusynessesState extends Equatable {
   ];
 }
 
-enum BusynessStatus {
-  //GET
-  gettingInProgress,
-  gettingInFailure,
-  gettingInSuccess,
-
-  //DELETE
-
-  deletingInProgress,
-  deletingInSuccess,
-  deletingInFailure,
-
-  //CREATE
-
-  creatingInProgress,
-  creatingInSuccess,
-  creatingInFailure,
-
-  //PURE
-  PURE
-}
