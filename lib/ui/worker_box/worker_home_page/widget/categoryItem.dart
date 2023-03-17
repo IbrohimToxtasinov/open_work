@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:open_work/data/models/category/category_model.dart';
 import 'package:open_work/utils/color.dart';
 import 'package:zoom_tap_animation/zoom_tap_animation.dart';
 
@@ -9,7 +10,8 @@ import '../../../../utils/style.dart';
 
 class CategoryItem extends StatelessWidget {
   bool isFromHome;
-   CategoryItem({this.isFromHome=false,Key? key,}) : super(key: key);
+  CategoryModel data;
+   CategoryItem({this.isFromHome=false,Key? key, required this.data}) : super(key: key);
 
   List<String> categoryName = [
     "Physics",
@@ -64,7 +66,7 @@ class CategoryItem extends StatelessWidget {
           SizedBox(height: 8.h),
           Expanded(
             child: Text(
-              "nmadur",
+             data.name ,
               maxLines: 2,
               style: MyTextStyle.aeonikSemiBold.copyWith(fontSize: 14.sp,fontWeight: FontWeight.w300,color: MyColors.black),
             ),

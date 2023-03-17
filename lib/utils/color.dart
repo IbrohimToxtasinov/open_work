@@ -90,6 +90,11 @@ class MyColors {
   static const Color editA5A9B6 = Color(0xFFA5A9B6);
   static const Color edit333743 = Color(0xFF333743);
   static const Color TextColor = Color(0xFFB7B7B7);
+  static const Color purple = Color(0xFFEFEEFF);
+  static const Color orange = Color(0xFFFFF8E5);
+
+
+
 
 
 
