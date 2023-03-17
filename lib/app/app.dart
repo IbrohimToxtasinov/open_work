@@ -6,7 +6,6 @@ import 'package:open_work/bloc/auth/auth_bloc.dart';
 import 'package:open_work/cubits/tab/tab_cubit.dart';
 import 'package:open_work/data/repositories/auth_repo.dart';
 import 'package:open_work/ui/client_box/client_home_page/client_home_screen.dart';
-import 'package:open_work/ui/worker_box/worker_profile/update_profile_screen.dart';
 import 'package:open_work/ui/worker_box/worker_tab_box.dart';
 import '../../utils/constants.dart';
 import 'package:adaptive_theme/adaptive_theme.dart';
@@ -65,8 +64,8 @@ class MyApp extends StatelessWidget {
           darkTheme: dark,
           debugShowCheckedModeBanner: false,
           onGenerateRoute: MyRouter.generateRoute,
-          // initialRoute: workerUpdateProfile,
-          home: WorkerUpdateProfileScreen(),
+          initialRoute: splashPage,
+          // home: ClientHomeScreen(),
         ),
       ),
     );
