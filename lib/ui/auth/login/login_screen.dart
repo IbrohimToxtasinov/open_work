@@ -7,6 +7,7 @@ import 'package:open_work/ui/auth/widgets/auth_widget.dart';
 import 'package:open_work/ui/auth/widgets/my_text_field_widget.dart';
 import 'package:open_work/ui/auth/widgets/texts_widget.dart';
 import 'package:open_work/ui/widgets/global_button.dart';
+import 'package:open_work/ui/widgets/my_animated_snackbar.dart';
 import 'package:open_work/utils/color.dart';
 import 'package:open_work/utils/constants.dart';
 
@@ -100,13 +101,6 @@ class _LoginScreenState extends State<LoginScreen> {
                 SizedBox(height: 75.h),
                 GlobalButton(
                   onTap: () {
-                    showDialog(
-                      context: context,
-                      builder: (BuildContext context) {
-                        context = context;
-                        return const Loading();
-                      },
-                    );
                     _formKey.currentState!.validate();
                     print(_emailController.text);
                     print(_passwordController.text);
@@ -133,9 +127,26 @@ class _LoginScreenState extends State<LoginScreen> {
                         Navigator.pushNamedAndRemoveUntil(
                             context, workerTabBox, (route) => false);
                       }
+                    } else if (state.formStatus == FormStatus.loading) {
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          context = context;
+                          return const Loading();
+                        },
+                      );
+                    } else if (state.formStatus == FormStatus.failure) {
+                      Navigator.pop(context);
+                      MySnackBar(
+                        context,
+                        notification: state.errorText,
+                        color: Colors.red,
+                        icon: const Icon(
+                          Icons.error,
+                          color: Colors.white,
+                        ),
+                      );
                     }
-
-                    if (state.formStatus == FormStatus.loading) {}
                   },
                   child: AuthWidget(
                     title: "Sign up",
