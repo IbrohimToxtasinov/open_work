@@ -9,19 +9,15 @@ import '../../../../utils/icons/app_icons.dart';
 import '../../../../utils/style.dart';
 
 class CategoryItem extends StatelessWidget {
-  bool isFromHome;
-  CategoryModel data;
-   CategoryItem({this.isFromHome=false,Key? key, required this.data}) : super(key: key);
+  final CategoryModel data;
+  final VoidCallback onCategoryTap;
 
-  List<String> categoryName = [
-    "Physics",
-    "Science",
-    "Chemistry",
-    "Biology",
-    "Math",
-    "Language",
-    "Literature",
-  ];
+  CategoryItem({
+    Key? key,
+    required this.data,
+    required this.onCategoryTap,
+  }) : super(key: key);
+
   List<String> categoryIcon = [
     AppIcons.physicsIcon,
     AppIcons.scienceIcon,
@@ -30,7 +26,8 @@ class CategoryItem extends StatelessWidget {
     AppIcons.mathIcon,
     AppIcons.languageIcon,
     AppIcons.literatureIcon,
-  ];  List<Color> categoryColor = const [
+  ];
+  List<Color> categoryColor = const [
     Color(0xffD3D5FE),
     Color(0xffFFEFDA),
     Color(0xffFFE4F1),
@@ -40,14 +37,10 @@ class CategoryItem extends StatelessWidget {
     Color(0xffD5BEFB),
   ];
 
-
   @override
   Widget build(BuildContext context) {
     return ZoomTapAnimation(
-      onTap: () {
-
-
-      },
+      onTap: onCategoryTap,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -66,9 +59,12 @@ class CategoryItem extends StatelessWidget {
           SizedBox(height: 8.h),
           Expanded(
             child: Text(
-             data.name ,
+              data.name,
               maxLines: 2,
-              style: MyTextStyle.aeonikSemiBold.copyWith(fontSize: 14.sp,fontWeight: FontWeight.w300,color: MyColors.black),
+              style: MyTextStyle.aeonikSemiBold.copyWith(
+                  fontSize: 14.sp,
+                  fontWeight: FontWeight.w300,
+                  color: MyColors.black),
             ),
           ),
         ],

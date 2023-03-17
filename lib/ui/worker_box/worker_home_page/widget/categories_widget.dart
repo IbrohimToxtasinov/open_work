@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:zoom_tap_animation/zoom_tap_animation.dart';
 import '../../../../bloc/categories/categories_bloc.dart';
+import '../../../../utils/constants.dart';
 import '../../../../utils/style.dart';
 import 'categoryItem.dart';
 
@@ -36,6 +37,10 @@ class CategoriesWidget extends StatelessWidget {
               scrollDirection: Axis.horizontal,
               itemBuilder: (context, index) {
                 return CategoryItem(
+                  onCategoryTap: () {
+                    Navigator.pushNamed(context, categorySkills,
+                        arguments: state.categories[index]);
+                  },
                   data: state.categories[index],
                 );
               },
