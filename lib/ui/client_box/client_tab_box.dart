@@ -10,7 +10,10 @@ class ClientTabBox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List pages = [ClientHomeScreen(), ClientProfileScreen()];
+    List pages = [
+      ClientHomeScreen(),
+      ClientProfileScreen(),
+    ];
     return Scaffold(
       body: BlocBuilder<BottomNavCubit, int>(
         builder: (context, state) => pages[state],

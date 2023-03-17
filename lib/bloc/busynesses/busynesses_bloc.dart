@@ -11,33 +11,33 @@ class BusynessesBloc extends Bloc<BusynessesEvent, BusynessesState> {
   }
 
   void getWorkerBusynesses(GetWorkerBusynessesEvent event, emit) async {
-    emit(state.copyWith(status: BusynessStatus.GETTINGINPROGRESS));
+    emit(state.copyWith(status: BusynessStatus.gettingInProgress));
     MyResponse myResponse = await getIt<BusynessRepository>().getBusynesses(workerId: event.workerId, itemCount: 10);
     if(myResponse.errorMessage.isEmpty){
-      emit(state.copyWith(status: BusynessStatus.GETTINGINSUCCESS,busynesses: myResponse.data));
+      emit(state.copyWith(status: BusynessStatus.gettingInSuccess,busynesses: myResponse.data));
     }else{
-      emit(state.copyWith(status: BusynessStatus.GETTINGINFAILURY,errorMessage: myResponse.errorMessage));
+      emit(state.copyWith(status: BusynessStatus.gettingInFailure,errorMessage: myResponse.errorMessage));
     }
   }
 
   void createWorkerBusynesses(CreateBusynessesEvent event, emit) async {
-    emit(state.copyWith(status: BusynessStatus.CREATINGINPROGRESS));
+    emit(state.copyWith(status: BusynessStatus.creatingInProgress));
     MyResponse myResponse = await getIt<BusynessRepository>().createBusyness(start: event.starts, end: event.ends);
     if(myResponse.errorMessage.isEmpty){
-      emit(state.copyWith(status: BusynessStatus.CREARINGINSUCCESS));
+      emit(state.copyWith(status: BusynessStatus.creatingInSuccess));
     }else{
-      emit(state.copyWith(status: BusynessStatus.CREATINGINFAOLURY,errorMessage: myResponse.errorMessage));
+      emit(state.copyWith(status: BusynessStatus.creatingInFailure,errorMessage: myResponse.errorMessage));
     }
 
   }
 
   void deleteWorkerBusynessesById(DeleteBusynessByIdEvent event, emit) async {
-    emit(state.copyWith(status: BusynessStatus.DELETINGINPROGRESS));
+    emit(state.copyWith(status: BusynessStatus.deletingInProgress));
     MyResponse myResponse = await getIt<BusynessRepository>().deleteBusynessById(event.busynessId);
     if(myResponse.errorMessage.isEmpty){
-      emit(state.copyWith(status: BusynessStatus.DELETINGINSUCCES));
+      emit(state.copyWith(status: BusynessStatus.deletingInSuccess));
     }else{
-      emit(state.copyWith(status: BusynessStatus.DELETINGINFAILURY,errorMessage: myResponse.errorMessage));
+      emit(state.copyWith(status: BusynessStatus.deletingInFailure,errorMessage: myResponse.errorMessage));
     }
 
   }
