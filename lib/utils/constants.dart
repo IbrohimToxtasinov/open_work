@@ -16,5 +16,6 @@ const String setting = '/settings_page';
 const String role = '/role_screen';
 const String workerHomeScreen = '/workerHomeScreen';
 const String clientHomeScreen = '/client_home_screen';
+const String workerInfoScreen = '/worker_info_screen';
 myHeight(context) => MediaQuery.of(context).size.height;
 myWidth(context) => MediaQuery.of(context).size.width;
