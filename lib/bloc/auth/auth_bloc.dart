@@ -29,6 +29,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<RegisterClient>(clientRegister);
     on<RegisterWorker>(workerRegister);
     on<LoginClient>(loginUser);
+    on<LogOut>(logOut);
     add(CheckAuth());
   }
 
@@ -122,5 +123,13 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         ),
       );
     }
+  }
+
+  logOut(LogOut event, Emitter<AuthState> emit) async {
+    await StorageRepository.deleteString("token");
+    await StorageRepository.deleteString("user_role");
+    emit(state.copyWith(
+      authStatus: AuthStatus.unauthenticated,
+    ));
   }
 }

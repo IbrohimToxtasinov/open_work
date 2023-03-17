@@ -67,11 +67,11 @@ class UpdateProfileTextField extends StatelessWidget {
             borderSide: BorderSide(color: MyColors.primary, width: 2),
           ),
           focusedErrorBorder: const OutlineInputBorder(
-            borderRadius: BorderRadius.all(Radius.circular(100)),
+            borderRadius: BorderRadius.all(Radius.circular(10)),
             borderSide: BorderSide(color: MyColors.red, width: 2),
           ),
           errorBorder: const OutlineInputBorder(
-            borderRadius: BorderRadius.all(Radius.circular(100)),
+            borderRadius: BorderRadius.all(Radius.circular(10)),
             borderSide: BorderSide(color: MyColors.red),
           ),
         ),
