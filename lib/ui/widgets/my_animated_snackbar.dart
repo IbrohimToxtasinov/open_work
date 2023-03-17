@@ -35,7 +35,7 @@ Future<void> MySnackBar(context,
               ),
             );
           }),
-          duration: const Duration(seconds: 5),
+          duration: const Duration(seconds: 3),
           snackBarStrategy: const ColumnSnackBarStrategy())
       .show(context);
 }

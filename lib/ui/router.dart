@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:open_work/ui/auth/register/client_register_screen.dart';
+import 'package:open_work/ui/auth/register/worker_register_screen.dart';
 import 'package:open_work/ui/client_box/client_home_page/client_home_screen.dart';
 import 'package:open_work/ui/role/role_screen.dart';
 import 'package:open_work/ui/client_box/client_tab_box.dart';
@@ -34,8 +35,10 @@ class MyRouter {
         return navigateTo(const OptionScreen());
       case loginPage:
         return navigateTo(const LoginScreen());
-      case registerPage:
+      case clientRegisterPage:
         return navigateTo(const ClientRegisterScreen());
+      case workerRegisterPage:
+        return navigateTo(const WorkerRegisterScreen());
       case role:
         return navigateTo(const RoleScreen());
       case workerHomeScreen:

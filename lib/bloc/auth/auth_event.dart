@@ -33,3 +33,5 @@ class LoginWorker extends AuthEvent {
 
   LoginWorker({required this.workerRegisterDtoModel});
 }
+
+class LogOut extends AuthEvent {}

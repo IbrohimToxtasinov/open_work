@@ -45,7 +45,13 @@ class ApiService extends ApiClient {
     try {
       Response response = await dio.post(
         "http://3.126.92.10/workers/register",
-        data: workerRegisterDtoModel.toJson(),
+        data: FormData.fromMap({
+          "Name": workerRegisterDtoModel.name,
+          "Surname": workerRegisterDtoModel.surname,
+          "Email": workerRegisterDtoModel.email,
+          "Phone": workerRegisterDtoModel.phone,
+          "Password": workerRegisterDtoModel.password,
+        }),
       );
       if (response.statusCode! >= 200 && response.statusCode! < 300) {
         myResponse.data = response.data;

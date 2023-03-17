@@ -70,7 +70,7 @@ class MyApp extends StatelessWidget {
           darkTheme: dark,
           debugShowCheckedModeBanner: false,
           onGenerateRoute: MyRouter.generateRoute,
-          initialRoute: workerTabBox,
+          initialRoute: splashPage,
           // home: ClientHomeScreen(),
         ),
       ),
