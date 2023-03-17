@@ -13,6 +13,7 @@ import 'package:open_work/utils/constants.dart';
 import '../../../bloc/auth/auth_bloc.dart';
 import '../../../data/models/form_status/form_status.dart';
 import '../../../data/models/user_login_dto/user_login_dto_model.dart';
+import '../../widgets/loading.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -99,6 +100,13 @@ class _LoginScreenState extends State<LoginScreen> {
                 SizedBox(height: 75.h),
                 GlobalButton(
                   onTap: () {
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        context = context;
+                        return const Loading();
+                      },
+                    );
                     _formKey.currentState!.validate();
                     print(_emailController.text);
                     print(_passwordController.text);
