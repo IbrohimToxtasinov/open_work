@@ -83,13 +83,14 @@ class _CaruselSliderWidgetState extends State<CaruselSliderWidget> {
                   ),
                 ],
               ),
-              Container(
-                margin: const EdgeInsets.only(right: 10).r,
-                width: 160.w,
-                height: double.infinity,
-                child: Image.asset(
-                  AppImages.worker2,
-                  fit: BoxFit.contain,
+              Expanded(
+                child: Container(
+                  margin: const EdgeInsets.only(right: 10).r,
+                  height: double.infinity,
+                  child: Image.asset(
+                    AppImages.worker2,
+                    fit: BoxFit.contain,
+                  ),
                 ),
               )
             ],

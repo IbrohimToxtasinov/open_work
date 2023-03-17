@@ -6,13 +6,16 @@ import 'package:open_work/utils/icons/app_icons.dart';
 
 class HomeScreenAppbar extends StatelessWidget implements PreferredSize {
   const HomeScreenAppbar({
-    super.key,
+    super.key, required this.onTap, required this.rightText,
   });
+
+  final VoidCallback onTap;
+  final String rightText;
 
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      backgroundColor: Color(0xFFE5E5E5),
+      backgroundColor: const Color(0xFFE5E5E5),
       elevation: 0,
       title: Image.asset(
         AppImages.appbarLogo,
@@ -20,27 +23,11 @@ class HomeScreenAppbar extends StatelessWidget implements PreferredSize {
         height: 30.h,
       ),
       actions: [
-        SvgPicture.asset(
-          AppIcons.notificationIcon,
-          width: 19.w,
-          height: 27.h,
-          color: Colors.black,
+        TextButton(
+          onPressed: rightText.isEmpty?null:onTap,
+          child: Text(rightText,style:  TextStyle(color: Colors.black),),
         ),
-        Padding(
-          padding: EdgeInsets.only(left: 22.w, right: 20.w, top: 15.h, bottom: 15.h).r,
-          child: Container(
-            width: 30.w,
-            height: 30.h,
-            decoration: const BoxDecoration(shape: BoxShape.circle),
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(100.r),
-              child: Image.asset(
-               AppImages.eng,
-                fit: BoxFit.cover,
-              ),
-            ),
-          ),
-        ),
+        const SizedBox(width: 10)
       ],
     );
   }

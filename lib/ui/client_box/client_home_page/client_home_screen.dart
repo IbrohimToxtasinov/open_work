@@ -1,10 +1,14 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:open_work/ui/client_box/client_home_page/widgets/categories_widget.dart';
-import 'package:open_work/ui/client_box/client_home_page/widgets/category_title.dart';
-import 'package:open_work/ui/client_box/client_home_page/widgets/discount_item.dart';
-import 'package:open_work/ui/client_box/client_home_page/widgets/home_screen_appbar.dart';
-import 'package:open_work/ui/client_box/client_home_page/widgets/search_textfield.dart';
+import 'package:open_work/ui/widgets/home_screen_appbar.dart';
+import 'package:open_work/ui/worker_box/worker_home_page/widget/categories_widget.dart';
+import 'package:zoom_tap_animation/zoom_tap_animation.dart';
+
+import '../../../utils/color.dart';
+import '../../../utils/my_utils.dart';
+import '../../worker_box/worker_home_page/widget/all_categories_title.dart';
+import '../../worker_box/worker_home_page/widget/carysel_slider.dart';
 
 class ClientHomeScreen extends StatelessWidget {
   const ClientHomeScreen({super.key});
@@ -12,9 +16,12 @@ class ClientHomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: HomeScreenAppbar(),
+      appBar: HomeScreenAppbar(
+        rightText: "",
+        onTap: (){},
+      ),
       body: Container(
-        padding: EdgeInsets.symmetric(horizontal: 20.w).r,
+        padding: EdgeInsets.symmetric(horizontal: 10.w).r,
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,
         color: Color(0xFFE5E5E5),
@@ -27,21 +34,49 @@ class ClientHomeScreen extends StatelessWidget {
             SliverToBoxAdapter(
               child: Column(
                 children: [
-                  SearchTextfield(),
-                  DiscountItem(),
-                  Padding(
-                    padding: EdgeInsets.only(top: 30.h, bottom: 25.h).r,
-                    child: CategoryTitle(
-                      title: "Category",
+                  ZoomTapAnimation(
+                  onTap: () {},
+              child: Container(
+                margin: const EdgeInsets.only(left: 20, right: 20).r,
+                height: 50,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(15).r,
+                    color: Colors.white),
+                child: Row(
+                  children: [
+                    SizedBox(width: 10.w),
+                    const Icon(
+                      Icons.search,
+                      color: Colors.black54,
                     ),
+                    SizedBox(width: 11.w),
+                    const Text(
+                      "Search anything",
+                      style:
+                      TextStyle(color: MyColors.TextColor, fontSize: 18),
+                    )
+                  ],
+                ),
+              ),
+            ),
+                  SizedBox(height: 25.h),
+                  const CaruselSliderWidget(),
+                  SizedBox(height: 10.h),
+                  AllCategoriesTitle(
+                    screenHeight: height(context),
+                    screenWidth: width(context),
+                    title: 'Category'.tr(),
                   ),
+                  SizedBox(height: 10.h),
                   CategoriesWidget(),
-                  Padding(
-                    padding: EdgeInsets.only(top: 30.h, bottom: 25.h).r,
-                    child: CategoryTitle(
-                      title: "Reccomended",
-                    ),
+                  SizedBox(height: 10.h),
+                  AllCategoriesTitle(
+                    screenHeight: height(context),
+                    screenWidth: width(context),
+                    title: 'Recommended'.tr(),
                   ),
+                  SizedBox(height: 20.h),
+
                 ],
               ),
             ),
