@@ -4,6 +4,8 @@ import 'package:open_work/ui/client_box/client_home_page/client_home_screen.dart
 import 'package:open_work/ui/role/role_screen.dart';
 import 'package:open_work/ui/client_box/client_tab_box.dart';
 import 'package:open_work/ui/worker_box/worker_home_page/worker_home_screen.dart';
+import 'package:open_work/ui/worker_box/worker_profile/update_profile_screen.dart';
+import 'package:open_work/ui/worker_box/worker_tab_box.dart';
 import 'package:open_work/utils/constants.dart';
 import 'auth/login/login_screen.dart';
 import 'auth/option/option_screen.dart';

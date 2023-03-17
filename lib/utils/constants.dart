@@ -14,7 +14,6 @@ const String optionPage = '/option_route';
 const String notificationRoute = '/notification_route';
 const String setting = '/settings_page';
 const String role = '/role_screen';
-const String workerHomeScreen = '/workerHomeScreen';
 const String clientHomeScreen = '/client_home_screen';
 const String workerHomeScreen = '/workerHomeScreen';
 
