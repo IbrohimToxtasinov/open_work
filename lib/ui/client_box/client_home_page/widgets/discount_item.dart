@@ -17,40 +17,43 @@ class DiscountItem extends StatelessWidget {
       ),
       items: List.generate(
         6,
-        (index) => Container(
-          padding: EdgeInsets.only(top: 20.h, left: 20.w, bottom: 20.h).r,
-          width: 388.w,
-          height: 161.h,
-          decoration: BoxDecoration(
-            color: Colors.red,
-            borderRadius: BorderRadius.circular(20.r),
-          ),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                "What Services do\nyou need?",
-                style: TextStyle(fontSize: 24.sp, fontWeight: FontWeight.w400),
-              ),
-              InkWell(
-                onTap: () {},
-                child: Container(
-                  width: 100.w,
-                  height: 38.h,
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(10.r),
-                  ),
-                  child: Center(
-                    child: Text(
-                      "Get Started",
-                      style: TextStyle(color: Colors.red),
+        (index) => Padding(
+          padding: EdgeInsets.only(top: 30.h).r,
+          child: Container(
+            padding: EdgeInsets.only(top: 20.h, left: 20.w, bottom: 20.h).r,
+            width: 388.w,
+            height: 161.h,
+            decoration: BoxDecoration(
+              color: Colors.red,
+              borderRadius: BorderRadius.circular(20.r),
+            ),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  "What Services do\nyou need?",
+                  style: TextStyle(fontSize: 24.sp, fontWeight: FontWeight.w400),
+                ),
+                InkWell(
+                  onTap: () {},
+                  child: Container(
+                    width: 100.w,
+                    height: 38.h,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(10.r),
+                    ),
+                    child: Center(
+                      child: Text(
+                        "Get Started",
+                        style: TextStyle(color: Colors.red),
+                      ),
                     ),
                   ),
-                ),
-              )
-            ],
+                )
+              ],
+            ),
           ),
         ),
       ),
