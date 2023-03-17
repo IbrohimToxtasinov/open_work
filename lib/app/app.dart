@@ -64,7 +64,7 @@ class MyApp extends StatelessWidget {
           darkTheme: dark,
           debugShowCheckedModeBanner: false,
           onGenerateRoute: MyRouter.generateRoute,
-          initialRoute: splashPage,
+          initialRoute: workerTabBox,
           // home: ClientHomeScreen(),
         ),
       ),
