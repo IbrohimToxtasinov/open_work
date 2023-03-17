@@ -1,4 +1,5 @@
 import 'package:open_work/data/models/form_status/form_status.dart';
+
 import 'package:open_work/utils/file_importer/file_importer.dart';
 
 part 'worker_profile_event.dart';
@@ -6,11 +7,13 @@ part 'worker_profile_state.dart';
 
 class WorkerProfileBloc extends Bloc<WorkerProfileEvent, WorkerProfileState> {
   WorkerProfileBloc() : super(WorkerProfileState(status: FormStatus.pure,worker: null,errorMessage: '')) {
+
     on<GetWorkerInfoEvent>(getWorkerInfo);
     on<DeleteWorkerEvent>(deleteWorker);
     on<UpdateWorkerInfoEvent>(updateWorkerInfo);
   }
 
+  XFile? image;
 
   Future<void> getWorkerInfo(event, emit) async {
     emit(state.copyWith(status: FormStatus.gettingWorkerInfoInProgress));
@@ -29,8 +32,8 @@ class WorkerProfileBloc extends Bloc<WorkerProfileEvent, WorkerProfileState> {
       emit(state.copyWith(status: FormStatus.deletingWorkerInfoInSuccess,));
     }else{
       emit(state.copyWith(status: FormStatus.deletingWorkerInfoInFailury,errorMessage: myResponse.errorMessage));
-    }
 
+    }
   }
 
   Future<void> updateWorkerInfo(UpdateWorkerInfoEvent event, emit) async {
@@ -41,9 +44,9 @@ class WorkerProfileBloc extends Bloc<WorkerProfileEvent, WorkerProfileState> {
     }else{
       emit(state.copyWith(status: FormStatus.updateWorkerInfoInFailury,errorMessage: myResponse.errorMessage));
     }
-
   }
 
-
-
+  pickImage(XFile xFile) {
+    image = xFile;
+  }
 }
