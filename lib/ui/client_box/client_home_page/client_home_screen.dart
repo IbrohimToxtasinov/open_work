@@ -18,49 +18,52 @@ class ClientHomeScreen extends StatelessWidget {
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,
         color: Color(0xFFE5E5E5),
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              SizedBox(
-                height: 25.h,
+        child: CustomScrollView(
+          physics: const BouncingScrollPhysics(),
+          slivers: [
+            SliverToBoxAdapter(
+              child: SizedBox(height: 25.h),
+            ),
+            SliverToBoxAdapter(
+              child: Column(
+                children: [
+                  SearchTextfield(),
+                  DiscountItem(),
+                  Padding(
+                    padding: EdgeInsets.only(top: 30.h, bottom: 25.h).r,
+                    child: CategoryTitle(
+                      title: "Category",
+                    ),
+                  ),
+                  CategoriesWidget(),
+                  Padding(
+                    padding: EdgeInsets.only(top: 30.h, bottom: 25.h).r,
+                    child: CategoryTitle(
+                      title: "Reccomended",
+                    ),
+                  ),
+                ],
               ),
-              SearchTextfield(),
-              SizedBox(
-                height: 30.h,
-              ),
-              DiscountItem(),
-              SizedBox(
-                height: 30.h,
-              ),
-              CategoryTitle(),
-              SizedBox(
-                height: 25.h,
-              ),
-              CategoriesWidget(),
-              SizedBox(
-                height: 30.h,
-              ),
-              CategoryTitle(),
-              ListView(
-                shrinkWrap: true,
-                padding: EdgeInsets.only(bottom: 30.h, top: 25.h).r,
-                children: List.generate(
+            ),
+            SliverList(
+              delegate: SliverChildListDelegate(
+                List.generate(
                   6,
-                  (index)=> Padding(
+                  (index) => Padding(
                     padding: EdgeInsets.only(bottom: 20.h).r,
                     child: Container(
                       width: 388.w,
                       height: 128.h,
                       decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(10.r)
-                      ),
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(10.r)),
                     ),
                   ),
                 ),
               ),
-            ],
-          ),
+            ),
+          ],
+        
         ),
       ),
     );
