@@ -45,14 +45,14 @@ class SplashScreen extends StatelessWidget {
             SizedBox(height: 8.h),
             RichText(
               text: TextSpan(
-                text: 'Home\n',
+                text: 'Open\n',
                 style: TextStyle(
                     color: MyColors.red,
                     fontSize: 40.sp,
                     fontWeight: FontWeight.w700),
                 children: <TextSpan>[
                   TextSpan(
-                    text: 'Chores',
+                    text: 'Work',
                     style: TextStyle(
                       fontSize: 35.sp,
                       color: Colors.black,

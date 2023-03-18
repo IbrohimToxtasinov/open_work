@@ -3,8 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:open_work/bloc/auth/auth_bloc.dart';
+import 'package:open_work/bloc/busynesses/busynesses_bloc.dart';
+import 'package:open_work/bloc/categories/categories_bloc.dart';
 import 'package:open_work/cubits/tab/tab_cubit.dart';
 import 'package:open_work/data/repositories/auth_repo.dart';
+import 'package:open_work/data/repositories/categories_repo.dart';
 import 'package:open_work/ui/client_box/client_home_page/client_home_screen.dart';
 import 'package:open_work/ui/worker_box/worker_tab_box.dart';
 import '../../utils/constants.dart';
@@ -22,6 +25,9 @@ class App extends StatelessWidget {
         RepositoryProvider(
           create: (context) => AuthRepo(),
         ),
+        RepositoryProvider(
+          create: (context) => CategoriesRepo(),
+        ),
       ],
       child: MultiBlocProvider(providers: [
         BlocProvider(
@@ -30,13 +36,18 @@ class App extends StatelessWidget {
           ),
         ),
         BlocProvider(
+            create: (context) =>
+                CategoriesBloc(categoriesRepo: context.read<CategoriesRepo>())
+                  ..add(FetchCategories())),
+        BlocProvider(
           create: (context) => AuthBloc(
             context.read<AuthRepo>(),
           ),
         ),
+        BlocProvider(create: (context) => BottomNavCubit()),
         BlocProvider(
-          create: (context) => BottomNavCubit()
-          ),
+            create: (context) =>
+                BusynessesBloc()..add(GetWorkerBusynessesEvent(workerId: 12))),
       ], child: MyApp()),
     );
   }

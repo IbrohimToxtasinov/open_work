@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:open_work/data/models/category/category_model.dart';
 import 'package:open_work/utils/color.dart';
 import 'package:zoom_tap_animation/zoom_tap_animation.dart';
 
@@ -8,18 +9,15 @@ import '../../../../utils/icons/app_icons.dart';
 import '../../../../utils/style.dart';
 
 class CategoryItem extends StatelessWidget {
-  bool isFromHome;
-   CategoryItem({this.isFromHome=false,Key? key,}) : super(key: key);
+  final CategoryModel data;
+  final VoidCallback onCategoryTap;
 
-  List<String> categoryName = [
-    "Physics",
-    "Science",
-    "Chemistry",
-    "Biology",
-    "Math",
-    "Language",
-    "Literature",
-  ];
+  CategoryItem({
+    Key? key,
+    required this.data,
+    required this.onCategoryTap,
+  }) : super(key: key);
+
   List<String> categoryIcon = [
     AppIcons.physicsIcon,
     AppIcons.scienceIcon,
@@ -28,7 +26,8 @@ class CategoryItem extends StatelessWidget {
     AppIcons.mathIcon,
     AppIcons.languageIcon,
     AppIcons.literatureIcon,
-  ];  List<Color> categoryColor = const [
+  ];
+  List<Color> categoryColor = const [
     Color(0xffD3D5FE),
     Color(0xffFFEFDA),
     Color(0xffFFE4F1),
@@ -38,14 +37,10 @@ class CategoryItem extends StatelessWidget {
     Color(0xffD5BEFB),
   ];
 
-
   @override
   Widget build(BuildContext context) {
     return ZoomTapAnimation(
-      onTap: () {
-
-
-      },
+      onTap: onCategoryTap,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -64,9 +59,12 @@ class CategoryItem extends StatelessWidget {
           SizedBox(height: 8.h),
           Expanded(
             child: Text(
-              "nmadur",
+              data.name,
               maxLines: 2,
-              style: MyTextStyle.aeonikSemiBold.copyWith(fontSize: 14.sp,fontWeight: FontWeight.w300,color: MyColors.black),
+              style: MyTextStyle.aeonikSemiBold.copyWith(
+                  fontSize: 14.sp,
+                  fontWeight: FontWeight.w300,
+                  color: MyColors.black),
             ),
           ),
         ],

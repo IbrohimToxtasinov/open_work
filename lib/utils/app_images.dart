@@ -3,6 +3,10 @@ class AppImages {
   static const onBoardingFirst = 'assets/images/on_boarding_first.png';
   static const onBoardingSecond = 'assets/images/on_boarding_second.png';
   static const slay = 'assets/images/mask.png';
+  static const worker1 = 'assets/images/worker.png';
+  static const worker2 = 'assets/images/worker2.png';
+
+
 
   static const onBoardingThird = 'assets/images/on_boarding_third.png';
   static const questionImage = 'assets/images/question_image.png';

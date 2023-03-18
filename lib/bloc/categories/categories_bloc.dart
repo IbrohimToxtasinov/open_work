@@ -8,20 +8,21 @@ part 'categories_event.dart';
 
 part 'categories_state.dart';
 
-class CategoriesBloc extends Bloc<FetchUsersCards, CategoriesState> {
+class CategoriesBloc extends Bloc<FetchCategories, CategoriesState> {
   CategoriesBloc({required this.categoriesRepo})
       : super(CategoriesState(
             status: Status.PURE, error: "", categories: const [])) {
-    on<FetchUsersCards>(fetchCategories);
+    on<FetchCategories>(fetchCategories);
   }
 
   final CategoriesRepo categoriesRepo;
 
-  fetchCategories(FetchUsersCards event, Emitter<CategoriesState> emit) async {
+  fetchCategories(FetchCategories event, Emitter<CategoriesState> emit) async {
     emit(state.copyWith(status: Status.LOADING));
     MyResponse myResponse = await categoriesRepo.getAllCategories();
     if (myResponse.errorMessage.isEmpty) {
       emit(state.copyWith(categories: myResponse.data, status: Status.SUCCESS));
+      print("==========================DATA keldi==========================");
     } else {
       emit(
           state.copyWith(error: myResponse.errorMessage, status: Status.ERROR));
