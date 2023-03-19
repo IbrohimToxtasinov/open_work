@@ -1,150 +1,48 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:open_work/ui/worker_box/worker_home_page/widget/all_categories_title.dart';
-import 'package:open_work/ui/worker_box/worker_home_page/widget/carysel_slider.dart';
-import 'package:open_work/ui/worker_box/worker_home_page/widget/categories_widget.dart';
-import 'package:open_work/utils/app_images.dart';
+import 'package:open_work/bloc/busynesses/busynesses_bloc.dart';
+import 'package:open_work/ui/widgets/home_screen_appbar.dart';
+import 'package:open_work/ui/worker_box/worker_home_page/widget/business_view.dart';
 import 'package:open_work/utils/color.dart';
-import 'package:zoom_tap_animation/zoom_tap_animation.dart';
 
-import '../../../utils/my_utils.dart';
+import '../../../data/models/form_status/form_status.dart';
 
 class WorkerHomeScreen extends StatelessWidget {
   const WorkerHomeScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Scaffold(
+    return Scaffold(
         backgroundColor: MyColors.editBackground,
-        appBar: AppBar(
-          backgroundColor: MyColors.editBackground,
-          title: Row(
-            children: [
-              Image.asset(
-                AppImages.appLogo,
-                height: 25,
-              ),
-              const SizedBox(width: 6.5),
-              const Text(
-                "Home Chores",
-                style: TextStyle(color: Colors.black),
-              )
-            ],
-          ),
+        appBar:  HomeScreenAppbar(
+          rightText: "Add business",
+          onTap: (){},
         ),
-        body: Column(
-          children: [
-            const SizedBox(height: 20),
-            ZoomTapAnimation(
-              onTap: () {},
-              child: Container(
-                margin: const EdgeInsets.only(left: 20, right: 20).r,
-                height: 50,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(15).r,
-                    color: Colors.white),
-                child: Row(
-                  children: [
-                    SizedBox(width: 10.w),
-                    const Icon(
-                      Icons.search,
-                      color: Colors.black54,
-                    ),
-                    SizedBox(width: 11.w),
-                    const Text(
-                      "Search anything",
-                      style: TextStyle(color: MyColors.TextColor, fontSize: 18),
-                    )
-                  ],
-                ),
+        body: BlocBuilder<BusynessesBloc, BusynessesState>(
+            builder: (context, state) {
+          if (state.status == FormStatus.gettingInSuccess) {
+            return ListView.separated(
+              physics: const BouncingScrollPhysics(),
+              separatorBuilder: (context, index) => SizedBox(
+                width: 10.w,
+                height: 20,
               ),
-            ),
-            SizedBox(height: 15.h),
-            const CaruselSliderWidget(),
-            SizedBox(height: 30.h),
-            AllCategoriesTitle(
-              screenHeight: height(context),
-              screenWidth: width(context),
-              title: 'Category'.tr(),
-            ),
-            SizedBox(height: 25.h),
-            CategoriesWidget(),
-            SizedBox(height: 20.h),
-            AllCategoriesTitle(
-              screenHeight: height(context),
-              screenWidth: width(context),
-              title: 'Recommended'.tr(),
-            ),
-            SizedBox(height: 20.h),
-            Container(
-              margin: const EdgeInsets.only(left: 20, right: 20).r,
-              height: 129.h,
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(15).r,
-                  color: Colors.white),
-              child: Row(
-                children: [
-                  Image.asset(AppImages.appLogo),
-                  SizedBox(width: 10.w),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      SizedBox(height: 15.h),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: const [
-                          Text(
-                            "Cleaning",
-                            style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 16,
-                                fontWeight: FontWeight.w400),
-                          ),
-                          SizedBox(
-                            width: 110,
-                          ),
-                          Text(
-                            "Off 15%",
-                            style: TextStyle(
-                                color: MyColors.red,
-                                fontSize: 14,
-                                fontWeight: FontWeight.w400),
-                          ),
-                        ],
-                      ),
-                      SizedBox(height: 8.h),
-                      const Text("by Mike Smith ",
-                          style: TextStyle(color: MyColors.LightishGrey)),
-                      SizedBox(height: 10.h),
-                      Row(
-                        children: [
-                          Container(
-                            width: 53.w,
-                            height: 30.h,
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(8).r,
-                                color: MyColors.primary),
-                          ),
-                          SizedBox(width: 10.w),
-                          Container(
-                            width: 68.w,
-                            height: 30.h,
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(8).r,
-                                color: MyColors.actionPrimaryDisabled),
-                          )
-                        ],
-                      )
-                    ],
-                  )
-                ],
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
+              itemCount: state.busynesses.length,
+              scrollDirection: Axis.vertical,
+              itemBuilder: (context, index) {
+                return BusinessView(workerBusiness: state.busynesses[index]);
+              },
+            );
+          } else if (state.status == FormStatus.gettingInProgress) {
+            return Center(
+              child: CircularProgressIndicator(),
+            );
+          } else {
+            return Center(
+              child: Text(state.errorMessage.toString()),
+            );
+          }
+        }));
   }
 }

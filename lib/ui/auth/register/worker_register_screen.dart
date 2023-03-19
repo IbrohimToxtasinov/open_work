@@ -2,31 +2,34 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:open_work/bloc/auth/auth_bloc.dart';
+import 'package:open_work/data/models/form_status/form_status.dart';
+import 'package:open_work/data/models/user_register_dto/user_register_dto_model.dart';
+import 'package:open_work/data/models/worker_register_dto/worker_register_dto_model.dart';
 import 'package:open_work/ui/auth/widgets/auth_appbar.dart';
 import 'package:open_work/ui/auth/widgets/auth_widget.dart';
 import 'package:open_work/ui/auth/widgets/my_text_field_widget.dart';
 import 'package:open_work/ui/auth/widgets/texts_widget.dart';
 import 'package:open_work/ui/widgets/global_button.dart';
 import 'package:open_work/ui/widgets/my_animated_snackbar.dart';
+import 'package:open_work/ui/widgets/phone_input_component.dart';
 import 'package:open_work/utils/color.dart';
-import 'package:open_work/utils/constants.dart';
+import 'package:open_work/utils/my_utils.dart';
 
-import '../../../bloc/auth/auth_bloc.dart';
-import '../../../data/models/form_status/form_status.dart';
-import '../../../data/models/user_login_dto/user_login_dto_model.dart';
-import '../../widgets/loading.dart';
-
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({Key? key}) : super(key: key);
+class WorkerRegisterScreen extends StatefulWidget {
+  const WorkerRegisterScreen({Key? key}) : super(key: key);
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  State<WorkerRegisterScreen> createState() => _WorkerRegisterScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _WorkerRegisterScreenState extends State<WorkerRegisterScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final TextEditingController _userNameController = TextEditingController();
+  final TextEditingController _surNameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  String phoneText = "";
 
   bool isVisibility = true;
 
@@ -34,7 +37,7 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFF002766),
-      appBar: const AuthAppBar(title: "Login"),
+      appBar: const AuthAppBar(title: 'Register'),
       body: Container(
         height: double.infinity,
         width: double.infinity,
@@ -53,7 +56,39 @@ class _LoginScreenState extends State<LoginScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const TextsWidget(),
-                SizedBox(height: 125.h),
+                SizedBox(height: 30.h),
+                MyTextField(
+                  textInputType: TextInputType.text,
+                  textInputAction: TextInputAction.next,
+                  isPassword: false,
+                  validate: (value) {},
+                  onPressed: () {},
+                  isVisibility: false,
+                  prefixIcon: const Icon(
+                    Icons.person_2_outlined,
+                    color: Color(0xFFB7B7B7),
+                  ),
+                  maxLines: 1,
+                  controller: _userNameController,
+                  hintText: "Username",
+                ),
+                SizedBox(height: 30.h),
+                MyTextField(
+                  textInputType: TextInputType.text,
+                  textInputAction: TextInputAction.next,
+                  isPassword: false,
+                  validate: (value) {},
+                  onPressed: () {},
+                  isVisibility: false,
+                  prefixIcon: const Icon(
+                    Icons.people_outline,
+                    color: Color(0xFFB7B7B7),
+                  ),
+                  maxLines: 1,
+                  controller: _surNameController,
+                  hintText: "Surname",
+                ),
+                SizedBox(height: 30.h),
                 MyTextField(
                   textInputType: TextInputType.emailAddress,
                   textInputAction: TextInputAction.next,
@@ -89,56 +124,48 @@ class _LoginScreenState extends State<LoginScreen> {
                   controller: _passwordController,
                   hintText: "Password",
                 ),
-                SizedBox(height: 41.h),
-                Text(
-                  "Remember me next time",
-                  style: TextStyle(
-                    color: const Color(0xFF000000),
-                    fontSize: 14.sp,
-                    fontWeight: FontWeight.w400,
-                  ),
+                SizedBox(height: 30.h),
+                PhoneInputComponent(
+                  onChanged: (v) {
+                    phoneText = MyUtils.getPhoneNumber(v);
+                    print("PHONE: ${MyUtils.getPhoneNumber(v)}");
+                  },
+                  initialValue: "",
                 ),
-                SizedBox(height: 75.h),
+                SizedBox(height: 50.h),
                 GlobalButton(
                   onTap: () {
                     _formKey.currentState!.validate();
+                    print(_userNameController.text);
+                    print(_surNameController.text);
                     print(_emailController.text);
                     print(_passwordController.text);
                     BlocProvider.of<AuthBloc>(context).add(
-                      LoginClient(
-                        userLoginDtoModel: UserLoginDtoModel(
+                      RegisterWorker(
+                        workerRegisterDtoModel: WorkerRegisterDtoModel(
+                          name: _userNameController.text,
+                          surname: _surNameController.text,
                           email: _emailController.text,
                           password: _passwordController.text,
+                          phone: phoneText,
+                          image: ""
                         ),
                       ),
                     );
                   },
                   isActive: true,
-                  buttonText: "Login",
+                  buttonText: "Create account",
                 ),
-                SizedBox(height: 40.h),
+                SizedBox(height: 34.h),
                 BlocListener<AuthBloc, AuthState>(
                   listener: (context, state) {
-                    if (state.authStatus == AuthStatus.authenticated &&
-                        state.formStatus == FormStatus.success) {
+                    if (state.authStatus == AuthStatus.registered) {
                       Navigator.pop(context);
-                      if (state.userRole == UserRole.client) {
-                        Navigator.pushNamedAndRemoveUntil(
-                            context, clientTabBox, (route) => false);
-                      } else {
-                        Navigator.pushNamedAndRemoveUntil(
-                            context, workerTabBox, (route) => false);
-                      }
-                    } else if (state.formStatus == FormStatus.loading) {
-                      showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                          context = context;
-                          return const Loading();
-                        },
-                      );
-                    } else if (state.formStatus == FormStatus.failure) {
+                    }
+                    if (state.formStatus == FormStatus.loading) {
                       Navigator.pop(context);
+                    }
+                    if(state.formStatus == FormStatus.failure){
                       MySnackBar(
                         context,
                         notification: state.errorText,
@@ -151,19 +178,12 @@ class _LoginScreenState extends State<LoginScreen> {
                     }
                   },
                   child: AuthWidget(
-                    title: "Sign up",
+                    title: "Sign in",
                     onTap: () {
-                      UserRole userRole =
-                          BlocProvider.of<AuthBloc>(context).state.userRole;
-                      Navigator.pushNamed(
-                        context,
-                        userRole == UserRole.client
-                            ? clientRegisterPage
-                            : workerRegisterPage,
-                      );
+                      Navigator.pop(context);
                     },
                   ),
-                )
+                ),
               ],
             ),
           ),

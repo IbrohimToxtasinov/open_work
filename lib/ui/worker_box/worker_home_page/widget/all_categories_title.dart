@@ -23,22 +23,22 @@ class AllCategoriesTitle extends StatelessWidget {
                 .bodyMedium
                 ?.copyWith(fontWeight: FontWeight.w400, fontSize: 16.sp,color: MyColors.black),
           ),
-          InkWell(
-
-              child: Container(
-                width: 60.w,
-                height: 25.h,
-                decoration:
-                BoxDecoration(borderRadius: BorderRadius.circular(10)),
-                child: Center(
-                  child: Text(
-                    'See All'.tr(),
-                    maxLines: 1,
-                    style: const TextStyle(
-                        color: MyColors.red, fontWeight: FontWeight.w500,),
-                  ),
-                ),
-              )),
+          // InkWell(
+          //
+          //     child: Container(
+          //       width: 60.w,
+          //       height: 25.h,
+          //       decoration:
+          //       BoxDecoration(borderRadius: BorderRadius.circular(10)),
+          //       child: Center(
+          //         child: Text(
+          //           'See All'.tr(),
+          //           maxLines: 1,
+          //           style: const TextStyle(
+          //               color: MyColors.red, fontWeight: FontWeight.w500,),
+          //         ),
+          //       ),
+          //     )),
         ],
       ),
     );

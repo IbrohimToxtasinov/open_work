@@ -6,13 +6,13 @@ class WorkerProfileState extends Equatable {
   WorkerProfileState(
       {required this.status, required this.worker, required this.errorMessage});
 
-  WorkerStatus status;
+  FormStatus status;
   dynamic worker; //worker model yozish kere
   String errorMessage;
 
 
 
-  copyWith({WorkerStatus? status, dynamic worker, String? errorMessage}) =>
+  copyWith({FormStatus? status, dynamic worker, String? errorMessage}) =>
       WorkerProfileState(
           status: status ?? this.status,
           errorMessage: errorMessage ?? this.errorMessage,
@@ -23,25 +23,4 @@ class WorkerProfileState extends Equatable {
   List<Object?> get props => [status, worker,errorMessage];
 }
 
-enum WorkerStatus {
-  //PURE
-  PURE,
 
-  //GET WORKER INFO
-
-  GETTINGWORKERINFOINPROGRESS,
-  GETTINGWORKERINFOINSUCCESS,
-  GETTINGWORKERINFOINFAILURY,
-
-  //DELETE WORKER
-
-  DELETINGWORKERINPROGRESS,
-  DELETINGWORKERINSUCCESS,
-  DELETINGWORKERINFAILURY,
-
-  //UPDATE WORKER INFO
-
-  UPDATEWORKERINFOINPROGRESS,
-  UPDATEWORKERINFOINSUCCESS,
-  UPDATEWORKERINFOINFAILURY,
-}
