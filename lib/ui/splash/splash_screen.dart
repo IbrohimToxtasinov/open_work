@@ -44,6 +44,7 @@ class SplashScreen extends StatelessWidget {
             Image.asset(AppImages.appLogo, height: 150, width: 150),
             SizedBox(height: 8.h),
             RichText(
+              textAlign: TextAlign.center,
               text: TextSpan(
                 text: 'Open\n',
                 style: TextStyle(
