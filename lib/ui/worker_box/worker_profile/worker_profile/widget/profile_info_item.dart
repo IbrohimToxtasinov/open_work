@@ -18,7 +18,7 @@ class ProfileInfoItem extends StatelessWidget {
       child: Row(
         children: [
           SizedBox(
-              width: 100.w,
+              width: 105.w,
               child: Text(
                 type,
                 style: TextStyle(

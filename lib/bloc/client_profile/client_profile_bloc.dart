@@ -35,21 +35,28 @@ class ClientProfileBloc extends Bloc<ClientProfileEvent, ClientProfileState> {
     on<GetClientInfoEvent>(getClientInfo);
     on<DeleteClientEvent>(deleteClient);
     on<UpdateClientInfoEvent>(updateClientInfo);
+    add(GetClientInfoEvent());
   }
 
   ClientProfileRepo clientProfileRepo;
 
-  Future<void> getClientInfo(event, emit) async {
+  getClientInfo(event, emit) async {
     emit(state.copyWith(status: ClientStatus.GETTINGCLIENTINFOINPROGRESS));
     MyResponse myResponse = await clientProfileRepo.getClientInfo();
     if (myResponse.errorMessage.isEmpty) {
-      emit(state.copyWith(
+      emit(
+        state.copyWith(
           status: ClientStatus.GETTINGCLIENTINFOINSUCCESS,
-          clientInfoModel: myResponse.data));
+          clientInfoModel: myResponse.data,
+        ),
+      );
     } else {
-      emit(state.copyWith(
+      emit(
+        state.copyWith(
           status: ClientStatus.GETTINGCLIENTINFOINFAILURY,
-          errorMessage: myResponse.errorMessage));
+          errorMessage: myResponse.errorMessage,
+        ),
+      );
     }
   }
 
