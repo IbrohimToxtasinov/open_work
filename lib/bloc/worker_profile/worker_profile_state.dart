@@ -10,8 +10,6 @@ class WorkerProfileState extends Equatable {
   dynamic worker; //worker model yozish kere
   String errorMessage;
 
-
-
   copyWith({FormStatus? status, dynamic worker, String? errorMessage}) =>
       WorkerProfileState(
           status: status ?? this.status,
@@ -20,7 +18,5 @@ class WorkerProfileState extends Equatable {
 
   @override
   // TODO: implement props
-  List<Object?> get props => [status, worker,errorMessage];
+  List<Object?> get props => [status, worker, errorMessage];
 }
-
-
