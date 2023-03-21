@@ -7,7 +7,7 @@ class WorkerProfileState extends Equatable {
       {required this.status, required this.worker, required this.errorMessage});
 
   FormStatus status;
-  dynamic worker; //worker model yozish kere
+  WorkerInfo worker;
   String errorMessage;
 
   copyWith({FormStatus? status, dynamic worker, String? errorMessage}) =>

@@ -1,5 +1,6 @@
 import 'package:image_picker/image_picker.dart';
 import 'package:open_work/data/models/form_status/form_status.dart';
+import 'package:open_work/data/models/worker_info/worker_info.dart';
 
 import 'package:open_work/utils/file_importer/file_importer.dart';
 
@@ -10,7 +11,15 @@ part 'worker_profile_state.dart';
 class WorkerProfileBloc extends Bloc<WorkerProfileEvent, WorkerProfileState> {
   WorkerProfileBloc()
       : super(WorkerProfileState(
-            status: FormStatus.pure, worker: null, errorMessage: '')) {
+            status: FormStatus.pure,
+            worker: WorkerInfo(
+              name: "",
+              surname: "",
+              lastSeen: "",
+              id: 0,
+              rating: 0.0,
+            ),
+            errorMessage: '')) {
     on<GetWorkerInfoEvent>(getWorkerInfo);
     on<DeleteWorkerEvent>(deleteWorker);
     on<UpdateWorkerInfoEvent>(updateWorkerInfo);
