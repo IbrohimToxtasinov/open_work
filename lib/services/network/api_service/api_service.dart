@@ -207,6 +207,7 @@ class ApiService extends ApiClient {
       Response response = await dio.get("${dio.options.baseUrl}users/me");
       if (response.statusCode! >= 200 && response.statusCode! < 300) {
         myResponse.data = UserInfoModel.fromJson(response.data);
+        print(response.data);
       }
     } catch (error) {
       debugPrint("GET CLIENT INFO ERROR:$error");
