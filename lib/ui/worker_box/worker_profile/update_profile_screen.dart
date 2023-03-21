@@ -1,17 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:open_work/bloc/worker_profile/worker_profile_bloc.dart';
+import 'package:open_work/data/models/worker_info/worker_info.dart';
 import 'package:open_work/ui/widgets/global_button.dart';
 import 'package:open_work/ui/widgets/phone_input_component.dart';
 import 'package:open_work/ui/widgets/update_profile_text_field.dart';
-
-import '../../../services/get_it.dart';
-import '../../widgets/image_picker_service.dart';
+import 'package:open_work/utils/my_utils.dart';
 
 class WorkerUpdateProfileScreen extends StatefulWidget {
-  const WorkerUpdateProfileScreen({Key? key}) : super(key: key);
+  const WorkerUpdateProfileScreen({Key? key, required this.workerInfo})
+      : super(key: key);
+
+  final WorkerInfo workerInfo;
 
   @override
   State<WorkerUpdateProfileScreen> createState() =>
@@ -20,8 +23,8 @@ class WorkerUpdateProfileScreen extends StatefulWidget {
 
 class _WorkerUpdateProfileScreenState extends State<WorkerUpdateProfileScreen> {
   final formGlobalKey = GlobalKey<FormState>();
-  ImagePicker imagePicker = ImagePicker();
-  String imageUrl = '';
+  ImagePicker picker = ImagePicker();
+  XFile? xFile;
   TextEditingController userNameController = TextEditingController();
   TextEditingController surNameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
@@ -30,6 +33,7 @@ class _WorkerUpdateProfileScreenState extends State<WorkerUpdateProfileScreen> {
   late MaskTextInputFormatter phoneMaskInputFormatter;
   final FocusNode cardFocusNode = FocusNode();
   String phoneNumber = '';
+
   @override
   void initState() {
     phoneMaskInputFormatter = MaskTextInputFormatter(
@@ -109,8 +113,7 @@ class _WorkerUpdateProfileScreenState extends State<WorkerUpdateProfileScreen> {
                                       color: Colors.greenAccent, width: 2)),
                               child: IconButton(
                                   onPressed: () async {
-                                    await ImagePickerService()
-                                        .showPicker(context);
+                                   _showPicker(context);
                                   },
                                   icon: Icon(
                                     Icons.photo_camera_outlined,
@@ -126,8 +129,8 @@ class _WorkerUpdateProfileScreenState extends State<WorkerUpdateProfileScreen> {
                       Column(
                         children: [
                           /// Name
-                          const Text(
-                            "Hasan Norov",
+                          Text(
+                            "${widget.workerInfo.name} ${widget.workerInfo.surname}",
                             style: TextStyle(
                                 color: Colors.black,
                                 fontWeight: FontWeight.w800,
@@ -139,7 +142,7 @@ class _WorkerUpdateProfileScreenState extends State<WorkerUpdateProfileScreen> {
 
                           /// Gmail
                           Text(
-                            "hasannorov@gamil.com",
+                            widget.workerInfo.email,
                             style:
                                 TextStyle(color: Colors.black.withOpacity(0.6)),
                           ),
@@ -219,20 +222,10 @@ class _WorkerUpdateProfileScreenState extends State<WorkerUpdateProfileScreen> {
                       onChanged: (String v) {
                         phoneNumber = v;
                       },
-                      // validator: (phone) {
-                      //   if (isPhoneValid(phoneNumber!)) {
-                      //     return null;
-                      //   } else {
-                      //     return 'Enter a valid phone';
-                      //   }
-                      // },
                       initialValue: '',
                     ),
                   ),
-                  const Expanded(
-                      child: SizedBox(
-                    height: 1,
-                  )),
+                  const Expanded(child: SizedBox(height: 1)),
                   Padding(
                     padding: EdgeInsets.only(
                         left: 18.0.r, right: 18.0.r, bottom: 20.r),
@@ -242,15 +235,20 @@ class _WorkerUpdateProfileScreenState extends State<WorkerUpdateProfileScreen> {
                         onTap: () {
                           if (formGlobalKey.currentState!.validate()) {
                             formGlobalKey.currentState!.save();
-                            getIt<WorkerProfileBloc>().add(
-                              UpdateWorkerInfoEvent(
-                                password: passwordController.text,
-                                phone: phoneNumber,
-                                email: emailController.text,
-                                surname: surNameController.text,
-                                name: userNameController.text,
-                              ),
-                            );
+                            if (xFile != null) {
+                              BlocProvider.of<WorkerProfileBloc>(context).add(
+                                UpdateWorkerInfoEvent(
+                                  password: passwordController.text,
+                                  phone: MyUtils.getPhoneNumber(phoneNumber),
+                                  email: emailController.text,
+                                  surname: surNameController.text,
+                                  name: userNameController.text,
+                                  image: xFile!,
+                                ),
+                              );
+                            } else {
+                              MyUtils.getMyToast(message: "Rasm  tanlang");
+                            }
                           }
                         }),
                   )
@@ -261,6 +259,81 @@ class _WorkerUpdateProfileScreenState extends State<WorkerUpdateProfileScreen> {
         ),
       ),
     );
+  }
+
+  _showPicker(context) async {
+    await showModalBottomSheet(
+        context: context,
+        builder: (BuildContext bc) {
+          return SafeArea(
+            child: Container(
+              height: 180.h,
+              padding: EdgeInsets.all(12.r),
+              child: Column(
+                children: [
+                  const Text("Upload photo from"),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: <Widget>[
+                      InkWell(
+                        onTap: () async {
+                      await    _getFromGallery(picker);
+                          Navigator.pop(context);
+                        },
+                        child: Column(
+                          children: const [
+                            Icon(
+                              Icons.image,
+                              size: 100,
+                            ),
+                            Text("Gallery"),
+                          ],
+                        ),
+                      ),
+                      InkWell(
+                        onTap: () async {
+                      await  _getFromCamera(picker);
+                          Navigator.pop(context);
+                        },
+                        child: Column(
+                          children: const [
+                            Icon(
+                              Icons.camera,
+                              size: 100,
+                            ),
+                            Text("Camera"),
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          );
+        });
+  }
+
+  Future<void> _getFromGallery(ImagePicker picker) async {
+    XFile? pickedFile = await picker.pickImage(
+      maxWidth: 1200,
+      maxHeight: 1200,
+      source: ImageSource.gallery,
+    );
+    if (pickedFile != null) {
+      xFile = pickedFile;
+    }
+  }
+
+  Future<void> _getFromCamera(ImagePicker picker) async {
+    XFile? pickedFile = await picker.pickImage(
+      maxWidth: 1200,
+      maxHeight: 1200,
+      source: ImageSource.camera,
+    );
+    if (pickedFile != null) {
+      xFile = pickedFile;
+    }
   }
 }
 

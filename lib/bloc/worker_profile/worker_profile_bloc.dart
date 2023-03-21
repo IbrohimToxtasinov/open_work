@@ -13,6 +13,7 @@ class WorkerProfileBloc extends Bloc<WorkerProfileEvent, WorkerProfileState> {
       : super(WorkerProfileState(
             status: FormStatus.pure,
             worker: WorkerInfo(
+              email: "",
               name: "",
               surname: "",
               lastSeen: "",
@@ -24,8 +25,6 @@ class WorkerProfileBloc extends Bloc<WorkerProfileEvent, WorkerProfileState> {
     on<DeleteWorkerEvent>(deleteWorker);
     on<UpdateWorkerInfoEvent>(updateWorkerInfo);
   }
-
-  XFile? image;
 
   Future<void> getWorkerInfo(event, emit) async {
     emit(state.copyWith(status: FormStatus.gettingWorkerInfoInProgress));
@@ -64,7 +63,7 @@ class WorkerProfileBloc extends Bloc<WorkerProfileEvent, WorkerProfileState> {
       email: event.email,
       phone: event.phone,
       password: event.password,
-      file: image,
+      file:event.image!,
     );
     if (myResponse.errorMessage.isEmpty) {
       emit(state.copyWith(status: FormStatus.updateWorkerInfoInSuccess));
@@ -73,9 +72,5 @@ class WorkerProfileBloc extends Bloc<WorkerProfileEvent, WorkerProfileState> {
           status: FormStatus.updateWorkerInfoInFailury,
           errorMessage: myResponse.errorMessage));
     }
-  }
-
-  pickImage(XFile xFile) {
-    image = xFile;
   }
 }

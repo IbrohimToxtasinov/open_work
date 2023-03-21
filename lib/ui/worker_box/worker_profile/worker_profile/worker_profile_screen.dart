@@ -86,7 +86,9 @@ class _WorkerProfileScreenState extends State<WorkerProfileScreen> {
                   ProfileItem(
                     icon: Icons.settings,
                     text: "Settings",
-                    onTap: () {},
+                    onTap: () {
+
+                    },
                     color: Colors.pinkAccent,
                   ),
                   ProfileItem(
