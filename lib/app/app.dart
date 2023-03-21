@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:open_work/bloc/auth/auth_bloc.dart';
 import 'package:open_work/bloc/busynesses/busynesses_bloc.dart';
 import 'package:open_work/bloc/categories/categories_bloc.dart';
+import 'package:open_work/cubits/connectivity/connectivity_cubit.dart';
 import 'package:open_work/bloc/worker_profile/worker_profile_bloc.dart';
 import 'package:open_work/cubits/tab/tab_cubit.dart';
 import 'package:open_work/data/repositories/auth_repo.dart';
@@ -46,6 +47,9 @@ class App extends StatelessWidget {
           ),
         ),
         BlocProvider(create: (context) => BottomNavCubit()),
+        BlocProvider(
+          create: (context) => ConnectivityCubit(),
+        ),
         BlocProvider(
             create: (context) =>
                 BusynessesBloc()..add(GetWorkerBusynessesEvent(workerId: 12))),
