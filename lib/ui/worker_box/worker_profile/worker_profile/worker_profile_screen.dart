@@ -32,7 +32,7 @@ class _WorkerProfileScreenState extends State<WorkerProfileScreen> {
       builder: (context, state) {
         if (state.status == FormStatus.gettingWorkerInfoInSuccess) {
           WorkerInfo worker = state.worker;
-          Scaffold(
+        return  Scaffold(
             backgroundColor: const Color(0xFF002766),
             appBar: ProfileAppBar(
                 title: SizedBox(

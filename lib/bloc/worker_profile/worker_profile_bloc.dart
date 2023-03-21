@@ -32,8 +32,9 @@ class WorkerProfileBloc extends Bloc<WorkerProfileEvent, WorkerProfileState> {
     MyResponse myResponse = await getIt<WorkerRepository>().getWorkerInfo();
     if (myResponse.errorMessage.isEmpty) {
       emit(state.copyWith(
-          status: FormStatus.gettingWorkerInfoInSuccess,
-          worker: myResponse.data));
+        status: FormStatus.gettingWorkerInfoInSuccess,
+        worker: myResponse.data,
+      ));
     } else {
       emit(state.copyWith(
           status: FormStatus.gettingWorkerInfoInFailury,
