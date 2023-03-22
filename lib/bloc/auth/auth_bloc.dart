@@ -101,7 +101,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         userRegisterDtoModel: event.userRegisterDtoModel);
     if (myResponse.errorMessage.isEmpty) {
       emit(state.copyWith(authStatus: AuthStatus.registered));
-    } else {
+    } else { 
       emit(
         state.copyWith(
           authStatus: AuthStatus.unauthenticated,
