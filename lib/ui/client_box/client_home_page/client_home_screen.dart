@@ -20,10 +20,10 @@ class ClientHomeScreen extends StatelessWidget {
         onTap: () {},
       ),
       body: Container(
-        padding: EdgeInsets.symmetric(horizontal: 10.w).r,
+        padding: EdgeInsets.symmetric(horizontal: 20.w).r,
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,
-        color: Color(0xFFE5E5E5),
+        color:   const Color(0xFFE5E5E5),
         child: CustomScrollView(
           physics: const BouncingScrollPhysics(),
           slivers: [
@@ -32,6 +32,7 @@ class ClientHomeScreen extends StatelessWidget {
             ),
             SliverToBoxAdapter(
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   ZoomTapAnimation(
                     onTap: () {},
@@ -49,10 +50,10 @@ class ClientHomeScreen extends StatelessWidget {
                             color: Colors.black54,
                           ),
                           SizedBox(width: 11.w),
-                          const Text(
+                          Text(
                             "Search anything",
                             style: TextStyle(
-                                color: MyColors.TextColor, fontSize: 18),
+                                color: MyColors.TextColor, fontSize: 18.sp),
                           )
                         ],
                       ),
@@ -88,8 +89,9 @@ class ClientHomeScreen extends StatelessWidget {
                       width: 388.w,
                       height: 128.h,
                       decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(10.r)),
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(10.r),
+                      ),
                     ),
                   ),
                 ),

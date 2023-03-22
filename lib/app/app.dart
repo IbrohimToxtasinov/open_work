@@ -6,6 +6,8 @@ import 'package:open_work/bloc/auth/auth_bloc.dart';
 import 'package:open_work/bloc/busynesses/busynesses_bloc.dart';
 import 'package:open_work/bloc/categories/categories_bloc.dart';
 import 'package:open_work/bloc/client_profile/client_profile_bloc.dart';
+import 'package:open_work/cubits/connectivity/connectivity_cubit.dart';
+import 'package:open_work/bloc/worker_profile/worker_profile_bloc.dart';
 import 'package:open_work/cubits/tab/tab_cubit.dart';
 import 'package:open_work/data/repositories/auth_repo.dart';
 import 'package:open_work/data/repositories/categories_repo.dart';
@@ -61,6 +63,15 @@ class App extends StatelessWidget {
                   clientProfileRepo: context.read<ClientProfileRepo>(),
                 )..add(GetClientInfoEvent())),
       ], child: MyApp()),
+          create: (context) => ConnectivityCubit(),
+        ),
+        BlocProvider(
+            create: (context) =>
+                BusynessesBloc()..add(GetWorkerBusynessesEvent(workerId: 12))),
+        BlocProvider(
+            create: (context) =>
+                WorkerProfileBloc()..add(GetWorkerInfoEvent())),
+      ], child: const MyApp()),
     );
   }
 }

@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:open_work/data/models/my_response/my_response_model.dart';
 import 'package:open_work/data/models/worker_business.dart';
+import 'package:open_work/data/models/worker_info/worker_info.dart';
 import 'package:open_work/services/network/worker_api_service/worker_api_client.dart';
 
 class WorkerApiService extends WorkerApiClient {
@@ -33,8 +34,8 @@ class WorkerApiService extends WorkerApiClient {
       {required int workerId, required int itemCount}) async {
     MyResponse myResponse = MyResponse();
     try {
-      Response response = await dio
-          .get("${dio.options.baseUrl}busynesses/$workerId");
+      Response response =
+          await dio.get("${dio.options.baseUrl}busynesses/$workerId");
       if (response.statusCode == 200) {
         myResponse.data = (response.data as List?)
                 ?.map((e) => WorkerBusiness.fromJson(e))
@@ -111,9 +112,9 @@ class WorkerApiService extends WorkerApiClient {
   Future<MyResponse> getWorkerInfo() async {
     MyResponse myResponse = MyResponse();
     try {
-      Response response = await dio.get("${dio.options.baseUrl}workers/worker");
+      Response response = await dio.get("${dio.options.baseUrl}workers/me");
       if (response.statusCode == 200) {
-        myResponse.data = response.data;
+        myResponse.data = WorkerInfo.fromJson(response.data);
         myResponse.statusCode = response.statusCode;
       }
     } catch (e) {
