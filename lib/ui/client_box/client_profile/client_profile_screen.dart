@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:open_work/bloc/client_profile/client_profile_bloc.dart';
 import 'package:open_work/ui/widgets/global_button.dart';
@@ -8,18 +7,10 @@ import 'package:open_work/ui/worker_box/worker_profile/worker_profile/widget/pro
 import 'package:open_work/utils/color.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:open_work/utils/constants.dart';
-import 'package:open_work/ui/worker_box/worker_profile/worker_profile/widget/appbar.dart';
-import 'package:open_work/ui/worker_box/worker_profile/worker_profile/widget/menu_item.dart';
-import 'package:open_work/utils/color.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:open_work/utils/constants.dart';
-import '../../../../bloc/auth/auth_bloc.dart';
 
 class ClientProfileScreen extends StatefulWidget {
   const ClientProfileScreen({Key? key}) : super(key: key);
 
-  // BlocBuilder<CategoriesBloc, CategoriesState>(
-  // builder: (context, state) {
   @override
   State<ClientProfileScreen> createState() => _ClientProfileScreenState();
 }
@@ -66,7 +57,8 @@ class _ClientProfileScreenState extends State<ClientProfileScreen> {
                           ),
                           subtitle: Text(
                             state.clientInfoModel.email,
-                            style: const TextStyle(color: MyColors.LightishGrey),
+                            style:
+                                const TextStyle(color: MyColors.LightishGrey),
                           ),
                         ),
                       )
@@ -80,9 +72,12 @@ class _ClientProfileScreenState extends State<ClientProfileScreen> {
                           TextStyle(fontSize: 22, fontWeight: FontWeight.w400),
                     ),
                   ),
-                  ProfileInfoItem(info: state.clientInfoModel.name, type: "Name"),
-                  ProfileInfoItem(info: state.clientInfoModel.surname, type: "Surname"),
-                  ProfileInfoItem(info: state.clientInfoModel.email, type: "Email"),
+                  ProfileInfoItem(
+                      info: state.clientInfoModel.name, type: "Name"),
+                  ProfileInfoItem(
+                      info: state.clientInfoModel.surname, type: "Surname"),
+                  ProfileInfoItem(
+                      info: state.clientInfoModel.email, type: "Email"),
                   const Spacer(),
                   GlobalButton(
                     isActive: true,
@@ -104,17 +99,12 @@ class _ClientProfileScreenState extends State<ClientProfileScreen> {
                 child: Text(state.errorMessage),
               );
             }
-            return Center(child: Text("Hali data yo'q, ${state.errorMessage.toString()}"),);
+            return Center(
+              child: Text("Hali data yo'q, ${state.errorMessage.toString()}"),
+            );
           },
         ),
       ),
     );
   }
 }
-
-// required this.name,
-// required this.surname,
-// required this.email,
-// required this.password,
-// required this.phone,
-// required this.image,
