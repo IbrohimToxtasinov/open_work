@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:open_work/data/models/category/category_model.dart';
+import 'package:open_work/data/models/user_info/user_info_model.dart';
 import 'package:open_work/data/models/worker_info/worker_info.dart';
 import 'package:open_work/data/models/worker_register_dto/worker_register_dto_model.dart';
 import 'package:open_work/ui/auth/register/client_register_screen.dart';
@@ -15,6 +16,7 @@ import 'package:open_work/ui/worker_box/worker_tab_box.dart';
 import 'package:open_work/utils/constants.dart';
 import 'auth/login/login_screen.dart';
 import 'auth/option/option_screen.dart';
+import 'client_box/client_profile_update/client_update_page.dart';
 import 'no_internet/no_internet_screen.dart';
 import 'on_boarding/on_boarding_screen.dart';
 import 'splash/splash_screen.dart';
@@ -54,6 +56,9 @@ class MyRouter {
       case workerUpdateProfile:
         return navigateTo(WorkerUpdateProfileScreen(
             workerInfo: settings.arguments as WorkerInfo));
+      case clientProfileUpdate:
+        return navigateTo(ClientUpdateProfileScreen(
+            userInfo: settings.arguments as UserInfoModel));
       case categorySkills:
         return navigateTo(
             CategorySkills(categoryModel: settings.arguments as CategoryModel));

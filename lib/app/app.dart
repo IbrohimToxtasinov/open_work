@@ -12,8 +12,6 @@ import 'package:open_work/cubits/tab/tab_cubit.dart';
 import 'package:open_work/data/repositories/auth_repo.dart';
 import 'package:open_work/data/repositories/categories_repo.dart';
 import 'package:open_work/data/repositories/client_profile_repo.dart';
-import 'package:open_work/ui/client_box/client_home_page/client_home_screen.dart';
-import 'package:open_work/ui/worker_box/worker_tab_box.dart';
 import '../../utils/constants.dart';
 import 'package:adaptive_theme/adaptive_theme.dart';
 import '../ui/router.dart';
