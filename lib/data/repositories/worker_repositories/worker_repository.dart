@@ -6,6 +6,6 @@ class WorkerRepository{
 
   Future<MyResponse> deleteWorker() async => await getIt<WorkerApiService>().deleteWorker();
 
-  Future<MyResponse> updateWorkerInfo({required String name,required String surname,required String email,required String phone,required String password,XFile? file}) async =>
-      await getIt<WorkerApiService>().updateWorker(name: name, surname: surname, email: email, phone: phone, password: password);
+  Future<MyResponse> updateWorkerInfo({required String name,required String surname,required String email,required String phone,required String password,required XFile file}) async =>
+      await getIt<WorkerApiService>().updateWorker(name: name, surname: surname, email: email, phone: phone, password: password,file: file);
 }

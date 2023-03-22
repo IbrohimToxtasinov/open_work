@@ -5,11 +5,13 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:open_work/bloc/auth/auth_bloc.dart';
 import 'package:open_work/bloc/busynesses/busynesses_bloc.dart';
 import 'package:open_work/bloc/categories/categories_bloc.dart';
+import 'package:open_work/bloc/client_profile/client_profile_bloc.dart';
 import 'package:open_work/cubits/connectivity/connectivity_cubit.dart';
 import 'package:open_work/bloc/worker_profile/worker_profile_bloc.dart';
 import 'package:open_work/cubits/tab/tab_cubit.dart';
 import 'package:open_work/data/repositories/auth_repo.dart';
 import 'package:open_work/data/repositories/categories_repo.dart';
+import 'package:open_work/data/repositories/client_profile_repo.dart';
 import 'package:open_work/ui/client_box/client_home_page/client_home_screen.dart';
 import 'package:open_work/ui/worker_box/worker_tab_box.dart';
 import '../../utils/constants.dart';
@@ -30,13 +32,13 @@ class App extends StatelessWidget {
         RepositoryProvider(
           create: (context) => CategoriesRepo(),
         ),
+        RepositoryProvider(
+          create: (context) => ClientProfileRepo(),
+        ),
       ],
       child: MultiBlocProvider(providers: [
-        BlocProvider(
-          create: (context) => AuthBloc(
-            context.read<AuthRepo>(),
-          ),
-        ),
+        BlocProvider(create: (context) => ConnectivityCubit()),
+        BlocProvider(create: (context) => AuthBloc(context.read<AuthRepo>())),
         BlocProvider(
             create: (context) =>
                 CategoriesBloc(categoriesRepo: context.read<CategoriesRepo>())
@@ -48,8 +50,15 @@ class App extends StatelessWidget {
         ),
         BlocProvider(create: (context) => BottomNavCubit()),
         BlocProvider(
-          create: (context) => ConnectivityCubit(),
+          create: (context) => BusynessesBloc()
+            ..add(
+              GetWorkerBusynessesEvent(workerId: 12),
+            ),
         ),
+        BlocProvider(
+            create: (context) => ClientProfileBloc(
+                  clientProfileRepo: context.read<ClientProfileRepo>(),
+                )..add(GetClientInfoEvent())),
         BlocProvider(
             create: (context) =>
                 BusynessesBloc()..add(GetWorkerBusynessesEvent(workerId: 12))),

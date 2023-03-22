@@ -37,7 +37,8 @@ class ClientHomeScreen extends StatelessWidget {
                   ZoomTapAnimation(
                     onTap: () {},
                     child: Container(
-                      height: 50.h,
+                      margin: const EdgeInsets.only(left: 20, right: 20).r,
+                      height: 50,
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(15).r,
                           color: Colors.white),

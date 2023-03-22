@@ -12,7 +12,7 @@ class UpdateWorkerInfoEvent extends WorkerProfileEvent{
   String email;
   String phone;
   String password;
-  File? image;
+  XFile image;
 
   UpdateWorkerInfoEvent({
     required this.password,
@@ -20,6 +20,6 @@ class UpdateWorkerInfoEvent extends WorkerProfileEvent{
     required this.email,
     required this.surname,
     required this.name,
-     this.image
+     required this.image
 });
 }
