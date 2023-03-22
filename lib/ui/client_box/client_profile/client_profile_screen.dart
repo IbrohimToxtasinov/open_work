@@ -45,56 +45,7 @@ class _ClientProfileScreenState extends State<ClientProfileScreen> {
           ],
         ),
       )),
-      body: Container(
-        height: double.infinity,
-        width: double.infinity,
-        padding: EdgeInsets.only(left: 20.w, top: 50.h, right: 20.w).w,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(45.r),
-              topRight: Radius.circular(45.r).r),
-          color: MyColors.white,
-        ),
-        child: Column(
-          children: [
-            ProfileItem(
-              icon: Icons.person,
-              text: "My Profile",
-              onTap: () {
-                Navigator.pushNamed(context, workerInfoScreen);
-              },
-              color: Colors.green,
-            ),
-            ProfileItem(
-              icon: Icons.settings,
-              text: "Settings",
-              onTap: () {},
-              color: Colors.pinkAccent,
-            ),
-            ProfileItem(
-              icon: Icons.help,
-              text: "Help & Support",
-              onTap: () {},
-              color: Colors.blue,
-            ),
-            BlocListener<AuthBloc, AuthState>(
-              listener: (context, state) {
-                if (state.authStatus == AuthStatus.unauthenticated) {
-                  SystemNavigator.pop();
-                }
-              },
-              child: ProfileItem(
-                icon: Icons.logout,
-                text: "Log out",
-                onTap: () {
-                  context.read<AuthBloc>().add(LogOut());
-                },
-                color: Colors.deepOrange,
-              ),
-            )
-          ],
-        ),
-      ),
+      
     );
   }
 }
