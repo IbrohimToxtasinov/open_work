@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:open_work/bloc/client_profile/client_profile_bloc.dart';
+import 'package:open_work/ui/widgets/client_home_screen_shimmer.dart';
 import 'package:open_work/ui/widgets/global_button.dart';
 import 'package:open_work/ui/worker_box/worker_profile/worker_profile/widget/appbar.dart';
 import 'package:open_work/ui/worker_box/worker_profile/worker_profile/widget/profile_info_item.dart';
@@ -35,7 +36,10 @@ class _ClientProfileScreenState extends State<ClientProfileScreen> {
         ),
         child: BlocBuilder<ClientProfileBloc, ClientProfileState>(
           builder: (context, state) {
-            if (state.status == ClientStatus.GETTINGCLIENTINFOINSUCCESS) {
+            if (state.status == ClientStatus.PURE) {
+              return ClientHomeScreenShimmerLoader();
+            } else if (state.status ==
+                ClientStatus.GETTINGCLIENTINFOINSUCCESS) {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -90,9 +94,7 @@ class _ClientProfileScreenState extends State<ClientProfileScreen> {
               );
             } else if (state.status ==
                 ClientStatus.GETTINGCLIENTINFOINPROGRESS) {
-              const Center(
-                child: CircularProgressIndicator(),
-              );
+              return ClientHomeScreenShimmerLoader();
             } else if (state.status ==
                 ClientStatus.GETTINGCLIENTINFOINFAILURY) {
               Center(

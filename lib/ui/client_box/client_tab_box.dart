@@ -30,6 +30,7 @@ class ClientTabBox extends StatelessWidget {
             children: pages,
           ),
           bottomNavigationBar: BottomNavigationBar(
+        //    selectedItemColor: Colors.blue ,
             onTap: (value) {
               context.read<BottomNavCubit>().changePageIndex(value);
             },
