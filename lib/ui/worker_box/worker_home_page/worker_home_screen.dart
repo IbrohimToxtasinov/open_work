@@ -15,15 +15,16 @@ class WorkerHomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: MyColors.editBackground,
-        appBar:  HomeScreenAppbar(
-          rightText: "Add business",
-          onTap: (){
-            Navigator.push(context, MaterialPageRoute(builder: (_) => CreateBusynessPage()));
-          },
-        ),
-        body: BlocBuilder<BusynessesBloc, BusynessesState>(
-            builder: (context, state) {
+      backgroundColor: MyColors.editBackground,
+      appBar: HomeScreenAppbar(
+        rightText: "Add business",
+        onTap: () {
+          Navigator.push(
+              context, MaterialPageRoute(builder: (_) => CreateBusynessPage()));
+        },
+      ),
+      body: BlocBuilder<BusynessesBloc, BusynessesState>(
+        builder: (context, state) {
           if (state.status == FormStatus.gettingInSuccess) {
             return ListView.separated(
               physics: const BouncingScrollPhysics(),
@@ -46,6 +47,8 @@ class WorkerHomeScreen extends StatelessWidget {
               child: Text(state.errorMessage.toString()),
             );
           }
-        }));
+        },
+      ),
+    );
   }
 }

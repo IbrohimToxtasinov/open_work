@@ -19,30 +19,27 @@ class CreateBusynessPage extends StatelessWidget {
       ),
       body: BlocConsumer<BusynessesBloc, BusynessesState>(
           listener: (context, state) {
-        if (state.status == FormStatus.gettingInSuccess) {
-
-        }
+        if (state.status == FormStatus.gettingInSuccess) {}
       }, builder: (context, state) {
         if (state.status == FormStatus.gettingInProgress) {
           return const Center(
             child: CircularProgressIndicator(),
           );
         } else if (state.status == FormStatus.gettingInSuccess) {
-         return Column(
-           children: [
-             SizedBox(
-               width: 300.w,
-               child: ElevatedButton(
-                 onPressed: () {
-                   _openRangeDatePicker(context);
-                 },
-                 child: const Text('Range Date Picker'),
-               ),
-             ),
-           ],
-         );
-        }
-        else {
+          return Column(
+            children: [
+              SizedBox(
+                width: 300.w,
+                child: ElevatedButton(
+                  onPressed: () {
+                    _openRangeDatePicker(context);
+                  },
+                  child: const Text('Range Date Picker'),
+                ),
+              ),
+            ],
+          );
+        } else {
           return Center(
             child: Text(state.errorMessage.toString()),
           );
@@ -50,6 +47,7 @@ class CreateBusynessPage extends StatelessWidget {
       }),
     );
   }
+
   void _openRangeDatePicker(BuildContext context) {
     BottomPicker.range(
       title: 'Set date range',
@@ -70,12 +68,12 @@ class CreateBusynessPage extends StatelessWidget {
       descriptionStyle: const TextStyle(
         color: Colors.black,
       ),
-      onSubmitPressed: (firstDate, secondDate) {
-        //print(firstDate);
-        //print(secondDate);
+      onSubmitPressed: (firstDate, secondDate) async {
+        context
+            .read<BusynessesBloc>()
+            .add(CreateBusynessesEvent(starts: firstDate, ends: secondDate));
       },
       bottomPickerTheme: BottomPickerTheme.plumPlate,
     ).show(context);
   }
-
 }
