@@ -1,25 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:open_work/bloc/client_profile/client_profile_bloc.dart';
+import 'package:open_work/data/repositories/client_profile_repo.dart';
 import 'package:open_work/ui/widgets/global_button.dart';
 import 'package:open_work/ui/worker_box/worker_profile/worker_profile/widget/appbar.dart';
 import 'package:open_work/ui/worker_box/worker_profile/worker_profile/widget/profile_info_item.dart';
 import 'package:open_work/utils/color.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:open_work/utils/constants.dart';
-import 'package:open_work/ui/worker_box/worker_profile/worker_profile/widget/appbar.dart';
-import 'package:open_work/ui/worker_box/worker_profile/worker_profile/widget/menu_item.dart';
-import 'package:open_work/utils/color.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:open_work/utils/constants.dart';
-import '../../../../bloc/auth/auth_bloc.dart';
 
 class ClientProfileScreen extends StatefulWidget {
   const ClientProfileScreen({Key? key}) : super(key: key);
 
-  // BlocBuilder<CategoriesBloc, CategoriesState>(
-  // builder: (context, state) {
   @override
   State<ClientProfileScreen> createState() => _ClientProfileScreenState();
 }
@@ -43,7 +35,15 @@ class _ClientProfileScreenState extends State<ClientProfileScreen> {
           color: MyColors.white,
         ),
         child: BlocBuilder<ClientProfileBloc, ClientProfileState>(
+          // listener: (context, state) {
+          //   if (state.status == ClientStatus.UPDATECLIENTINFOINSUCCESS) {
+          //     BlocProvider.of<ClientProfileBloc>(context)
+          //         .add(GetClientInfoEvent());
+          //   }
+          //   print(state.status);
+          // },
           builder: (context, state) {
+            print("wxwdwedwxwd ${state.status}");
             if (state.status == ClientStatus.GETTINGCLIENTINFOINSUCCESS) {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -66,7 +66,8 @@ class _ClientProfileScreenState extends State<ClientProfileScreen> {
                           ),
                           subtitle: Text(
                             state.clientInfoModel.email,
-                            style: const TextStyle(color: MyColors.LightishGrey),
+                            style:
+                                const TextStyle(color: MyColors.LightishGrey),
                           ),
                         ),
                       )
@@ -80,9 +81,12 @@ class _ClientProfileScreenState extends State<ClientProfileScreen> {
                           TextStyle(fontSize: 22, fontWeight: FontWeight.w400),
                     ),
                   ),
-                  ProfileInfoItem(info: state.clientInfoModel.name, type: "Name"),
-                  ProfileInfoItem(info: state.clientInfoModel.surname, type: "Surname"),
-                  ProfileInfoItem(info: state.clientInfoModel.email, type: "Email"),
+                  ProfileInfoItem(
+                      info: state.clientInfoModel.name, type: "Name"),
+                  ProfileInfoItem(
+                      info: state.clientInfoModel.surname, type: "Surname"),
+                  ProfileInfoItem(
+                      info: state.clientInfoModel.email, type: "Email"),
                   const Spacer(),
                   GlobalButton(
                     isActive: true,
@@ -93,28 +97,24 @@ class _ClientProfileScreenState extends State<ClientProfileScreen> {
                   )
                 ],
               );
-            } else if (state.status ==
-                ClientStatus.GETTINGCLIENTINFOINPROGRESS) {
+            }
+            if (state.status == ClientStatus.GETTINGCLIENTINFOINPROGRESS) {
               const Center(
                 child: CircularProgressIndicator(),
               );
-            } else if (state.status ==
-                ClientStatus.GETTINGCLIENTINFOINFAILURY) {
+            }
+            if (state.status == ClientStatus.GETTINGCLIENTINFOINFAILURY) {
               Center(
                 child: Text(state.errorMessage),
               );
             }
-            return Center(child: Text("Hali data yo'q, ${state.errorMessage.toString()}"),);
+            print(state.clientInfoModel.email);
+            return Center(
+              child: Text("State yo'q"),
+            );
           },
         ),
       ),
     );
   }
 }
-
-// required this.name,
-// required this.surname,
-// required this.email,
-// required this.password,
-// required this.phone,
-// required this.image,

@@ -1,14 +1,11 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:open_work/data/models/worker_register_dto/worker_register_dto_model.dart';
+import 'package:open_work/data/models/worker_info/worker_info.dart';
 import 'package:open_work/ui/widgets/global_button.dart';
 import 'package:open_work/ui/worker_box/worker_profile/worker_profile/widget/appbar.dart';
 import 'package:open_work/ui/worker_box/worker_profile/worker_profile/widget/profile_info_item.dart';
 import 'package:open_work/utils/color.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:open_work/utils/constants.dart';
-
-import '../../../../data/models/worker_info/worker_info.dart';
 
 class WorkerInfoScreen extends StatelessWidget {
   WorkerInfoScreen({super.key, required this.worker});
@@ -36,13 +33,6 @@ class WorkerInfoScreen extends StatelessWidget {
           children: [
             Row(
               children: [
-                // Padding(
-                //   padding: EdgeInsets.only(right: 20),
-                //   child: CircleAvatar(
-                //     radius: 40,
-                //     backgroundImage: CachedNetworkImageProvider(worker.image),
-                //   ),
-                // ),
                 Expanded(
                   child: ListTile(
                     title: Text(
@@ -64,16 +54,18 @@ class WorkerInfoScreen extends StatelessWidget {
                 style: TextStyle(fontSize: 22, fontWeight: FontWeight.w400),
               ),
             ),
-            ProfileInfoItem(info: "Birnimabek", type: worker.name),
-            ProfileInfoItem(info: "Palonchiyev", type: worker.surname),
-            ProfileInfoItem(info: "birnima@gmail.com", type: worker.name),
-            ProfileInfoItem(info: "+998900265088", type: worker.id.toString()),
+            ProfileInfoItem(info: worker.name, type: "Name"),
+            ProfileInfoItem(info: worker.surname, type: "Surname"),
+            ProfileInfoItem(info: worker.email, type: "Email"),
+            ProfileInfoItem(info: worker.rating.toString(), type: "Rating"),
+            ProfileInfoItem(info: worker.id.toString(), type: "ID"),
             const Spacer(),
             GlobalButton(
               isActive: true,
               buttonText: "Edit Profile",
               onTap: () {
-                Navigator.pushNamed(context, workerUpdateProfile,arguments: worker);
+                Navigator.pushNamed(context, workerUpdateProfile,
+                    arguments: worker);
               },
             )
           ],
@@ -82,10 +74,3 @@ class WorkerInfoScreen extends StatelessWidget {
     );
   }
 }
-
-    // required this.name,
-    // required this.surname,
-    // required this.email,
-    // required this.password,
-    // required this.phone,
-    // required this.image,
