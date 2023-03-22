@@ -191,16 +191,6 @@ class _ClientUpdateProfileScreenState extends State<ClientUpdateProfileScreen> {
                     height: 20.h,
                   ),
 
-                  ///PhoneNumber Update TexField
-                  Padding(
-                    padding: const EdgeInsets.only(left: 18.0, right: 18.0),
-                    child: PhoneInputComponent(
-                      onChanged: (String v) {
-                        phoneNumber = v;
-                      },
-                      initialValue: '',
-                    ),
-                  ),
                   const Expanded(child: SizedBox(height: 1)),
                   Padding(
                     padding: EdgeInsets.only(
@@ -210,14 +200,14 @@ class _ClientUpdateProfileScreenState extends State<ClientUpdateProfileScreen> {
                         buttonText: 'Update Profile',
                         onTap: () {
                           formGlobalKey.currentState!.save();
-
                           BlocProvider.of<ClientProfileBloc>(context).add(
                             UpdateClientInfoEvent(
                                 updateUserDtoModel: UpdateUserDtoModel(
-                                    name: userNameController.text,
-                                    surname: surNameController.text,
-                                    email: emailController.text,
-                                    password: passwordController.text)),
+                              name: userNameController.text,
+                              surname: surNameController.text,
+                              email: emailController.text,
+                              password: passwordController.text,
+                            )),
                           );
                         }),
                   )

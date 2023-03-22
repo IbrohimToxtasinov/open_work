@@ -36,7 +36,7 @@ class _CategorySkillsState extends State<CategorySkills> {
               spacing: 10,
               runSpacing: 10,
               children: widget.categoryModel.skills.map((e) {
-                if (e.value == true) {
+                if (e.isSelected) {
                   return Container(
                     decoration: BoxDecoration(
                         color: Colors.redAccent,
@@ -54,7 +54,7 @@ class _CategorySkillsState extends State<CategorySkills> {
                           GestureDetector(
                             onTap: () {
                               setState(() {
-                                e.value = !e.value;
+                                e.isSelected = !e.isSelected;
                               });
                             },
                             child: const Icon(
@@ -79,7 +79,7 @@ class _CategorySkillsState extends State<CategorySkills> {
           Column(
               children: widget.categoryModel.skills.map((e) {
             return CheckboxListTile(
-              value: e.value,
+              value: e.isSelected,
               activeColor: Colors.redAccent,
               checkboxShape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(5)),
@@ -89,7 +89,7 @@ class _CategorySkillsState extends State<CategorySkills> {
               ),
               onChanged: (value) {
                 setState(() {
-                  e.value = value!;
+                  e.isSelected = value!;
                 });
               },
             );
@@ -102,11 +102,11 @@ class _CategorySkillsState extends State<CategorySkills> {
               isActive: true,
               buttonText: "Worker Search",
               onTap: () {
-                widget.categoryModel.skills.map((e) {
-                  if (e.value == true) {
-
-                  }
-                });
+                List<int> selectedSkillsIds = widget.categoryModel.skills
+                    .where((element) => element.isSelected)
+                    .toList()
+                    .map((e) => e.id)
+                    .toList();
               },
             ),
           )

@@ -138,7 +138,7 @@ class _WorkerProfileScreenState extends State<WorkerProfileScreen> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          backgroundColor: MyColors.neutral2,
+          backgroundColor: MyColors.white,
           title: const Text(
             "Rostdan ham akkountdan chiqishni xohlaysizmi?",
             textAlign: TextAlign.center,

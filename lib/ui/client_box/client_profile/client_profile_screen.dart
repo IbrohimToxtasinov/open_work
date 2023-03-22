@@ -46,7 +46,7 @@ class _ClientProfileScreenState extends State<ClientProfileScreen> {
           builder: (context, state) {
             print("wxwdwedwxwd ${state.status}");
             if (state.status == ClientStatus.GETTINGCLIENTINFOINSUCCESS) {
-              Column(
+              return Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Row(
@@ -93,7 +93,11 @@ class _ClientProfileScreenState extends State<ClientProfileScreen> {
                     isActive: true,
                     buttonText: "Edit Profile",
                     onTap: () {
-                      Navigator.pushNamed(context, workerUpdateProfile);
+                      Navigator.pushNamed(
+                        context,
+                        clientProfileUpdate,
+                        arguments: state.clientInfoModel,
+                      );
                     },
                   )
                 ],
