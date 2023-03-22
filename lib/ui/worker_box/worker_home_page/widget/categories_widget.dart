@@ -11,7 +11,7 @@ class CategoriesWidget extends StatelessWidget {
   const CategoriesWidget({this.isFromHome = false, Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context){
     return BlocBuilder<CategoriesBloc, CategoriesState>(
       builder: (context, state) {
         if (state.status == Status.PURE) {
@@ -34,7 +34,7 @@ class CategoriesWidget extends StatelessWidget {
               scrollDirection: Axis.horizontal,
               itemBuilder: (context, index) {
                 return CategoryItem(
-                  onCategoryTap: () {
+                  onCategoryTap: (){
                     Navigator.pushNamed(context, categorySkills,
                         arguments: state.categories[index]);
                   },
