@@ -64,13 +64,18 @@ class ClientProfileBloc extends Bloc<ClientProfileEvent, ClientProfileState> {
     emit(state.copyWith(status: ClientStatus.DELETINGCLIENTINPROGRESS));
     MyResponse myResponse = await clientProfileRepo.deleteClient();
     if (myResponse.errorMessage.isEmpty) {
-      emit(state.copyWith(
-        status: ClientStatus.DELETINGCLIENTINSUCCESS,
-      ));
+      emit(
+        state.copyWith(
+          status: ClientStatus.DELETINGCLIENTINSUCCESS,
+        ),
+      );
     } else {
-      emit(state.copyWith(
+      emit(
+        state.copyWith(
           status: ClientStatus.DELETINGCLIENTINFAILURY,
-          errorMessage: myResponse.errorMessage));
+          errorMessage: myResponse.errorMessage,
+        ),
+      );
     }
   }
 

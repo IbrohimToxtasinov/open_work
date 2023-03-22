@@ -51,52 +51,73 @@ class _PhoneInputComponentState extends State<PhoneInputComponent> {
     super.dispose();
   }
 
+  bool isEmpty = true;
+  bool isFull = false;
+
   @override
   Widget build(BuildContext context) {
     return TextFormField(
       cursorColor: MyColors.black,
       controller: controller,
       inputFormatters: [phoneMaskFormatter],
-      keyboardType: const TextInputType.numberWithOptions(
-          signed: false, decimal: true),
+      keyboardType:
+          const TextInputType.numberWithOptions(signed: false, decimal: true),
       focusNode: phoneFocusNode,
       onChanged: (String value) {
+        value.isEmpty ? isEmpty = true : isEmpty = false;
+        value.length > 16 ? isFull = true : isFull = false;
         setState(() {
           if (value.length == 12) {
             phoneFocusNode.unfocus();
           }
           widget.onChanged.call(value);
-         // shadowText = updateShadowText(value);
         });
       },
       validator: widget.validator,
       style: MyTextStyle.aeonikSemiBold.copyWith(
           color: MyColors.black, fontWeight: FontWeight.w600, fontSize: 16),
       decoration: InputDecoration(
+        prefixIcon: const Icon(
+          Icons.phone,
+          color: Color(0xFFB7B7B7),
+        ),
+        suffixIcon: isFull
+            ? const Icon(
+                Icons.done_all,
+                color: Colors.green,
+              )
+            : null,
         hintText: "Phone number",
         contentPadding: EdgeInsets.only(left: 20.w).w,
         hintStyle: MyTextStyle.aeonikSemiBold
             .copyWith(color: MyColors.neutral4.withOpacity(0.6), fontSize: 14),
         filled: true,
-
-        fillColor: Colors.white,
-        border: const OutlineInputBorder(),
+        fillColor: const Color(0xFFF9F9F9),
+        border: const OutlineInputBorder(
+          borderSide: BorderSide(color: Color(0xFFFB5353)),
+          borderRadius: BorderRadius.all(Radius.circular(15)),
+        ),
+        disabledBorder: const OutlineInputBorder(
+          borderSide: BorderSide(color: Color(0xFFF9F9F9)),
+          borderRadius: BorderRadius.all(Radius.circular(15)),
+        ),
         enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.all(Radius.circular(10.r).r),
-          borderSide: BorderSide(color: MyColors.neutral4.withOpacity(0.2), width: 2),
-
+          borderSide: BorderSide(
+              color:
+                  isEmpty ? const Color(0xFFF9F9F9) : const Color(0xFFFB5353)),
+          borderRadius: const BorderRadius.all(Radius.circular(15)),
         ),
-        focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.all(Radius.circular(10.r).r),
-          borderSide: BorderSide(width: 2.w,color: MyColors.primary),
+        focusedBorder: const OutlineInputBorder(
+          borderSide: BorderSide(color: Color(0xFFFB5353)),
+          borderRadius: BorderRadius.all(Radius.circular(15)),
         ),
-        focusedErrorBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.all(Radius.circular(10.r).r),
-          borderSide: BorderSide(width: 2.w,color: MyColors.primary),
+        focusedErrorBorder: const OutlineInputBorder(
+          borderSide: BorderSide(color: Color(0xFFFB5353)),
+          borderRadius: BorderRadius.all(Radius.circular(15)),
         ),
-        errorBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.all(Radius.circular(10.r).r),
-          borderSide: BorderSide(width: 2.w,color: MyColors.red),
+        errorBorder: const OutlineInputBorder(
+          borderSide: BorderSide(color: Color(0xFFF9F9F9)),
+          borderRadius: BorderRadius.all(Radius.circular(15)),
         ),
       ),
     );

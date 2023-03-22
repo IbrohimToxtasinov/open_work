@@ -10,6 +10,7 @@ import 'package:open_work/ui/auth/widgets/auth_widget.dart';
 import 'package:open_work/ui/auth/widgets/my_text_field_widget.dart';
 import 'package:open_work/ui/auth/widgets/texts_widget.dart';
 import 'package:open_work/ui/widgets/global_button.dart';
+import 'package:open_work/ui/widgets/loading.dart';
 import 'package:open_work/ui/widgets/my_animated_snackbar.dart';
 import 'package:open_work/utils/color.dart';
 
@@ -144,11 +145,19 @@ class _ClientRegisterScreenState extends State<ClientRegisterScreen> {
                 SizedBox(height: 34.h),
                 BlocListener<AuthBloc, AuthState>(
                   listener: (context, state) {
-                    if (state.authStatus == AuthStatus.registered) {
-                      Navigator.pop(context);
-                    }
-
+                    // if (state.authStatus == AuthStatus.registered) {
+                    //   Navigator.pop(context);
+                    // }
                     if(state.formStatus == FormStatus.loading){
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          context = context;
+                          return const Loading();
+                        },
+                      );
+                    }
+                    else if(state.formStatus == FormStatus.failure){
                       Navigator.pop(context);
                       MySnackBar(
                         context,

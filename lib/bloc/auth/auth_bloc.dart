@@ -80,9 +80,18 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     );
     if (myResponse.errorMessage.isEmpty) {
       emit(state.copyWith(
-        authStatus: AuthStatus.registered,
         formStatus: FormStatus.success,
+        authStatus: AuthStatus.registered,
       ));
+    }
+    else {
+      emit(
+        state.copyWith(
+          authStatus: AuthStatus.unauthenticated,
+          formStatus: FormStatus.failure,
+          errorText: myResponse.errorMessage,
+        ),
+      );
     }
   }
 
