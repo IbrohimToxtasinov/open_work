@@ -145,10 +145,10 @@ class _ClientRegisterScreenState extends State<ClientRegisterScreen> {
                 SizedBox(height: 34.h),
                 BlocListener<AuthBloc, AuthState>(
                   listener: (context, state) {
-                    // if (state.authStatus == AuthStatus.registered) {
-                    //   Navigator.pop(context);
-                    // }
-                    if(state.formStatus == FormStatus.loading){
+                    if (state.authStatus == AuthStatus.registered) {
+                      Navigator.pop(context);
+                    }
+                    if (state.formStatus == FormStatus.loading) {
                       showDialog(
                         context: context,
                         builder: (BuildContext context) {
@@ -156,8 +156,7 @@ class _ClientRegisterScreenState extends State<ClientRegisterScreen> {
                           return const Loading();
                         },
                       );
-                    }
-                    else if(state.formStatus == FormStatus.failure){
+                    } else if (state.formStatus == FormStatus.failure) {
                       Navigator.pop(context);
                       MySnackBar(
                         context,
