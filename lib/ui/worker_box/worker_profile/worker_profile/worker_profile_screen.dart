@@ -24,9 +24,8 @@ class _WorkerProfileScreenState extends State<WorkerProfileScreen> {
   Widget build(BuildContext context) {
     return BlocConsumer<WorkerProfileBloc, WorkerProfileState>(
       listener: (context, state) {
-        if (state.status != FormStatus.gettingWorkerInfoInSuccess) {
-          print(
-              "${state.status} -----------------------------------------------");
+        if (state.status == FormStatus.updateWorkerInfoInSuccess) {
+        context.read<WorkerProfileBloc>().add(GetWorkerInfoEvent());
         }
       },
       builder: (context, state) {

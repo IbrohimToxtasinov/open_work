@@ -1,7 +1,8 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:formz/formz.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:open_work/bloc/worker_profile/worker_profile_bloc.dart';
@@ -69,11 +70,11 @@ class _WorkerUpdateProfileScreenState extends State<WorkerUpdateProfileScreen> {
           title: const Text("Edit Profile"),
           centerTitle: true,
         ),
-        body: BlocListener<WorkerProfileBloc,WorkerProfileState>(
+        body: BlocListener<WorkerProfileBloc, WorkerProfileState>(
           listener: (context, state) {
-            state.status == FormStatus.updateWorkerInfoInSuccess;
-            BlocProvider.of<WorkerProfileBloc>(context).add(GetWorkerInfoEvent());
-            Navigator.pop(context);
+            if (state.status == FormStatus.updateWorkerInfoInSuccess) {
+              Navigator.pop(context);
+            }
           },
           child: Form(
             key: formGlobalKey,
@@ -100,7 +101,7 @@ class _WorkerUpdateProfileScreenState extends State<WorkerUpdateProfileScreen> {
                             padding: const EdgeInsets.all(18.0),
                             child: Stack(children: [
                               Container(
-                                width: 100.w,
+                                width: 100.h,
                                 height: 100.h,
                                 decoration: BoxDecoration(
                                     shape: BoxShape.circle,
@@ -109,7 +110,13 @@ class _WorkerUpdateProfileScreenState extends State<WorkerUpdateProfileScreen> {
                                         color: Colors.greenAccent, width: 2)),
                                 child: xFile == null
                                     ? Icon(Icons.person)
-                                    : Image.asset(xFile.toString()),
+                                    : ClipRRect(
+                                        borderRadius: BorderRadius.circular(50),
+                                        child: Image.file(
+                                          File(xFile!.path),
+                                          fit: BoxFit.cover,
+                                        ),
+                                      ),
                               ),
                               Positioned(
                                 top: 70.h,
@@ -280,7 +287,6 @@ class _WorkerUpdateProfileScreenState extends State<WorkerUpdateProfileScreen> {
         builder: (BuildContext bc) {
           return SafeArea(
             child: Container(
-              height: 180.h,
               padding: EdgeInsets.all(12.r),
               child: Column(
                 children: [
@@ -335,6 +341,7 @@ class _WorkerUpdateProfileScreenState extends State<WorkerUpdateProfileScreen> {
     );
     if (pickedFile != null) {
       xFile = pickedFile;
+      setState(() {});
     }
   }
 
@@ -346,6 +353,7 @@ class _WorkerUpdateProfileScreenState extends State<WorkerUpdateProfileScreen> {
     );
     if (pickedFile != null) {
       xFile = pickedFile;
+      setState(() {});
     }
   }
 }
