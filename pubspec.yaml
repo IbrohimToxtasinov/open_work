@@ -69,7 +69,7 @@ dependencies:
   rate_in_stars: ^0.0.3
   youtube_player_flutter: ^8.1.2
   carousel_slider: ^4.2.1
-
+  bottom_picker: ^2.0.1
 dev_dependencies:
   flutter_test:
     sdk: flutter

@@ -7,6 +7,7 @@ import 'package:open_work/ui/worker_box/worker_home_page/widget/business_view.da
 import 'package:open_work/utils/color.dart';
 
 import '../../../data/models/form_status/form_status.dart';
+import 'create_worker_busyness/create_worker_busyness.dart';
 
 class WorkerHomeScreen extends StatelessWidget {
   const WorkerHomeScreen({Key? key}) : super(key: key);
@@ -17,7 +18,9 @@ class WorkerHomeScreen extends StatelessWidget {
         backgroundColor: MyColors.editBackground,
         appBar:  HomeScreenAppbar(
           rightText: "Add business",
-          onTap: (){},
+          onTap: (){
+            Navigator.push(context, MaterialPageRoute(builder: (_) => CreateBusynessPage()));
+          },
         ),
         body: BlocBuilder<BusynessesBloc, BusynessesState>(
             builder: (context, state) {
