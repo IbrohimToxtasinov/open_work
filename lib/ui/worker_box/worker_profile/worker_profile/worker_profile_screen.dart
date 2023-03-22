@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:open_work/bloc/auth/auth_bloc.dart';
 import 'package:open_work/bloc/worker_profile/worker_profile_bloc.dart';
 import 'package:open_work/data/models/form_status/form_status.dart';
-import 'package:open_work/data/models/worker_register_dto/worker_register_dto_model.dart';
+import 'package:open_work/data/models/worker_info/worker_info.dart';
 import 'package:open_work/ui/widgets/little_global_button.dart';
 import 'package:open_work/ui/worker_box/worker_profile/worker_profile/widget/appbar.dart';
 import 'package:open_work/ui/worker_box/worker_profile/worker_profile/widget/menu_item.dart';
@@ -31,18 +31,19 @@ class _WorkerProfileScreenState extends State<WorkerProfileScreen> {
       },
       builder: (context, state) {
         if (state.status == FormStatus.gettingWorkerInfoInSuccess) {
-          WorkerRegisterDtoModel worker = state.worker;
-          Scaffold(
+          WorkerInfo worker = state.worker;
+        return  Scaffold(
             backgroundColor: const Color(0xFF002766),
             appBar: ProfileAppBar(
                 title: SizedBox(
               child: Row(
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.only(right: 20, left: 40),
+                  const Padding(
+                    padding: EdgeInsets.only(right: 20, left: 40),
                     child: CircleAvatar(
                       radius: 20,
-                      backgroundImage: NetworkImage(worker.image),
+                      backgroundImage: NetworkImage(
+                          "https://www.citypng.com/public/uploads/small/11639594360nclmllzpmer2dvmrgsojcin90qmnuloytwrcohikyurvuyfzvhxeeaveigoiajks5w2nytyfpix678beyh4ykhgvmhkv3r3yj5hi.png"),
                     ),
                   ),
                   Expanded(
@@ -51,7 +52,7 @@ class _WorkerProfileScreenState extends State<WorkerProfileScreen> {
                         worker.name,
                         style: const TextStyle(color: MyColors.white),
                       ),
-                      subtitle: Text(worker.email,
+                      subtitle: Text(worker.name,
                           style: const TextStyle(color: MyColors.LightishGrey)),
                     ),
                   )
@@ -85,7 +86,9 @@ class _WorkerProfileScreenState extends State<WorkerProfileScreen> {
                   ProfileItem(
                     icon: Icons.settings,
                     text: "Settings",
-                    onTap: () {},
+                    onTap: () {
+
+                    },
                     color: Colors.pinkAccent,
                   ),
                   ProfileItem(
@@ -106,7 +109,6 @@ class _WorkerProfileScreenState extends State<WorkerProfileScreen> {
                       onTap: () {
                         _logOutDialog(() {
                           context.read<AuthBloc>().add(LogOut());
-
                         });
                       },
                       color: Colors.deepOrange,

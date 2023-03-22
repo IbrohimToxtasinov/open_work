@@ -66,7 +66,7 @@ class _PhoneInputComponentState extends State<PhoneInputComponent> {
             phoneFocusNode.unfocus();
           }
           widget.onChanged.call(value);
-          shadowText = updateShadowText(value);
+         // shadowText = updateShadowText(value);
         });
       },
       validator: widget.validator,

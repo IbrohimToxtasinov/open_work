@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:open_work/data/models/category/category_model.dart';
+import 'package:open_work/data/models/worker_info/worker_info.dart';
 import 'package:open_work/data/models/worker_register_dto/worker_register_dto_model.dart';
 import 'package:open_work/ui/auth/register/client_register_screen.dart';
 import 'package:open_work/ui/auth/register/worker_register_screen.dart';
@@ -48,10 +49,11 @@ class MyRouter {
         return navigateTo(const WorkerHomeScreen());
       case workerInfoScreen:
         return navigateTo(WorkerInfoScreen(
-          worker: settings.arguments as WorkerRegisterDtoModel,
+          worker: settings.arguments as WorkerInfo,
         ));
       case workerUpdateProfile:
-        return navigateTo(const WorkerUpdateProfileScreen());
+        return navigateTo(WorkerUpdateProfileScreen(
+            workerInfo: settings.arguments as WorkerInfo));
       case categorySkills:
         return navigateTo(
             CategorySkills(categoryModel: settings.arguments as CategoryModel));
