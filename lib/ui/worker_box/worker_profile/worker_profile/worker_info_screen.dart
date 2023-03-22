@@ -8,9 +8,11 @@ import 'package:open_work/utils/color.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:open_work/utils/constants.dart';
 
+import '../../../../data/models/worker_info/worker_info.dart';
+
 class WorkerInfoScreen extends StatelessWidget {
   WorkerInfoScreen({super.key, required this.worker});
-  WorkerRegisterDtoModel worker;
+  WorkerInfo worker;
 
   @override
   Widget build(BuildContext context) {
@@ -34,13 +36,13 @@ class WorkerInfoScreen extends StatelessWidget {
           children: [
             Row(
               children: [
-                Padding(
-                  padding: EdgeInsets.only(right: 20),
-                  child: CircleAvatar(
-                    radius: 40,
-                    backgroundImage: CachedNetworkImageProvider(worker.image),
-                  ),
-                ),
+                // Padding(
+                //   padding: EdgeInsets.only(right: 20),
+                //   child: CircleAvatar(
+                //     radius: 40,
+                //     backgroundImage: CachedNetworkImageProvider(worker.image),
+                //   ),
+                // ),
                 Expanded(
                   child: ListTile(
                     title: Text(
@@ -48,7 +50,7 @@ class WorkerInfoScreen extends StatelessWidget {
                       style: const TextStyle(fontSize: 22),
                     ),
                     subtitle: Text(
-                      worker.email,
+                      worker.lastSeen,
                       style: const TextStyle(color: MyColors.LightishGrey),
                     ),
                   ),
@@ -64,14 +66,14 @@ class WorkerInfoScreen extends StatelessWidget {
             ),
             ProfileInfoItem(info: "Birnimabek", type: worker.name),
             ProfileInfoItem(info: "Palonchiyev", type: worker.surname),
-            ProfileInfoItem(info: "birnima@gmail.com", type: worker.email),
-            ProfileInfoItem(info: "+998900265088", type: worker.phone),
+            ProfileInfoItem(info: "birnima@gmail.com", type: worker.name),
+            ProfileInfoItem(info: "+998900265088", type: worker.id.toString()),
             const Spacer(),
             GlobalButton(
               isActive: true,
               buttonText: "Edit Profile",
               onTap: () {
-                Navigator.pushNamed(context, workerUpdateProfile);
+                Navigator.pushNamed(context, workerUpdateProfile,arguments: worker);
               },
             )
           ],

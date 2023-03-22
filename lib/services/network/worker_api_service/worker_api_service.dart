@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:dio/dio.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:open_work/data/models/my_response/my_response_model.dart';
 import 'package:open_work/data/models/worker_business.dart';
 import 'package:open_work/data/models/worker_info/worker_info.dart';
@@ -65,22 +66,34 @@ class WorkerApiService extends WorkerApiClient {
   }
 
   //Worker info CRUD
-  Future<MyResponse> updateWorker(
-      {required String name,
-      required String surname,
-      required String email,
-      required String phone,
-      required String password,
-      File? file}) async {
+  Future<MyResponse> updateWorker({
+    required String name,
+    required String surname,
+    required String email,
+    required String phone,
+    required String password,
+    required XFile file,
+  }) async {
     MyResponse myResponse = MyResponse();
+    String fileName = file.path.split('/').last;
     FormData data = FormData.fromMap({
       "Name": name,
       "Surname": surname,
       "Email": email,
       "Phone": phone,
       "Password": password,
-      "Image": file == null ? null : await MultipartFile.fromFile(file.path)
+      "Image": await MultipartFile.fromFile(
+        file.path,
+        filename: fileName,
+      ),
     });
+
+    print("UPDATING DATA:${data.toString()}");
+    print("Name:$name");
+    print("Surname:$surname");
+    print("Email:$email");
+    print("Password:$password");
+    print("Image Path:${file.path}");
 
     try {
       Response response =

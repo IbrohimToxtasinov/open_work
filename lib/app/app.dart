@@ -37,11 +37,8 @@ class App extends StatelessWidget {
         ),
       ],
       child: MultiBlocProvider(providers: [
-        BlocProvider(
-          create: (context) => AuthBloc(
-            context.read<AuthRepo>(),
-          ),
-        ),
+        BlocProvider(create: (context) => ConnectivityCubit()),
+        BlocProvider(create: (context) => AuthBloc(context.read<AuthRepo>())),
         BlocProvider(
             create: (context) =>
                 CategoriesBloc(categoriesRepo: context.read<CategoriesRepo>())
@@ -62,9 +59,6 @@ class App extends StatelessWidget {
             create: (context) => ClientProfileBloc(
                   clientProfileRepo: context.read<ClientProfileRepo>(),
                 )..add(GetClientInfoEvent())),
-      ], child: MyApp()),
-          create: (context) => ConnectivityCubit(),
-        ),
         BlocProvider(
             create: (context) =>
                 BusynessesBloc()..add(GetWorkerBusynessesEvent(workerId: 12))),
