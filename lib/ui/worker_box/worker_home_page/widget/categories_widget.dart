@@ -35,6 +35,9 @@ class CategoriesWidget extends StatelessWidget {
               itemBuilder: (context, index) {
                 return CategoryItem(
                   onCategoryTap: (){
+                    for(var i = 0; i < state.categories[index].skills.length; i++){
+                      state.categories[index].skills[i].value = false;
+                    }
                     Navigator.pushNamed(context, categorySkills,
                         arguments: state.categories[index]);
                   },

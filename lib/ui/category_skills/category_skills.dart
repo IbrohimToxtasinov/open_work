@@ -101,7 +101,13 @@ class _CategorySkillsState extends State<CategorySkills> {
             child: GlobalButton(
               isActive: true,
               buttonText: "Worker Search",
-              onTap: () {},
+              onTap: () {
+                widget.categoryModel.skills.map((e) {
+                  if (e.value == true) {
+
+                  }
+                });
+              },
             ),
           )
         ],
