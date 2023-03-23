@@ -23,11 +23,7 @@ class WorkerHomeScreen extends StatelessWidget {
         },
       ),
       body: BlocConsumer<BusynessesBloc, BusynessesState>(
-        listener: (context, state) {
-          if (state.status == FormStatus.creatingInSuccess) {
-
-          }
-        },
+        listener: (context, state) {},
         builder: (context, state) {
           if (state.status == FormStatus.pure) {
             return WorkerHomeScreenShimmerLoader(

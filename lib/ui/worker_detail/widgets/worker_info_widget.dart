@@ -1,11 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:open_work/data/models/worker_info/worker_info.dart';
 import 'package:open_work/utils/app_images.dart';
 import 'package:open_work/utils/style.dart';
 
 class WorkerInfoWidget extends StatelessWidget {
-  const WorkerInfoWidget({Key? key}) : super(key: key);
+  final WorkerInfoModel worker;
+
+  const WorkerInfoWidget({
+    Key? key,
+    required this.worker,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -13,21 +19,24 @@ class WorkerInfoWidget extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         ClipRRect(
-            borderRadius: BorderRadius.circular(20).r,
-            child: Image.network(
-                "https://png.pngtree.com/png-clipart/20220823/original/pngtree-cute-janitor-boy-holding-a-mop-cleaning-png-image_8478884.png",
-                width: 124.w,
-                height: 124.h,
-                fit: BoxFit.fill)),
+          borderRadius: BorderRadius.circular(20).r,
+          child: Image.network(
+            worker.image == ""
+                ? 'https://www.citypng.com/public/uploads/small/11639594360nclmllzpmer2dvmrgsojcin90qmnuloytwrcohikyurvuyfzvhxeeaveigoiajks5w2nytyfpix678beyh4ykhgvmhkv3r3yj5hi.png'
+                : "http://3.126.92.10/${worker.image}",
+            width: 124.w,
+            height: 124.h,
+            fit: BoxFit.fill,
+          ),
+        ),
         SizedBox(width: 20.w),
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const Text("Home Cleaning"),
             SizedBox(height: 4.h),
-            Text("Rose Conwell",
-                style: MyTextStyle.aeonikSemiBold
-                    .copyWith(fontSize: 24.sp)),
+            Text("${worker.name} ${worker.surname}",
+                style: MyTextStyle.aeonikSemiBold.copyWith(fontSize: 24.sp)),
             SizedBox(height: 10.h),
             Text("Deposit, New York(NY), 13754",
                 style: MyTextStyle.aeonikLight),
@@ -45,7 +54,7 @@ class WorkerInfoWidget extends StatelessWidget {
                     children: [
                       SvgPicture.asset(AppImages.iconStar),
                       SizedBox(width: 5.w),
-                      const Text("4.1"),
+                      Text(worker.rating.toString()),
                     ],
                   ),
                 ),
