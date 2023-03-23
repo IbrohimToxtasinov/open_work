@@ -6,12 +6,14 @@ import 'package:open_work/bloc/auth/auth_bloc.dart';
 import 'package:open_work/bloc/busynesses/busynesses_bloc.dart';
 import 'package:open_work/bloc/categories/categories_bloc.dart';
 import 'package:open_work/bloc/client_profile/client_profile_bloc.dart';
+import 'package:open_work/bloc/workers_search/workers_search_bloc.dart';
 import 'package:open_work/cubits/connectivity/connectivity_cubit.dart';
 import 'package:open_work/bloc/worker_profile/worker_profile_bloc.dart';
 import 'package:open_work/cubits/tab/tab_cubit.dart';
 import 'package:open_work/data/repositories/auth_repo.dart';
 import 'package:open_work/data/repositories/categories_repo.dart';
 import 'package:open_work/data/repositories/client_profile_repo.dart';
+import 'package:open_work/data/repositories/workers_serch_repo.dart';
 import '../../utils/constants.dart';
 import 'package:adaptive_theme/adaptive_theme.dart';
 import '../ui/router.dart';
@@ -31,6 +33,9 @@ class App extends StatelessWidget {
           create: (context) => CategoriesRepo(),
         ),
         RepositoryProvider(
+          create: (context) => WorkersSearchRepo(),
+        ),
+        RepositoryProvider(
           create: (context) => ClientProfileRepo(),
         ),
       ],
@@ -41,6 +46,11 @@ class App extends StatelessWidget {
             create: (context) =>
                 CategoriesBloc(categoriesRepo: context.read<CategoriesRepo>())
                   ..add(FetchCategories())),
+        BlocProvider(
+          create: (context) => WorkersSearchBloc(
+            workersSearchRepo: context.read<WorkersSearchRepo>(),
+          ),
+        ),
         BlocProvider(
           create: (context) => AuthBloc(
             context.read<AuthRepo>(),
