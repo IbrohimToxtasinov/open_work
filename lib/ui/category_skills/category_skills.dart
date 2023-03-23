@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:open_work/bloc/workers_search/workers_search_bloc.dart';
 import 'package:open_work/data/models/category/category_model.dart';
 import 'package:open_work/data/models/skil/skil_model.dart';
 import 'package:open_work/ui/widgets/global_button.dart';
+import 'package:open_work/utils/constants.dart';
 
 class CategorySkills extends StatefulWidget {
   const CategorySkills({Key? key, required this.categoryModel})
@@ -36,7 +39,7 @@ class _CategorySkillsState extends State<CategorySkills> {
               spacing: 10,
               runSpacing: 10,
               children: widget.categoryModel.skills.map((e) {
-                if (e.value == true) {
+                if (e.isSelected) {
                   return Container(
                     decoration: BoxDecoration(
                         color: Colors.redAccent,
@@ -54,7 +57,7 @@ class _CategorySkillsState extends State<CategorySkills> {
                           GestureDetector(
                             onTap: () {
                               setState(() {
-                                e.value = !e.value;
+                                e.isSelected = !e.isSelected;
                               });
                             },
                             child: const Icon(
@@ -79,7 +82,7 @@ class _CategorySkillsState extends State<CategorySkills> {
           Column(
               children: widget.categoryModel.skills.map((e) {
             return CheckboxListTile(
-              value: e.value,
+              value: e.isSelected,
               activeColor: Colors.redAccent,
               checkboxShape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(5)),
@@ -89,7 +92,7 @@ class _CategorySkillsState extends State<CategorySkills> {
               ),
               onChanged: (value) {
                 setState(() {
-                  e.value = value!;
+                  e.isSelected = value!;
                 });
               },
             );
@@ -102,11 +105,17 @@ class _CategorySkillsState extends State<CategorySkills> {
               isActive: true,
               buttonText: "Worker Search",
               onTap: () {
-                widget.categoryModel.skills.map((e) {
-                  if (e.value == true) {
-
-                  }
-                });
+                List<int> selectedSkillsIds = widget.categoryModel.skills
+                    .where((element) => element.isSelected)
+                    .toList()
+                    .map((e) => e.id)
+                    .toList();
+                BlocProvider.of<WorkersSearchBloc>(context).add(FetchWorkers(
+                    allowedSkillsId: selectedSkillsIds, sortOptions: 0));
+                for (var i = 0; i < widget.categoryModel.skills.length; i++) {
+                  widget.categoryModel.skills[i].isSelected = false;
+                }
+                Navigator.pushNamed(context, allWorkers);
               },
             ),
           )
