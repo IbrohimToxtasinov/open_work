@@ -13,6 +13,7 @@ import 'package:open_work/ui/worker_box/worker_home_page/worker_home_screen.dart
 import 'package:open_work/ui/worker_box/worker_profile/update_profile_screen.dart';
 import 'package:open_work/ui/worker_box/worker_profile/worker_profile/worker_info_screen.dart';
 import 'package:open_work/ui/worker_box/worker_tab_box.dart';
+import 'package:open_work/ui/worker_detail/worker_detail_screen.dart';
 import 'package:open_work/utils/constants.dart';
 import 'auth/login/login_screen.dart';
 import 'auth/option/option_screen.dart';
@@ -59,6 +60,8 @@ class MyRouter {
       case clientProfileUpdate:
         return navigateTo(ClientUpdateProfileScreen(
             userInfo: settings.arguments as UserInfoModel));
+      case workerDetail:
+        return navigateTo(const WorkerDetailScreen());
       case categorySkills:
         return navigateTo(
             CategorySkills(categoryModel: settings.arguments as CategoryModel));

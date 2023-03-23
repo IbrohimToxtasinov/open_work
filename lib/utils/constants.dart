@@ -20,5 +20,6 @@ const String clientHomeScreen = '/client_home_screen';
 const String workerHomeScreen = '/workerHomeScreen';
 const String workerInfoScreen = '/worker_info_screen';
 const String categorySkills = '/category_skils';
+const String workerDetail='/worker_detail';
 myHeight(context) => MediaQuery.of(context).size.height;
 myWidth(context) => MediaQuery.of(context).size.width;
