@@ -12,13 +12,16 @@ class WorkerProfileBloc extends Bloc<WorkerProfileEvent, WorkerProfileState> {
   WorkerProfileBloc()
       : super(WorkerProfileState(
             status: FormStatus.pure,
-            worker: WorkerInfo(
+            worker: WorkerInfoModel(
               email: "",
+              phone: "",
+              skills: [],
               name: "",
               surname: "",
               lastSeen: "",
-              id: 0,
               rating: 0.0,
+              image: "",
+              id: 0,
             ),
             errorMessage: '')) {
     on<GetWorkerInfoEvent>(getWorkerInfo);

@@ -3,7 +3,7 @@ part of 'workers_search_bloc.dart';
 class WorkersSearchState extends Equatable {
   Status status;
   String error;
-  List<WorkerInfo> workers;
+  List<WorkerInfoModel> workers;
 
   WorkersSearchState({
     required this.status,
@@ -14,7 +14,7 @@ class WorkersSearchState extends Equatable {
   WorkersSearchState copyWith({
     Status? status,
     String? error,
-    List<WorkerInfo>? workers,
+    List<WorkerInfoModel>? workers,
   }) {
     return WorkersSearchState(
       error: error ?? this.error,

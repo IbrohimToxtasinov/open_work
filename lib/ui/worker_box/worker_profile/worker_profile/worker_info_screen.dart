@@ -9,7 +9,7 @@ import 'package:open_work/utils/constants.dart';
 
 class WorkerInfoScreen extends StatelessWidget {
   WorkerInfoScreen({super.key, required this.worker});
-  WorkerInfo worker;
+  WorkerInfoModel worker;
 
   @override
   Widget build(BuildContext context) {
