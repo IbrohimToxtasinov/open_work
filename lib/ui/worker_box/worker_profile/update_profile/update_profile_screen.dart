@@ -16,7 +16,7 @@ class WorkerUpdateProfileScreen extends StatefulWidget {
   const WorkerUpdateProfileScreen({Key? key, required this.workerInfo})
       : super(key: key);
 
-  final WorkerInfo workerInfo;
+  final WorkerInfoModel workerInfo;
 
   @override
   State<WorkerUpdateProfileScreen> createState() =>

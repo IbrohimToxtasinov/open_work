@@ -127,7 +127,7 @@ class WorkerApiService extends WorkerApiClient {
     try {
       Response response = await dio.get("${dio.options.baseUrl}workers/me");
       if (response.statusCode == 200) {
-        myResponse.data = WorkerInfo.fromJson(response.data);
+        myResponse.data = WorkerInfoModel.fromJson(response.data);
         myResponse.statusCode = response.statusCode;
       }
     } catch (e) {
