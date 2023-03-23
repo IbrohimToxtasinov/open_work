@@ -48,7 +48,7 @@ class MyRouter {
       case workerRegisterPage:
         return navigateTo(const WorkerRegisterScreen());
       case role:
-        return navigateTo(const RoleScreen());
+        return navigateTo(RoleScreen());
       case clientInfo:
         return navigateTo(const ClientInfoScreen());
       case helpScreen:
