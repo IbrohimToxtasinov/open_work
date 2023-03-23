@@ -102,6 +102,8 @@ class ApiService extends ApiClient {
       });
       if (response.statusCode! >= 200 && response.statusCode! < 300) {
         myResponse.data = response.data;
+      }else if(response.statusCode == 400){
+        myResponse.data = "Ushbu sana allaqachon band qilingan";
       }
     } catch (error) {
       debugPrint("CREATE BUSINESS ERROR:$error");

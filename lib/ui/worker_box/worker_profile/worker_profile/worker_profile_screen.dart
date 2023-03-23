@@ -12,6 +12,8 @@ import 'package:open_work/utils/color.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:open_work/utils/constants.dart';
 
+import '../../../../bloc/busynesses/busynesses_bloc.dart';
+
 class WorkerProfileScreen extends StatefulWidget {
   const WorkerProfileScreen({Key? key}) : super(key: key);
 
@@ -30,6 +32,10 @@ class _WorkerProfileScreenState extends State<WorkerProfileScreen> {
       },
       builder: (context, state) {
         if (state.status == FormStatus.gettingWorkerInfoInSuccess) {
+          BlocProvider.of<BusynessesBloc>(context).add(
+            GetWorkerBusynessesEvent(workerId: state.worker.id),
+          );
+
           WorkerInfo worker = state.worker;
           return Scaffold(
             backgroundColor: const Color(0xFF002766),

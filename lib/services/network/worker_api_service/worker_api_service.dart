@@ -18,9 +18,14 @@ class WorkerApiService extends WorkerApiClient {
       "end": end.toIso8601String()
     };
 
+    print("DATES :${data.toString()}");
+
     try {
       Response response =
-          await dio.post("${dio.options.baseUrl}busynesses", data: data);
+          await dio.post("${dio.options.baseUrl}busynesses", data: {
+            "start": start.toIso8601String(),
+            "end": end.toIso8601String()
+          },);
       if (response.statusCode == 200) {
         myResponse.data = response.data;
         myResponse.statusCode = response.statusCode;

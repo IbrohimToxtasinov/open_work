@@ -58,18 +58,12 @@ class App extends StatelessWidget {
         ),
         BlocProvider(create: (context) => BottomNavCubit()),
         BlocProvider(
-          create: (context) => BusynessesBloc()
-            ..add(
-              GetWorkerBusynessesEvent(workerId: 12),
-            ),
+          create: (context) => BusynessesBloc(),
         ),
         BlocProvider(
             create: (context) => ClientProfileBloc(
                   clientProfileRepo: context.read<ClientProfileRepo>(),
                 )..add(GetClientInfoEvent())),
-        BlocProvider(
-            create: (context) =>
-                BusynessesBloc()..add(GetWorkerBusynessesEvent(workerId: 12))),
         BlocProvider(
             create: (context) =>
                 WorkerProfileBloc()..add(GetWorkerInfoEvent())),

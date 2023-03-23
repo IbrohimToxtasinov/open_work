@@ -9,8 +9,16 @@ import 'package:zoom_tap_animation/zoom_tap_animation.dart';
 import '../../../../data/models/form_status/form_status.dart';
 import '../../../../utils/color.dart';
 
-class CreateBusynessPage extends StatelessWidget {
+class CreateBusynessPage extends StatefulWidget {
   CreateBusynessPage({Key? key}) : super(key: key);
+
+  @override
+  State<CreateBusynessPage> createState() => _CreateBusynessPageState();
+}
+
+class _CreateBusynessPageState extends State<CreateBusynessPage> {
+  DateTime startDate = DateTime.now();
+  DateTime endDate = DateTime.now();
 
   @override
   Widget build(BuildContext context) {
@@ -22,6 +30,7 @@ class CreateBusynessPage extends StatelessWidget {
           listener: (context, state) {
         if (state.status == FormStatus.creatingInSuccess) {
           MyUtils.getMyToast(message: "Busyness create");
+          Navigator.pop(context);
         }
       }, builder: (context, state) {
         if (state.status == FormStatus.gettingInProgress) {
@@ -29,8 +38,6 @@ class CreateBusynessPage extends StatelessWidget {
             child: CircularProgressIndicator(),
           );
         } else if (state.status == FormStatus.gettingInSuccess) {
-          DateTime startDate = DateTime.now();
-          DateTime endDate = DateTime.now();
           return Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
@@ -38,30 +45,36 @@ class CreateBusynessPage extends StatelessWidget {
                 onPressed: () {
                   DatePicker.showDateTimePicker(context, showTitleActions: true,
                       onChanged: (date) {
-                        startDate == date;
+                    startDate = date;
+                    setState(() {});
                   }, onConfirm: (date) {
-                    startDate == date;
+                    startDate = date;
+                    setState(() {});
                   }, currentTime: DateTime.now());
                 },
                 child: const Text(
-                  'start busyness',
+                  'Start busyness',
                   style: TextStyle(color: Colors.black, fontSize: 15),
                 ),
               ),
+              Text(startDate.toIso8601String().toString()),
               TextButton(
                 onPressed: () {
                   DatePicker.showDateTimePicker(context, showTitleActions: true,
                       onChanged: (date) {
-                        endDate == date;
+                    endDate = date;
+                    setState(() {});
                   }, onConfirm: (date) {
-                    endDate == date;
+                    endDate = date;
+                    setState(() {});
                   }, currentTime: DateTime.now());
                 },
                 child: const Text(
-                  'end busyness',
+                  'End busyness',
                   style: TextStyle(color: Colors.black, fontSize: 15),
                 ),
               ),
+              Text(endDate.toString()),
               Padding(
                 padding: const EdgeInsets.only(
                         left: 18, right: 18, bottom: 25, top: 500)
@@ -70,7 +83,7 @@ class CreateBusynessPage extends StatelessWidget {
                   onTap: () {
                     context.read<BusynessesBloc>().add(CreateBusynessesEvent(
                         starts: startDate, ends: endDate));
-                    Navigator.pop(context);
+
                   },
                   child: Container(
                     width: double.infinity,
