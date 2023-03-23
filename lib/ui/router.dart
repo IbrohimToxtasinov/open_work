@@ -66,11 +66,11 @@ class MyRouter {
         return navigateTo(const WorkerHomeScreen());
       case workerInfoScreen:
         return navigateTo(WorkerInfoScreen(
-          worker: settings.arguments as WorkerInfo,
+          worker: settings.arguments as WorkerInfoModel,
         ));
       case workerUpdateProfile:
         return navigateTo(WorkerUpdateProfileScreen(
-            workerInfo: settings.arguments as WorkerInfo));
+            workerInfo: settings.arguments as WorkerInfoModel));
       case clientProfileUpdate:
         return navigateTo(ClientUpdateProfileScreen(
             userInfo: settings.arguments as UserInfoModel));

@@ -278,7 +278,7 @@ class ApiService extends ApiClient {
       );
       if (response.statusCode! >= 200 && response.statusCode! < 300) {
         myResponse.data = (response.data as List?)
-                ?.map((element) => WorkerInfo.fromJson(element))
+                ?.map((element) => WorkerInfoModel.fromJson(element))
                 .toList() ??
             [];
       }
