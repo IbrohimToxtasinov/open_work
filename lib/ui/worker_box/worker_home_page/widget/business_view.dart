@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:open_work/data/models/worker_business.dart';
-
-import '../../../../utils/app_images.dart';
 import '../../../../utils/color.dart';
 
 class BusinessView extends StatelessWidget {
