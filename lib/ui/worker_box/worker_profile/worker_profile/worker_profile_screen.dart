@@ -35,8 +35,7 @@ class _WorkerProfileScreenState extends State<WorkerProfileScreen> {
           BlocProvider.of<BusynessesBloc>(context).add(
             GetWorkerBusynessesEvent(workerId: state.worker.id),
           );
-
-          WorkerInfo worker = state.worker;
+          WorkerInfoModel worker = state.worker;
           return Scaffold(
             backgroundColor: const Color(0xFF002766),
             appBar: ProfileAppBar(
