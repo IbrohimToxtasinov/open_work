@@ -19,7 +19,7 @@ class SplashScreen extends StatelessWidget {
         if (state.authStatus == AuthStatus.authenticated) {
           if (state.userRole == UserRole.client) {
             Navigator.pushNamedAndRemoveUntil(
-                context, workerDetail, (route) => false);
+                context, clientTabBox, (route) => false);
           } else {
             Navigator.pushNamedAndRemoveUntil(
                 context, workerTabBox, (route) => false);
