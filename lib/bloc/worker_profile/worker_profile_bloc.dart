@@ -63,7 +63,7 @@ class WorkerProfileBloc extends Bloc<WorkerProfileEvent, WorkerProfileState> {
       email: event.email,
       phone: event.phone,
       password: event.password,
-      file:event.image!,
+      file: event.image!,
     );
     if (myResponse.errorMessage.isEmpty) {
       emit(state.copyWith(status: FormStatus.updateWorkerInfoInSuccess));
