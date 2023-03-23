@@ -144,13 +144,12 @@ class _WorkerRegisterScreenState extends State<WorkerRegisterScreen> {
                     BlocProvider.of<AuthBloc>(context).add(
                       RegisterWorker(
                         workerRegisterDtoModel: WorkerRegisterDtoModel(
-                          name: _userNameController.text,
-                          surname: _surNameController.text,
-                          email: _emailController.text,
-                          password: _passwordController.text,
-                          phone: phoneText,
-                          image: ""
-                        ),
+                            name: _userNameController.text,
+                            surname: _surNameController.text,
+                            email: _emailController.text,
+                            password: _passwordController.text,
+                            phone: phoneText,
+                            image: ""),
                       ),
                     );
                   },
@@ -160,9 +159,10 @@ class _WorkerRegisterScreenState extends State<WorkerRegisterScreen> {
                 SizedBox(height: 34.h),
                 BlocListener<AuthBloc, AuthState>(
                   listener: (context, state) {
-                    // if (state.authStatus == AuthStatus.registered) {
-                    //   Navigator.pop(context);
-                    // }
+                    if (state.authStatus == AuthStatus.registered) {
+                      MyUtils.getMyToast(message: "User registered");
+                      Navigator.pop(context);
+                    }
                     if (state.formStatus == FormStatus.loading) {
                       showDialog(
                         context: context,
@@ -172,7 +172,7 @@ class _WorkerRegisterScreenState extends State<WorkerRegisterScreen> {
                         },
                       );
                     }
-                    if(state.formStatus == FormStatus.failure){
+                    if (state.formStatus == FormStatus.failure) {
                       Navigator.pop(context);
                       MySnackBar(
                         context,
