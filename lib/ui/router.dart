@@ -9,6 +9,7 @@ import 'package:open_work/ui/category_skills/category_skills.dart';
 import 'package:open_work/ui/client_box/client_home_page/client_home_screen.dart';
 import 'package:open_work/ui/role/role_screen.dart';
 import 'package:open_work/ui/client_box/client_tab_box.dart';
+import 'package:open_work/ui/worker_box/worker_home_page/create_worker_busyness/create_worker_busyness.dart';
 import 'package:open_work/ui/worker_box/worker_home_page/worker_home_screen.dart';
 import 'package:open_work/ui/worker_box/worker_profile/update_profile_screen.dart';
 import 'package:open_work/ui/worker_box/worker_profile/worker_profile/worker_info_screen.dart';
@@ -45,6 +46,8 @@ class MyRouter {
         return navigateTo(const ClientRegisterScreen());
       case workerRegisterPage:
         return navigateTo(const WorkerRegisterScreen());
+      case createBusynessScreen:
+        return navigateTo( CreateBusynessPage());
       case role:
         return navigateTo(const RoleScreen());
       case workerHomeScreen:

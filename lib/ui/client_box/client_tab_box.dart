@@ -23,14 +23,13 @@ class ClientTabBox extends StatelessWidget {
       },
       child: BlocBuilder<BottomNavCubit, int>(builder: (context, state) {
         var index = context.watch<BottomNavCubit>().activePageIndex;
-
         return Scaffold(
           body: IndexedStack(
             index: index,
             children: pages,
           ),
           bottomNavigationBar: BottomNavigationBar(
-        //    selectedItemColor: Colors.blue ,
+            currentIndex: index,
             onTap: (value) {
               context.read<BottomNavCubit>().changePageIndex(value);
             },
