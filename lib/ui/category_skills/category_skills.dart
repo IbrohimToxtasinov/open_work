@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:open_work/bloc/workers_search/workers_search_bloc.dart';
 import 'package:open_work/data/models/category/category_model.dart';
 import 'package:open_work/data/models/skil/skil_model.dart';
 import 'package:open_work/ui/widgets/global_button.dart';
+import 'package:open_work/utils/constants.dart';
 
 class CategorySkills extends StatefulWidget {
   const CategorySkills({Key? key, required this.categoryModel})
@@ -107,6 +110,12 @@ class _CategorySkillsState extends State<CategorySkills> {
                     .toList()
                     .map((e) => e.id)
                     .toList();
+                BlocProvider.of<WorkersSearchBloc>(context).add(FetchWorkers(
+                    allowedSkillsId: selectedSkillsIds, sortOptions: 0));
+                for (var i = 0; i < widget.categoryModel.skills.length; i++) {
+                  widget.categoryModel.skills[i].isSelected = false;
+                }
+                Navigator.pushNamed(context, allWorkers);
               },
             ),
           )

@@ -135,4 +135,18 @@ class WorkerApiService extends WorkerApiClient {
     }
     return myResponse;
   }
+
+  Future<MyResponse> skillAdd(int id) async {
+    MyResponse myResponse = MyResponse();
+    try {
+      Response response =
+          await dio.patch("${dio.options.baseUrl}skills/add/$id");
+      if (response.statusCode == 200) {
+        myResponse.statusCode = response.statusCode;
+      }
+    } catch (e) {
+      myResponse.errorMessage = e.toString();
+    }
+    return myResponse;
+  }
 }
