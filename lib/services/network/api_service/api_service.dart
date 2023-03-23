@@ -6,7 +6,6 @@ import 'package:open_work/data/models/update_user_dto/update_user_dto_model.dart
 import 'package:open_work/data/models/user_info/user_info_model.dart';
 import 'package:open_work/data/models/user_info_base/user_info_base_model.dart';
 import 'package:open_work/data/models/user_login_dto/user_login_dto_model.dart';
-import 'package:open_work/data/models/worker_login_dto/worker_login_dto_model.dart';
 import 'package:open_work/data/models/worker_register_dto/worker_register_dto_model.dart';
 import 'package:open_work/data/repositories/storage_repository.dart';
 import 'package:open_work/services/network/api_service/api_client.dart';
@@ -249,8 +248,8 @@ class ApiService extends ApiClient {
     MyResponse myResponse = MyResponse(errorMessage: '');
     try {
       Response response = await dio.put(
-        '${dio.options.baseUrl}/users',
-        data: updateUserDtoModel,
+        '${dio.options.baseUrl}users',
+        data: updateUserDtoModel.toJson(),
       );
       if (response.statusCode! >= 200 && response.statusCode! < 300) {
         myResponse.data = response.data;
@@ -261,6 +260,4 @@ class ApiService extends ApiClient {
     }
     return myResponse;
   }
-
-//------------------------WORKERS---------------------------
 }

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:open_work/bloc/client_profile/client_profile_bloc.dart';
+import 'package:open_work/data/repositories/client_profile_repo.dart';
+import 'package:open_work/ui/widgets/client_home_screen_shimmer.dart';
 import 'package:open_work/ui/widgets/global_button.dart';
 import 'package:open_work/ui/worker_box/worker_profile/worker_profile/widget/appbar.dart';
 import 'package:open_work/ui/worker_box/worker_profile/worker_profile/widget/profile_info_item.dart';
@@ -34,9 +36,17 @@ class _ClientProfileScreenState extends State<ClientProfileScreen> {
           color: MyColors.white,
         ),
         child: BlocBuilder<ClientProfileBloc, ClientProfileState>(
+          // listener: (context, state) {
+          //   if (state.status == ClientStatus.UPDATECLIENTINFOINSUCCESS) {
+          //     BlocProvider.of<ClientProfileBloc>(context)
+          //         .add(GetClientInfoEvent());
+          //   }
+          //   print(state.status);
+          // },
           builder: (context, state) {
+            print("wxwdwedwxwd ${state.status}");
             if (state.status == ClientStatus.GETTINGCLIENTINFOINSUCCESS) {
-              Column(
+              return Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Row(
@@ -83,24 +93,29 @@ class _ClientProfileScreenState extends State<ClientProfileScreen> {
                     isActive: true,
                     buttonText: "Edit Profile",
                     onTap: () {
-                      Navigator.pushNamed(context, workerUpdateProfile);
+                      Navigator.pushNamed(
+                        context,
+                        clientProfileUpdate,
+                        arguments: state.clientInfoModel,
+                      );
                     },
                   )
                 ],
               );
-            } else if (state.status ==
-                ClientStatus.GETTINGCLIENTINFOINPROGRESS) {
+            }
+            if (state.status == ClientStatus.GETTINGCLIENTINFOINPROGRESS) {
               const Center(
                 child: CircularProgressIndicator(),
               );
-            } else if (state.status ==
-                ClientStatus.GETTINGCLIENTINFOINFAILURY) {
+            }
+            if (state.status == ClientStatus.GETTINGCLIENTINFOINFAILURY) {
               Center(
                 child: Text(state.errorMessage),
               );
             }
+            print(state.clientInfoModel.email);
             return Center(
-              child: Text("Hali data yo'q, ${state.errorMessage.toString()}"),
+              child: Text("State yo'q"),
             );
           },
         ),

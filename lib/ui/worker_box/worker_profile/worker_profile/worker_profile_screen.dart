@@ -24,9 +24,8 @@ class _WorkerProfileScreenState extends State<WorkerProfileScreen> {
   Widget build(BuildContext context) {
     return BlocConsumer<WorkerProfileBloc, WorkerProfileState>(
       listener: (context, state) {
-        if (state.status != FormStatus.gettingWorkerInfoInSuccess) {
-          print(
-              "${state.status} -----------------------------------------------");
+        if (state.status == FormStatus.updateWorkerInfoInSuccess) {
+        context.read<WorkerProfileBloc>().add(GetWorkerInfoEvent());
         }
       },
       builder: (context, state) {
@@ -139,7 +138,7 @@ class _WorkerProfileScreenState extends State<WorkerProfileScreen> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          backgroundColor: MyColors.neutral2,
+          backgroundColor: MyColors.white,
           title: const Text(
             "Rostdan ham akkountdan chiqishni xohlaysizmi?",
             textAlign: TextAlign.center,

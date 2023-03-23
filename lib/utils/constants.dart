@@ -5,6 +5,7 @@ const String mainPage = '/main_page';
 const String clientTabBox = '/client_tab_page';
 const String workerTabBox = '/worker_tab_page';
 const String workerUpdateProfile = '/update_profile';
+const String clientProfileUpdate = '/update_client_profile';
 const String homePage = '/home_page';
 const String loginPage = '/login_page';
 const String clientRegisterPage = '/client_register_page';
