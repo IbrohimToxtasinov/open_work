@@ -24,15 +24,14 @@ class _WorkerProfileScreenState extends State<WorkerProfileScreen> {
   Widget build(BuildContext context) {
     return BlocConsumer<WorkerProfileBloc, WorkerProfileState>(
       listener: (context, state) {
-        if (state.status != FormStatus.gettingWorkerInfoInSuccess) {
-          print(
-              "${state.status} -----------------------------------------------");
+        if (state.status == FormStatus.updateWorkerInfoInSuccess) {
+          context.read<WorkerProfileBloc>().add(GetWorkerInfoEvent());
         }
       },
       builder: (context, state) {
         if (state.status == FormStatus.gettingWorkerInfoInSuccess) {
           WorkerInfo worker = state.worker;
-        return  Scaffold(
+          return Scaffold(
             backgroundColor: const Color(0xFF002766),
             appBar: ProfileAppBar(
                 title: SizedBox(
@@ -87,14 +86,22 @@ class _WorkerProfileScreenState extends State<WorkerProfileScreen> {
                     icon: Icons.settings,
                     text: "Settings",
                     onTap: () {
-
+                      Navigator.pushNamed(
+                        context,
+                        settingsScreen,
+                      );
                     },
                     color: Colors.pinkAccent,
                   ),
                   ProfileItem(
                     icon: Icons.help,
                     text: "Help & Support",
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.pushNamed(
+                        context,
+                        helpScreen,
+                      );
+                    },
                     color: Colors.blue,
                   ),
                   BlocListener<AuthBloc, AuthState>(
@@ -139,7 +146,7 @@ class _WorkerProfileScreenState extends State<WorkerProfileScreen> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          backgroundColor: MyColors.neutral2,
+          backgroundColor: MyColors.white,
           title: const Text(
             "Rostdan ham akkountdan chiqishni xohlaysizmi?",
             textAlign: TextAlign.center,

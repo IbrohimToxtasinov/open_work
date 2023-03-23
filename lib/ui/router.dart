@@ -1,20 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:open_work/data/models/category/category_model.dart';
+import 'package:open_work/data/models/user_info/user_info_model.dart';
 import 'package:open_work/data/models/worker_info/worker_info.dart';
-import 'package:open_work/data/models/worker_register_dto/worker_register_dto_model.dart';
 import 'package:open_work/ui/auth/register/client_register_screen.dart';
 import 'package:open_work/ui/auth/register/worker_register_screen.dart';
 import 'package:open_work/ui/category_skills/category_skills.dart';
 import 'package:open_work/ui/client_box/client_home_page/client_home_screen.dart';
+import 'package:open_work/ui/client_box/client_profile/subscreens/client_info_screen.dart';
+import 'package:open_work/ui/help/help_support_page.dart';
 import 'package:open_work/ui/role/role_screen.dart';
 import 'package:open_work/ui/client_box/client_tab_box.dart';
+import 'package:open_work/ui/settings/settings_screen.dart';
 import 'package:open_work/ui/worker_box/worker_home_page/worker_home_screen.dart';
-import 'package:open_work/ui/worker_box/worker_profile/update_profile_screen.dart';
+import 'package:open_work/ui/worker_box/worker_profile/update_profile/update_profile_screen.dart';
 import 'package:open_work/ui/worker_box/worker_profile/worker_profile/worker_info_screen.dart';
 import 'package:open_work/ui/worker_box/worker_tab_box.dart';
 import 'package:open_work/utils/constants.dart';
 import 'auth/login/login_screen.dart';
 import 'auth/option/option_screen.dart';
+import 'client_box/client_profile_update/client_update_page.dart';
 import 'no_internet/no_internet_screen.dart';
 import 'on_boarding/on_boarding_screen.dart';
 import 'splash/splash_screen.dart';
@@ -44,7 +48,13 @@ class MyRouter {
       case workerRegisterPage:
         return navigateTo(const WorkerRegisterScreen());
       case role:
-        return navigateTo(const RoleScreen());
+        return navigateTo(RoleScreen());
+      case clientInfo:
+        return navigateTo(const ClientInfoScreen());
+      case helpScreen:
+        return navigateTo(const HelpScreen());
+      case settingsScreen:
+        return navigateTo(const SettingsScreen());
       case workerHomeScreen:
         return navigateTo(const WorkerHomeScreen());
       case workerInfoScreen:
@@ -54,6 +64,9 @@ class MyRouter {
       case workerUpdateProfile:
         return navigateTo(WorkerUpdateProfileScreen(
             workerInfo: settings.arguments as WorkerInfo));
+      case clientProfileUpdate:
+        return navigateTo(ClientUpdateProfileScreen(
+            userInfo: settings.arguments as UserInfoModel));
       case categorySkills:
         return navigateTo(
             CategorySkills(categoryModel: settings.arguments as CategoryModel));

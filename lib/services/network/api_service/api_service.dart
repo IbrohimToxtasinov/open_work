@@ -251,8 +251,8 @@ class ApiService extends ApiClient {
     MyResponse myResponse = MyResponse(errorMessage: '');
     try {
       Response response = await dio.put(
-        '${dio.options.baseUrl}/users',
-        data: updateUserDtoModel,
+        '${dio.options.baseUrl}users',
+        data: updateUserDtoModel.toJson(),
       );
       if (response.statusCode! >= 200 && response.statusCode! < 300) {
         myResponse.data = response.data;
