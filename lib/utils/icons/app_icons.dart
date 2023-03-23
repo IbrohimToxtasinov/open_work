@@ -1,4 +1,5 @@
 class AppIcons {
+  static const emptyWorkers = "assets/lottie/empty_workers.json";
   static const noInternet = "assets/lottie/no_internet.json";
   static const messageFailed = "assets/images/message_failed.png";
   static const message = "assets/images/message.png";
@@ -41,6 +42,8 @@ class AppIcons {
   static const languageIcon = "assets/icons/language_icon.svg";
   static const literatureIcon = "assets/icons/literature_icon.svg";
   static const myCoursesIcon = "assets/icons/my_courses_icon.svg";
+  static const workerIcon = "assets/icons/worker_icon.svg";
+  static const clientIcon = "assets/icons/client_icon.svg";
 
 
 }

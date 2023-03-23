@@ -5,6 +5,7 @@ import 'package:open_work/bloc/workers_search/workers_search_bloc.dart';
 import 'package:open_work/data/models/category/category_model.dart';
 import 'package:open_work/data/models/skil/skil_model.dart';
 import 'package:open_work/ui/widgets/global_button.dart';
+import 'package:open_work/ui/widgets/my_appbar.dart';
 import 'package:open_work/utils/constants.dart';
 
 class CategorySkills extends StatefulWidget {
@@ -21,20 +22,18 @@ class _CategorySkillsState extends State<CategorySkills> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: Text(
-          widget.categoryModel.name,
-          style: TextStyle(color: Colors.black, fontSize: 25.sp),
-        ),
-      ),
+      appBar: MyAppBar(isCenter: true, title: widget.categoryModel.name),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          SizedBox(height: 10.h),
           Padding(
-            padding: const EdgeInsets.only(left: 10, right: 10, bottom: 10),
+            padding: EdgeInsets.only(
+              left: 10.w,
+              right: 10.w,
+              bottom: 10.h,
+              top: 10.h,
+            ).w,
             child: Wrap(
               spacing: 10,
               runSpacing: 10,
@@ -61,7 +60,7 @@ class _CategorySkillsState extends State<CategorySkills> {
                               });
                             },
                             child: const Icon(
-                              Icons.delete,
+                              Icons.clear,
                               color: Colors.white,
                             ),
                           ),
@@ -74,10 +73,7 @@ class _CategorySkillsState extends State<CategorySkills> {
               }).toList(),
             ),
           ),
-          const Divider(
-            color: Colors.grey,
-            thickness: 1,
-          ),
+          const Divider(color: Colors.grey, thickness: 1),
           SizedBox(height: 10.h),
           Column(
               children: widget.categoryModel.skills.map((e) {
@@ -112,9 +108,6 @@ class _CategorySkillsState extends State<CategorySkills> {
                     .toList();
                 BlocProvider.of<WorkersSearchBloc>(context).add(FetchWorkers(
                     allowedSkillsId: selectedSkillsIds, sortOptions: 0));
-                for (var i = 0; i < widget.categoryModel.skills.length; i++) {
-                  widget.categoryModel.skills[i].isSelected = false;
-                }
                 Navigator.pushNamed(context, allWorkers);
               },
             ),

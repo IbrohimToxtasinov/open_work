@@ -290,4 +290,24 @@ class ApiService extends ApiClient {
     }
     return myResponse;
   }
+
+//------------------------ALL WORKERS---------------------------
+  Future<MyResponse> getAllWorkers() async {
+    MyResponse myResponse = MyResponse(errorMessage: '');
+    try {
+      Response response = await dio.post(
+        "${dio.options.baseUrl}workers",
+      );
+      if (response.statusCode! >= 200 && response.statusCode! < 300) {
+        myResponse.data = (response.data as List?)
+            ?.map((element) => WorkerInfoModel.fromJson(element))
+            .toList() ??
+            [];
+      }
+    } catch (error) {
+      debugPrint("GET All WORKERS: $error");
+      myResponse.errorMessage = error.toString();
+    }
+    return myResponse;
+  }
 }

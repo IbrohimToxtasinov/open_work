@@ -6,6 +6,7 @@ import 'package:open_work/bloc/auth/auth_bloc.dart';
 import 'package:open_work/bloc/busynesses/busynesses_bloc.dart';
 import 'package:open_work/bloc/categories/categories_bloc.dart';
 import 'package:open_work/bloc/client_profile/client_profile_bloc.dart';
+import 'package:open_work/bloc/get_all_workers/get_all_workers_bloc.dart';
 import 'package:open_work/bloc/workers_search/workers_search_bloc.dart';
 import 'package:open_work/cubits/connectivity/connectivity_cubit.dart';
 import 'package:open_work/bloc/worker_profile/worker_profile_bloc.dart';
@@ -13,6 +14,7 @@ import 'package:open_work/cubits/tab/tab_cubit.dart';
 import 'package:open_work/data/repositories/auth_repo.dart';
 import 'package:open_work/data/repositories/categories_repo.dart';
 import 'package:open_work/data/repositories/client_profile_repo.dart';
+import 'package:open_work/data/repositories/get_all_workers_repo.dart';
 import 'package:open_work/data/repositories/workers_serch_repo.dart';
 import '../../utils/constants.dart';
 import 'package:adaptive_theme/adaptive_theme.dart';
@@ -38,6 +40,9 @@ class App extends StatelessWidget {
         RepositoryProvider(
           create: (context) => ClientProfileRepo(),
         ),
+        RepositoryProvider(
+          create: (context) => GetAllWorkersRepo(),
+        ),
       ],
       child: MultiBlocProvider(providers: [
         BlocProvider(create: (context) => ConnectivityCubit()),
@@ -50,6 +55,11 @@ class App extends StatelessWidget {
           create: (context) => WorkersSearchBloc(
             workersSearchRepo: context.read<WorkersSearchRepo>(),
           ),
+        ),
+        BlocProvider(
+          create: (context) => GetAllWorkersBloc(
+            getAllWorkersRepo: context.read<GetAllWorkersRepo>(),
+          )..add(FetchAllWorkers()),
         ),
         BlocProvider(
           create: (context) => AuthBloc(
