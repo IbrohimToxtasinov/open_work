@@ -199,4 +199,19 @@ class _WorkerRegisterScreenState extends State<WorkerRegisterScreen> {
       ),
     );
   }
+
+  @override
+  void didUpdateWidget(covariant WorkerRegisterScreen oldWidget) {
+    super.didUpdateWidget(oldWidget);
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+  }
 }
