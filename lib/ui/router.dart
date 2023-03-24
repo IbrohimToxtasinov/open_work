@@ -52,9 +52,9 @@ class MyRouter {
       case workerRegisterPage:
         return navigateTo(const WorkerRegisterScreen());
       case createBusynessScreen:
-        return navigateTo( CreateBusynessPage());
-       case confirmationScreen:
-        return navigateTo( ConfirmationScreen());
+        return navigateTo(CreateBusynessPage());
+      case confirmationScreen:
+        return navigateTo(ConfirmationScreen());
       case role:
         return navigateTo(RoleScreen());
       case clientInfo:
@@ -79,9 +79,7 @@ class MyRouter {
             userInfo: settings.arguments as UserInfoModel));
       case workerDetail:
         return navigateTo(
-          WorkerDetailScreen(
-            worker: settings.arguments as WorkerInfoModel,
-          ),
+          WorkerDetailScreen(workerId: settings.arguments as int),
         );
       case categorySkills:
         return navigateTo(
