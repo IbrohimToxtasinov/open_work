@@ -30,9 +30,9 @@ class WorkerHomeScreen extends StatelessWidget {
         },
         builder: (context, state) {
           if (state.status == FormStatus.pure) {
-            return WorkerHomeScreenShimmerLoader(
-              count: state.busynesses.length,
-            );
+            return const WorkerHomeScreenShimmerLoader();
+          } else if (state.status == FormStatus.gettingInProgress) {
+            return const WorkerHomeScreenShimmerLoader();
           } else if (state.status == FormStatus.gettingInSuccess) {
 
           return ListView.separated(
@@ -49,10 +49,6 @@ class WorkerHomeScreen extends StatelessWidget {
                 return BusinessView(workerBusiness: state.busynesses[index]);
 
               },
-            );
-          } else if (state.status == FormStatus.gettingInProgress) {
-            return WorkerHomeScreenShimmerLoader(
-              count: state.busynesses.length,
             );
           } else if (state.status == FormStatus.gettingInFailure) {
             return Center(

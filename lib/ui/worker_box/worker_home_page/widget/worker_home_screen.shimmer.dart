@@ -3,10 +3,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:shimmer/shimmer.dart';
 
 class WorkerHomeScreenShimmerLoader extends StatelessWidget {
-  const WorkerHomeScreenShimmerLoader({Key? key, required this.count})
+  const WorkerHomeScreenShimmerLoader({Key? key,})
       : super(key: key);
-  final int count;
-  @override
+   @override
   Widget build(BuildContext context) {
     return Shimmer.fromColors(
       direction: ShimmerDirection.ltr,
@@ -19,7 +18,7 @@ class WorkerHomeScreenShimmerLoader extends StatelessWidget {
           width: 10.w,
           height: 20,
         ),
-        itemCount: count,
+        itemCount: 10,
         scrollDirection: Axis.vertical,
         itemBuilder: (context, index) {
           return Container(

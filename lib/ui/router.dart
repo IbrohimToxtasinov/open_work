@@ -2,12 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:open_work/data/models/category/category_model.dart';
 import 'package:open_work/data/models/user_info/user_info_model.dart';
 import 'package:open_work/data/models/worker_info/worker_info.dart';
+import 'package:open_work/ui/all_skills/all_skills.dart';
 import 'package:open_work/ui/all_workers/all_worker_screen.dart';
 import 'package:open_work/ui/auth/register/client_register_screen.dart';
 import 'package:open_work/ui/auth/register/worker_register_screen.dart';
 import 'package:open_work/ui/category_skills/category_skills.dart';
 import 'package:open_work/ui/client_box/client_home_page/client_home_screen.dart';
 import 'package:open_work/ui/client_box/client_profile/subscreens/client_info_screen.dart';
+import 'package:open_work/ui/confirmation/confirmation_screen.dart';
 import 'package:open_work/ui/help/help_support_page.dart';
 import 'package:open_work/ui/role/role_screen.dart';
 import 'package:open_work/ui/client_box/client_tab_box.dart';
@@ -51,7 +53,9 @@ class MyRouter {
       case workerRegisterPage:
         return navigateTo(const WorkerRegisterScreen());
       case createBusynessScreen:
-        return navigateTo(CreateBusynessPage());
+        return navigateTo( CreateBusynessPage());
+       case confirmationScreen:
+        return navigateTo( ConfirmationScreen());
       case role:
         return navigateTo(RoleScreen());
       case clientInfo:
@@ -83,6 +87,9 @@ class MyRouter {
       case categorySkills:
         return navigateTo(
             CategorySkills(categoryModel: settings.arguments as CategoryModel));
+      case allSkills:
+        return navigateTo(
+            AllSkills());
       default:
         return navigateTo(
           Scaffold(

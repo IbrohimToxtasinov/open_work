@@ -7,7 +7,7 @@ class MyColors {
 
   // Primary
   static const Color primary = Color(0xFF2972FE);
-
+static const Color primaryMain = Color(0xFF69B22A);
   static const Color mainDark = Color(0xFF111216);
   static const Color mainLight = Color(0xFFFFFFFF);
 
@@ -26,6 +26,9 @@ class MyColors {
   static const Color neutral8 = Color(0xFFEBEEF2);
   static const Color neutral9 = Color(0xFFF4F6F9);
   static const Color neutralWhite = Color(0xFFFFFFFF);
+  static const Color neutral80 = Color(0xFF8E8E8E);
+  static const Color neutral100 = Color(0xFF121F3E);
+  
 
   // Accent
   static const Color accent1 = Color(0xFFECB2F2);

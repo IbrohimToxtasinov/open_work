@@ -105,7 +105,6 @@ class MyApp extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           onGenerateRoute: MyRouter.generateRoute,
           initialRoute: splashPage,
-          // home: ClientHomeScreen(),
         ),
       ),
     );

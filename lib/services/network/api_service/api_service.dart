@@ -295,7 +295,7 @@ class ApiService extends ApiClient {
   Future<MyResponse> getAllWorkers() async {
     MyResponse myResponse = MyResponse(errorMessage: '');
     try {
-      Response response = await dio.post(
+      Response response = await dio.get(
         "${dio.options.baseUrl}workers",
       );
       if (response.statusCode! >= 200 && response.statusCode! < 300) {
