@@ -1,4 +1,4 @@
-import 'package:open_work/data/models/skil/skil_model.dart';
+import 'package:open_work/data/models/skill/skill_model.dart';
 
 class CategoryModel {
   CategoryModel({
@@ -8,14 +8,14 @@ class CategoryModel {
   });
 
   final String name;
-  final List<Skill> skills;
+  final List<SkillModel> skills;
   final int id;
 
   factory CategoryModel.fromJson(Map<String, dynamic> json) => CategoryModel(
         name: json["name"] as String? ?? "",
         id: json["id"] as int? ?? 0,
         skills: (json['skills'] as List? ?? [])
-            .map((e) => Skill.fromJson(e))
+            .map((e) => SkillModel.fromJson(e))
             .toList(),
       );
 
