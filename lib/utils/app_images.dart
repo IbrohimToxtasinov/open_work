@@ -5,6 +5,8 @@ class AppImages {
   static const slay = 'assets/images/mask.png';
   static const worker1 = 'assets/images/worker.png';
   static const worker2 = 'assets/images/worker2.png';
+  static const busynes = 'assets/images/create_busynes.png';
+
 
 
 
