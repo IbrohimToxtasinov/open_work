@@ -54,7 +54,7 @@ class WorkerItem extends StatelessWidget {
                   style: const TextStyle(fontSize: 22),
                 ),
                 subtitle: Text(
-                  workerInfoModel.surname,
+                  workerInfoModel.id.toString(),
                   style: const TextStyle(color: MyColors.LightishGrey),
                 ),
               ),

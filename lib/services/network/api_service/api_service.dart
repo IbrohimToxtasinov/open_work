@@ -310,4 +310,21 @@ class ApiService extends ApiClient {
     }
     return myResponse;
   }
+
+
+//------------------------GET WORKER BY ID---------------------------
+  Future<MyResponse> getWorkerById(int id) async {
+    MyResponse myResponse = MyResponse(errorMessage: '');
+    try {
+      Response response =
+      await dio.get("${dio.options.baseUrl}workers/$id");
+      if (response.statusCode! >= 200 && response.statusCode! < 300) {
+        myResponse.data= WorkerInfoModel.fromJson(response.data);
+        myResponse.statusCode = response.statusCode;
+      }
+    } catch (e) {
+      myResponse.errorMessage = e.toString();
+    }
+    return myResponse;
+  }
 }
