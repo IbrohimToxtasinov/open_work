@@ -5,6 +5,9 @@ import 'package:open_work/bloc/categories/categories_bloc.dart';
 import 'package:open_work/bloc/get_worker_by_id/get_single_worker_bloc.dart';
 import 'package:open_work/data/repositories/get_single_worker_repo.dart';
 import 'package:open_work/ui/widgets/my_appbar.dart';
+import 'package:open_work/ui/worker_detail/widgets/custom_text_bold.dart';
+import 'package:open_work/utils/color.dart';
+import 'package:open_work/utils/constants.dart';
 import 'package:open_work/utils/style.dart';
 import 'widgets/contact_me_botton.dart';
 import 'widgets/grid_view_widget.dart';
@@ -42,6 +45,22 @@ class WorkerDetailScreen extends StatelessWidget {
                       worker: state.workerInfo,
                     ),
                     SizedBox(height: 25.h),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        const CustomTextBold(text: "Comments"),
+                        InkWell(
+                          onTap: () {
+                            Navigator.pushNamed(
+                              context,
+                              commentsScreen,
+                            );
+                          },
+                          child: const CustomTextBold(text: "See comments"),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 16.h),
                     Text(
                       "Lorem ipsum dolor sit amet, consecrate disciplining elite, sed diam nonnull usermod tempor invidious ut labore et",
                       style: MyTextStyle.aeonikLight.copyWith(fontSize: 16.sp),

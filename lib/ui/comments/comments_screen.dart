@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:open_work/ui/widgets/single_icon_appbar.dart';
+import 'package:open_work/utils/icons/app_icons.dart';
 
 class CommentsScreen extends StatelessWidget {
   const CommentsScreen({Key? key}) : super(key: key);
@@ -6,11 +8,13 @@ class CommentsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Comments Screen"),
+      appBar: SingleIconAppBar(
+        onTap: () {},
+        title: 'Comments',
+        svgIcon: AppIcons.addCommentIcon,
       ),
       body: Column(
-        children: const [],
+        children: [],
       ),
     );
   }

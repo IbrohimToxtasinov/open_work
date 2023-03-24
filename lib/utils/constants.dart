@@ -28,5 +28,9 @@ const String allSkills = '/all_skills';
 const String allWorkers = '/all_workers';
 const String workerDetail = '/worker_detail';
 const String confirmationScreen = '/confirmation_screen';
+const String addCommentScreen = '/add_comment_screen';
+const String commentsScreen = '/comments_screen';
+
 myHeight(context) => MediaQuery.of(context).size.height;
+
 myWidth(context) => MediaQuery.of(context).size.width;

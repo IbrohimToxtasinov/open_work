@@ -42,6 +42,8 @@ class AppIcons {
   static const languageIcon = "assets/icons/language_icon.svg";
   static const literatureIcon = "assets/icons/literature_icon.svg";
   static const myCoursesIcon = "assets/icons/my_courses_icon.svg";
+
+  static const addCommentIcon = "assets/icons/comment_add_icon.svg";
   static const workerIcon = "assets/icons/worker_icon.svg";
   static const clientIcon = "assets/icons/client_icon.svg";
 
