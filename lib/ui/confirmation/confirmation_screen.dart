@@ -60,6 +60,7 @@ class ConfirmationScreen extends StatelessWidget {
                 Pinput(
                   length: 4,
                   toolbarEnabled: false,
+
                   //inputFormatters: [Formatter()],
                 ),
                 SizedBox(

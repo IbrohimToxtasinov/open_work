@@ -18,7 +18,7 @@ class WorkerHomeScreenShimmerLoader extends StatelessWidget {
           width: 10.w,
           height: 20,
         ),
-        itemCount: count,
+        itemCount: 10,
         scrollDirection: Axis.vertical,
         itemBuilder: (context, index) {
           return Container(

@@ -105,8 +105,7 @@ class MyApp extends StatelessWidget {
           darkTheme: dark,
           debugShowCheckedModeBanner: false,
           onGenerateRoute: MyRouter.generateRoute,
-         // initialRoute: splashPage,
-           home: ConfirmationScreen(),
+          initialRoute: splashPage,
         ),
       ),
     );
