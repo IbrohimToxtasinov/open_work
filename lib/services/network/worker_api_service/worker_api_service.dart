@@ -29,6 +29,8 @@ class WorkerApiService extends WorkerApiClient {
       if (response.statusCode == 200) {
         myResponse.data = response.data;
         myResponse.statusCode = response.statusCode;
+      }else if(response.statusCode == 400){
+        myResponse.data = "Siz bu vaqtda bo'sh emasiz";
       }
     } catch (e) {
       myResponse.errorMessage = e.toString();

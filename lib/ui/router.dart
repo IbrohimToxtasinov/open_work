@@ -67,7 +67,7 @@ class MyRouter {
       case settingsScreen:
         return navigateTo(const SettingsScreen());
       case workerHomeScreen:
-        return navigateTo(const WorkerHomeScreen());
+        return navigateTo(WorkerHomeScreen());
       case workerInfoScreen:
         return navigateTo(WorkerInfoScreen(
           worker: settings.arguments as WorkerInfoModel,

@@ -28,6 +28,7 @@ class BusinessView extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
+
                     workerBusiness.start.toString(),
                     style: const TextStyle(
                         color: Colors.black,

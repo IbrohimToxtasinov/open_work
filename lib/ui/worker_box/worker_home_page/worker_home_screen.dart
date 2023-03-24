@@ -10,8 +10,8 @@ import 'package:open_work/utils/constants.dart';
 import '../../../data/models/form_status/form_status.dart';
 
 class WorkerHomeScreen extends StatelessWidget {
-  const WorkerHomeScreen({Key? key}) : super(key: key);
-
+   WorkerHomeScreen({Key? key}) : super(key: key);
+  int workerId = 0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,7 +24,9 @@ class WorkerHomeScreen extends StatelessWidget {
       ),
       body: BlocConsumer<BusynessesBloc, BusynessesState>(
         listener: (context, state) {
-          if (state.status == FormStatus.creatingInSuccess) {}
+          if(state.status == FormStatus.creatingInSuccess){
+           context.read<BusynessesBloc>().add(GetWorkerBusynessesEvent(workerId: workerId));
+          }
         },
         builder: (context, state) {
           if (state.status == FormStatus.pure) {
@@ -32,7 +34,8 @@ class WorkerHomeScreen extends StatelessWidget {
           } else if (state.status == FormStatus.gettingInProgress) {
             return const WorkerHomeScreenShimmerLoader();
           } else if (state.status == FormStatus.gettingInSuccess) {
-            return ListView.separated(
+
+          return ListView.separated(
               physics: const BouncingScrollPhysics(),
               separatorBuilder: (context, index) => SizedBox(
                 width: 10.w,
@@ -41,7 +44,10 @@ class WorkerHomeScreen extends StatelessWidget {
               itemCount: state.busynesses.length,
               scrollDirection: Axis.vertical,
               itemBuilder: (context, index) {
+                workerId = state.busynesses[index].workerId;
+
                 return BusinessView(workerBusiness: state.busynesses[index]);
+
               },
             );
           } else if (state.status == FormStatus.gettingInFailure) {

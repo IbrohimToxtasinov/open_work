@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:open_work/bloc/busynesses/busynesses_bloc.dart';
+import 'package:open_work/utils/app_images.dart';
+import 'package:open_work/utils/date_format.dart';
 import 'package:open_work/utils/my_utils.dart';
+import 'package:open_work/utils/style.dart';
 import 'package:zoom_tap_animation/zoom_tap_animation.dart';
 import '../../../../data/models/form_status/form_status.dart';
 import '../../../../utils/color.dart';
@@ -37,48 +40,81 @@ class _CreateBusynessPageState extends State<CreateBusynessPage> {
             child: CircularProgressIndicator(),
           );
         } else if (state.status == FormStatus.gettingInSuccess) {
-          return Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              TextButton(
-                onPressed: () {
-                  DatePicker.showDateTimePicker(context, showTitleActions: true,
-                      onChanged: (date) {
-                    startDate = date;
-                    setState(() {});
-                  }, onConfirm: (date) {
-                    startDate = date;
-                    setState(() {});
-                  }, currentTime: DateTime.now());
-                },
-                child: const Text(
-                  'Start busyness',
-                  style: TextStyle(color: Colors.black, fontSize: 15),
+          return Padding(
+            padding: const EdgeInsets.only(right: 20,left: 20),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Image.asset(AppImages.busynes),
+                SizedBox(height: 30.h),
+                Padding
+                  (
+                  padding: const EdgeInsets.only(left: 10,right: 10).r,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        "${TimeUtils.birthDate(startDate)} ${TimeUtils.birthHourDate(startDate)}",
+                        style: MyTextStyle.aeonikRegular,
+                      ),
+                      Text(
+                        "${TimeUtils.birthDate(endDate)} ${TimeUtils.birthHourDate(endDate)}",
+                        style: MyTextStyle.aeonikRegular,
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-              Text(startDate.toIso8601String().toString()),
-              TextButton(
-                onPressed: () {
-                  DatePicker.showDateTimePicker(context, showTitleActions: true,
-                      onChanged: (date) {
-                    endDate = date;
-                    setState(() {});
-                  }, onConfirm: (date) {
-                    endDate = date;
-                    setState(() {});
-                  }, currentTime: DateTime.now());
-                },
-                child: const Text(
-                  'End busyness',
-                  style: TextStyle(color: Colors.black, fontSize: 15),
+                SizedBox(height: 15.h),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    ZoomTapAnimation(
+                        onTap: () {
+                          DatePicker.showDateTimePicker(context,
+                              showTitleActions: true, onChanged: (date) {
+                            startDate = date;
+                            setState(() {});
+                          }, onConfirm: (date) {
+                            startDate = date;
+                            setState(() {});
+                          }, currentTime: DateTime.now());
+                        },
+                        child: Container(
+                          height: 45.h,
+                          width: 140.w,
+                          decoration: BoxDecoration(
+                              color: MyColors.red,
+                              borderRadius: BorderRadius.circular(20)),
+                          child: Center(
+                            child: Text("Start Busyness"),
+                          ),
+                        )),
+                    ZoomTapAnimation(
+                        onTap: () {
+                          DatePicker.showDateTimePicker(context,
+                              showTitleActions: true, onChanged: (date) {
+                            endDate = date;
+                            setState(() {});
+                          }, onConfirm: (date) {
+                            endDate = date;
+                            setState(() {});
+                          }, currentTime: DateTime.now());
+                        },
+                        child: Container(
+                          height: 45.h,
+                          width: 140.w,
+                          decoration: BoxDecoration(
+
+                              color: Colors.lightBlueAccent,
+                              borderRadius: BorderRadius.circular(20)),
+                          child: Center(
+                            child: Text("End Busyness",style: MyTextStyle.aeonikRegular,selectionColor: MyColors.white,),
+                          ),
+                        )),
+                  ],
                 ),
-              ),
-              Text(endDate.toString()),
-              Padding(
-                padding: const EdgeInsets.only(
-                        left: 18, right: 18, bottom: 25, top: 500)
-                    .r,
-                child: ZoomTapAnimation(
+                SizedBox(height: 200.h),
+                ZoomTapAnimation(
                   onTap: () {
                     context.read<BusynessesBloc>().add(CreateBusynessesEvent(
                         starts: startDate, ends: endDate));
@@ -95,9 +131,8 @@ class _CreateBusynessPageState extends State<CreateBusynessPage> {
                     ),
                   ),
                 ),
-              ),
-              Row()
-            ],
+              ],
+            ),
           );
         } else {
           return Center(

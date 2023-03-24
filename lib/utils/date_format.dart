@@ -15,4 +15,8 @@ class TimeUtils {
     final format = DateFormat.yMMMMd().format(dateTime).toString();
     return format;
   }
+  static String birthHourDate(DateTime dateTime) {
+    final format = DateFormat.Hm().format(dateTime).toString();
+    return format;
+  }
 }
