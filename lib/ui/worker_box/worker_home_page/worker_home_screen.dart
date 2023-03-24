@@ -23,12 +23,14 @@ class WorkerHomeScreen extends StatelessWidget {
         },
       ),
       body: BlocConsumer<BusynessesBloc, BusynessesState>(
-        listener: (context, state) {},
+        listener: (context, state) {
+          if (state.status == FormStatus.creatingInSuccess) {}
+        },
         builder: (context, state) {
           if (state.status == FormStatus.pure) {
-            return WorkerHomeScreenShimmerLoader(
-              count: state.busynesses.length,
-            );
+            return const WorkerHomeScreenShimmerLoader();
+          } else if (state.status == FormStatus.gettingInProgress) {
+            return const WorkerHomeScreenShimmerLoader();
           } else if (state.status == FormStatus.gettingInSuccess) {
             return ListView.separated(
               physics: const BouncingScrollPhysics(),
@@ -41,10 +43,6 @@ class WorkerHomeScreen extends StatelessWidget {
               itemBuilder: (context, index) {
                 return BusinessView(workerBusiness: state.busynesses[index]);
               },
-            );
-          } else if (state.status == FormStatus.gettingInProgress) {
-            return WorkerHomeScreenShimmerLoader(
-              count: state.busynesses.length,
             );
           } else if (state.status == FormStatus.gettingInFailure) {
             return Center(
