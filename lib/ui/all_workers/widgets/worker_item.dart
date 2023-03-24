@@ -8,9 +8,11 @@ import '../../../utils/color.dart';
 class WorkerItem extends StatelessWidget {
   final WorkerInfoModel workerInfoModel;
   final VoidCallback onTap;
+  double horizontalPad;
 
-  const WorkerItem({
+  WorkerItem({
     Key? key,
+    this.horizontalPad = 24,
     required this.workerInfoModel,
     required this.onTap,
   }) : super(key: key);
@@ -22,22 +24,26 @@ class WorkerItem extends StatelessWidget {
         onTap();
       },
       child: Container(
-        margin: EdgeInsets.only(left: 24.w, right: 24.w, bottom: 20.h).w,
+        margin: EdgeInsets.only(
+            left: horizontalPad.w, right: horizontalPad.w, bottom: 20.h),
         width: double.infinity,
-        height: 100.h,
         decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(20),
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(16),
             border: Border.all(color: Colors.black, width: 1)),
         child: Row(
           children: [
-            Padding(
-              padding: EdgeInsets.only(right: 20.w, left: 20.w).w,
-              child: CircleAvatar(
-                radius: 40,
-                backgroundImage: NetworkImage(
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 12),
+              height: 56,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(100),
+                child: Image.network(
                   workerInfoModel.image == ""
                       ? 'https://www.citypng.com/public/uploads/small/11639594360nclmllzpmer2dvmrgsojcin90qmnuloytwrcohikyurvuyfzvhxeeaveigoiajks5w2nytyfpix678beyh4ykhgvmhkv3r3yj5hi.png'
                       : "http://3.126.92.10/${workerInfoModel.image}",
+                  height: 56,
+                  fit: BoxFit.cover,
                 ),
               ),
             ),

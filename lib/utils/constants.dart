@@ -24,6 +24,7 @@ const String workerHomeScreen = '/workerHomeScreen';
 const String workerInfoScreen = '/worker_info_screen';
 const String createBusynessScreen = '/create_busyness_screen';
 const String categorySkills = '/category_skills';
+const String allSkills = '/all_skills';
 const String allWorkers = '/all_workers';
 const String workerDetail = '/worker_detail';
 const String confirmationScreen = '/confirmation_screen';

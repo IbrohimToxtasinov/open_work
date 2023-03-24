@@ -8,8 +8,11 @@ import 'package:open_work/ui/worker_box/worker_home_page/widget/all_categories_t
 import 'package:open_work/ui/worker_box/worker_home_page/widget/carysel_slider.dart';
 import 'package:open_work/ui/worker_box/worker_home_page/widget/categories_widget.dart';
 import 'package:open_work/utils/color.dart';
+import 'package:open_work/utils/constants.dart';
 import 'package:open_work/utils/my_utils.dart';
 import 'package:zoom_tap_animation/zoom_tap_animation.dart';
+
+import '../all_workers/widgets/worker_item.dart';
 
 class ClientHomeWidget extends StatelessWidget {
   const ClientHomeWidget({super.key});
@@ -27,7 +30,9 @@ class ClientHomeWidget extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               ZoomTapAnimation(
-                onTap: () {},
+                onTap: () {
+                  Navigator.pushNamed(context, allSkills);
+                },
                 child: Container(
                   height: 50.h,
                   decoration: BoxDecoration(
@@ -70,38 +75,43 @@ class ClientHomeWidget extends StatelessWidget {
             ],
           ),
         ),
-        // BlocBuilder<GetAllWorkersBloc, GetAllWorkersState>(
-        //   builder: (context, state) {
-        //     if (state.status == Status.LOADING) {
-        //       return const Center(
-        //         child: CircularProgressIndicator(),
-        //       );
-        //     } else if (state.status == Status.SUCCESS) {
-        //       return SliverList(
-        //         delegate: SliverChildListDelegate(
-        //           List.generate(
-        //             state.workers.length,
-        //             (index) => Padding(
-        //               padding: EdgeInsets.only(bottom: 20.h).r,
-        //               child: Container(
-        //                 width: 388.w,
-        //                 height: 128.h,
-        //                 decoration: BoxDecoration(
-        //                   color: Colors.white,
-        //                   borderRadius: BorderRadius.circular(10.r),
-        //                 ),
-        //               ),
-        //             ),
-        //           ),
-        //         ),
-        //       );
-        //     } else if (state.status == Status.ERROR) {
-        //       return Center(child: Text(state.error));
-        //     } else {
-        //       return const SizedBox();
-        //     }
-        //   },
-        // ),
+        BlocBuilder<GetAllWorkersBloc, GetAllWorkersState>(
+          builder: (context, state) {
+            if (state.status == Status.LOADING) {
+              return SliverToBoxAdapter(
+                child: const Center(
+                  child: CircularProgressIndicator(),
+                ),
+              );
+            } else if (state.status == Status.SUCCESS) {
+              return SliverList(
+                delegate: SliverChildListDelegate(
+                  List.generate(
+                    state.workers.length,
+                    (index) {
+                      return WorkerItem(
+                        horizontalPad: 4,
+                        workerInfoModel: state.workers[index],
+                        onTap: () {
+                          Navigator.pushNamed(
+                            context,
+                            workerDetail,
+                            arguments: state.workers[index],
+                          );
+                        },
+                      );
+                    },
+                  ),
+                ),
+              );
+            } else if (state.status == Status.ERROR) {
+              return SliverToBoxAdapter(
+                  child: Center(child: Text(state.error)));
+            } else {
+              return SliverToBoxAdapter(child: const SizedBox());
+            }
+          },
+        ),
       ],
     );
   }
