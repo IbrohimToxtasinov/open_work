@@ -48,7 +48,7 @@ class WorkerDetailScreen extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        const CustomTextBold(text: "Comments"),
+                        const CustomTextBold(text: "Reviews"),
                         InkWell(
                           onTap: () {
                             Navigator.pushNamed(
@@ -56,7 +56,7 @@ class WorkerDetailScreen extends StatelessWidget {
                               commentsScreen,
                             );
                           },
-                          child: const CustomTextBold(text: "See comments"),
+                          child: const CustomTextBold(text: "See reviews"),
                         ),
                       ],
                     ),
