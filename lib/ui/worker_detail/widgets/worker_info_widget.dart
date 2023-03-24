@@ -24,8 +24,8 @@ class WorkerInfoWidget extends StatelessWidget {
             worker.image == ""
                 ? 'https://www.citypng.com/public/uploads/small/11639594360nclmllzpmer2dvmrgsojcin90qmnuloytwrcohikyurvuyfzvhxeeaveigoiajks5w2nytyfpix678beyh4ykhgvmhkv3r3yj5hi.png'
                 : "http://3.126.92.10/${worker.image}",
-            width: 50.w,
-            height: 50.w,
+            width: 100.w,
+            height: 100.w,
             fit: BoxFit.fill,
           ),
         ),
