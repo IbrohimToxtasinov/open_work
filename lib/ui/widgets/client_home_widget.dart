@@ -31,6 +31,7 @@ class ClientHomeWidget extends StatelessWidget {
             children: [
               ZoomTapAnimation(
                 onTap: () {
+                  BlocProvider.of<CategoriesBloc>(context).add(MakeSkillsUnselected());
                   Navigator.pushNamed(context, allSkills);
                 },
                 child: Container(

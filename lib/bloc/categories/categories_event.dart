@@ -1,3 +1,7 @@
 part of 'categories_bloc.dart';
 
-class FetchCategories{}
+
+abstract class CategoriesEvent{}
+
+class FetchCategories extends CategoriesEvent{}
+class MakeSkillsUnselected extends CategoriesEvent{}

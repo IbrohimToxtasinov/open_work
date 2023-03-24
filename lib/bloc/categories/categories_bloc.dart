@@ -8,11 +8,12 @@ part 'categories_event.dart';
 
 part 'categories_state.dart';
 
-class CategoriesBloc extends Bloc<FetchCategories, CategoriesState> {
+class CategoriesBloc extends Bloc<CategoriesEvent, CategoriesState> {
   CategoriesBloc({required this.categoriesRepo})
       : super(CategoriesState(
             status: Status.PURE, error: "", categories: const [])) {
     on<FetchCategories>(fetchCategories);
+    on<MakeSkillsUnselected>(makeSkillsUnselected);
   }
 
   final CategoriesRepo categoriesRepo;
@@ -27,5 +28,17 @@ class CategoriesBloc extends Bloc<FetchCategories, CategoriesState> {
       emit(
           state.copyWith(error: myResponse.errorMessage, status: Status.ERROR));
     }
+  }
+
+  makeSkillsUnselected(MakeSkillsUnselected event, Emitter<CategoriesState> emit) {
+    List<CategoryModel> categories = state.categories;
+
+    for (var element in categories) {
+      for (var innerElement in element.skills) {
+        innerElement.isSelected = false;
+      }
+    }
+
+    emit(state.copyWith(categories: categories));
   }
 }

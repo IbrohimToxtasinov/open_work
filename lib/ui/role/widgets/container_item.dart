@@ -37,9 +37,8 @@ class ContainerItem extends StatelessWidget {
             right: 16.w,
             top: 8.h,
             bottom: 8.h,
-          ).w,
+          ),
           width: double.infinity,
-          height: 62.h,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10.r).r,
             border: Border.all(width: 1.w, color: Colors.grey),
@@ -50,7 +49,6 @@ class ContainerItem extends StatelessWidget {
               Row(
                 children: [
                   Container(
-                    height: 46.h,
                     width: 46.w,
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(5.r).r,
