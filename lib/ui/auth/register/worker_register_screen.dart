@@ -15,7 +15,10 @@ import 'package:open_work/ui/widgets/loading.dart';
 import 'package:open_work/ui/widgets/my_animated_snackbar.dart';
 import 'package:open_work/ui/widgets/phone_input_component.dart';
 import 'package:open_work/utils/color.dart';
+import 'package:open_work/utils/constants.dart';
 import 'package:open_work/utils/my_utils.dart';
+
+import '../../../bloc/confirmation/confirmation_bloc.dart';
 
 class WorkerRegisterScreen extends StatefulWidget {
   const WorkerRegisterScreen({Key? key}) : super(key: key);
@@ -134,27 +137,53 @@ class _WorkerRegisterScreenState extends State<WorkerRegisterScreen> {
                   initialValue: "",
                 ),
                 SizedBox(height: 50.h),
-                GlobalButton(
-                  onTap: () {
-                    _formKey.currentState!.validate();
-                    print(_userNameController.text);
-                    print(_surNameController.text);
-                    print(_emailController.text);
-                    print(_passwordController.text);
-                    BlocProvider.of<AuthBloc>(context).add(
-                      RegisterWorker(
-                        workerRegisterDtoModel: WorkerRegisterDtoModel(
-                            name: _userNameController.text,
-                            surname: _surNameController.text,
-                            email: _emailController.text,
-                            password: _passwordController.text,
-                            phone: phoneText,
-                            image: ""),
-                      ),
-                    );
+                BlocListener<ConfirmationBloc, ConfirmationState>(
+                  listener: (context, state) {
+                    if (state.confirmStatus == ConfirmStatus.confirmed) {
+                      _formKey.currentState!.validate();
+                      print(_userNameController.text);
+                      print(_surNameController.text);
+                      print(_emailController.text);
+                      print(_passwordController.text);
+                      BlocProvider.of<AuthBloc>(context).add(
+                        RegisterWorker(
+                          workerRegisterDtoModel: WorkerRegisterDtoModel(
+                              name: _userNameController.text,
+                              surname: _surNameController.text,
+                              email: _emailController.text,
+                              password: _passwordController.text,
+                              phone: phoneText,
+                              image: ""),
+                        ),
+                      );
+                    }
                   },
-                  isActive: true,
-                  buttonText: "Create account",
+                  child: GlobalButton(
+                    onTap: () {
+                      BlocProvider.of<ConfirmationBloc>(context)
+                          .add(SendCode(email: _emailController.text));
+                      Navigator.pushNamed(context, confirmationScreen);
+
+                      // _formKey.currentState!.validate();
+                      // print(_userNameController.text);
+                      // print(_surNameController.text);
+                      // print(_emailController.text);
+                      // print(_passwordController.text);
+                      // BlocProvider.of<AuthBloc>(context).add(
+                      //   RegisterWorker(
+                      //     workerRegisterDtoModel: WorkerRegisterDtoModel(
+                      //         name: _userNameController.text,
+                      //         surname: _surNameController.text,
+                      //         email: _emailController.text,
+                      //         password: _passwordController.text,
+                      //         phone: phoneText,
+                      //         image: ""),
+                      //   ),
+                      // );
+                    },
+                    isActive: true,
+                    buttonText: "Create account",
+                  ),
                 ),
                 SizedBox(height: 34.h),
                 BlocListener<AuthBloc, AuthState>(

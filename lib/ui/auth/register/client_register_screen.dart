@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:open_work/bloc/auth/auth_bloc.dart';
+import 'package:open_work/bloc/confirmation/confirmation_bloc.dart';
 import 'package:open_work/data/models/form_status/form_status.dart';
 import 'package:open_work/data/models/user_register_dto/user_register_dto_model.dart';
 import 'package:open_work/ui/auth/widgets/auth_appbar.dart';
@@ -12,6 +13,8 @@ import 'package:open_work/ui/widgets/global_button.dart';
 import 'package:open_work/ui/widgets/loading.dart';
 import 'package:open_work/ui/widgets/my_animated_snackbar.dart';
 import 'package:open_work/utils/color.dart';
+
+import '../../../utils/constants.dart';
 
 class ClientRegisterScreen extends StatefulWidget {
   const ClientRegisterScreen({Key? key}) : super(key: key);
@@ -121,25 +124,48 @@ class _ClientRegisterScreenState extends State<ClientRegisterScreen> {
                   hintText: "Password",
                 ),
                 SizedBox(height: 50.h),
-                GlobalButton(
-                  onTap: () {
-                    _formKey.currentState!.validate();
-                    print(_userNameController.text);
-                    print(_surNameController.text);
-                    print(_emailController.text);
-                    print(_passwordController.text);
-                    BlocProvider.of<AuthBloc>(context).add(
-                      RegisterClient(
-                        userRegisterDtoModel: UserRegisterDtoModel(
-                            name: _userNameController.text,
-                            surname: _surNameController.text,
-                            email: _emailController.text,
-                            password: _passwordController.text),
-                      ),
-                    );
+                BlocListener<ConfirmationBloc, ConfirmationState>(
+                  listener: (context, state) {
+                    if (state.confirmStatus == ConfirmStatus.confirmed) {
+                      _formKey.currentState!.validate();
+                      print(_userNameController.text);
+                      print(_surNameController.text);
+                      print(_emailController.text);
+                      print(_passwordController.text);
+                      BlocProvider.of<AuthBloc>(context).add(
+                        RegisterClient(
+                          userRegisterDtoModel: UserRegisterDtoModel(
+                              name: _userNameController.text,
+                              surname: _surNameController.text,
+                              email: _emailController.text,
+                              password: _passwordController.text),
+                        ),
+                      );
+                    }
                   },
-                  isActive: true,
-                  buttonText: "Create account",
+                  child: GlobalButton(
+                    onTap: () {
+                      BlocProvider.of<ConfirmationBloc>(context).add(SendCode(email: _emailController.text));
+                      Navigator.pushNamed(context, confirmationScreen);
+
+                      // _formKey.currentState!.validate();
+                      // print(_userNameController.text);
+                      // print(_surNameController.text);
+                      // print(_emailController.text);
+                      // print(_passwordController.text);
+                      // BlocProvider.of<AuthBloc>(context).add(
+                      //   RegisterClient(
+                      //     userRegisterDtoModel: UserRegisterDtoModel(
+                      //         name: _userNameController.text,
+                      //         surname: _surNameController.text,
+                      //         email: _emailController.text,
+                      //         password: _passwordController.text),
+                      //   ),
+                      // );
+                    },
+                    isActive: true,
+                    buttonText: "Create account",
+                  ),
                 ),
                 SizedBox(height: 34.h),
                 BlocListener<AuthBloc, AuthState>(

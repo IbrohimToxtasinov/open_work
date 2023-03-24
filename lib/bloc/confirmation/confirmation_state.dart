@@ -1,10 +1,22 @@
 part of 'confirmation_bloc.dart';
 
-abstract class ConfirmationState extends Equatable {
-  const ConfirmationState();
+class ConfirmationState extends Equatable {
+  final ConfirmStatus confirmStatus;
+
+  const ConfirmationState({required this.confirmStatus});
+
+  ConfirmationState copyWith({ConfirmStatus? confirmStatus}) =>
+      ConfirmationState(confirmStatus: confirmStatus ?? this.confirmStatus);
+
+  @override
+  List<Object> get props => [confirmStatus];
 }
 
-class ConfirmationInitial extends ConfirmationState {
-  @override
-  List<Object> get props => [];
+enum ConfirmStatus {
+  pure,
+  unconfirmed,
+  codeSent,
+  codeNotSent,
+  confirmed,
+  loading,
 }

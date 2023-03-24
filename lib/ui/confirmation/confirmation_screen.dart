@@ -58,7 +58,7 @@ class ConfirmationScreen extends StatelessWidget {
                   height: 24.h,
                 ),
                 Pinput(
-                  length: 4,
+                  length: 6,
                   toolbarEnabled: false,
 
                   //inputFormatters: [Formatter()],
