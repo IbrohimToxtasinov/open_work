@@ -4,8 +4,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:open_work/bloc/busynesses/busynesses_bloc.dart';
 import 'package:open_work/ui/widgets/home_screen_appbar.dart';
 import 'package:open_work/ui/worker_box/worker_home_page/widget/business_view.dart';
+import 'package:open_work/ui/worker_box/worker_home_page/widget/worker_home_screen.shimmer.dart';
 import 'package:open_work/utils/color.dart';
-
+import 'package:open_work/utils/constants.dart';
 import '../../../data/models/form_status/form_status.dart';
 
 class WorkerHomeScreen extends StatelessWidget {
@@ -14,14 +15,23 @@ class WorkerHomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: MyColors.editBackground,
-        appBar:  HomeScreenAppbar(
-          rightText: "Add business",
-          onTap: (){},
-        ),
-        body: BlocBuilder<BusynessesBloc, BusynessesState>(
-            builder: (context, state) {
-          if (state.status == FormStatus.gettingInSuccess) {
+      backgroundColor: MyColors.editBackground,
+      appBar: HomeScreenAppbar(
+        rightText: "Add business",
+        onTap: () {
+          Navigator.pushNamed(context, createBusynessScreen);
+        },
+      ),
+      body: BlocConsumer<BusynessesBloc, BusynessesState>(
+        listener: (context, state) {
+          if (state.status == FormStatus.creatingInSuccess) {}
+        },
+        builder: (context, state) {
+          if (state.status == FormStatus.pure) {
+            return const WorkerHomeScreenShimmerLoader();
+          } else if (state.status == FormStatus.gettingInProgress) {
+            return const WorkerHomeScreenShimmerLoader();
+          } else if (state.status == FormStatus.gettingInSuccess) {
             return ListView.separated(
               physics: const BouncingScrollPhysics(),
               separatorBuilder: (context, index) => SizedBox(
@@ -34,15 +44,14 @@ class WorkerHomeScreen extends StatelessWidget {
                 return BusinessView(workerBusiness: state.busynesses[index]);
               },
             );
-          } else if (state.status == FormStatus.gettingInProgress) {
-            return Center(
-              child: CircularProgressIndicator(),
-            );
-          } else {
+          } else if (state.status == FormStatus.gettingInFailure) {
             return Center(
               child: Text(state.errorMessage.toString()),
             );
           }
-        }));
+          return const SizedBox();
+        },
+      ),
+    );
   }
 }

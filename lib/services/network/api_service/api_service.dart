@@ -6,10 +6,12 @@ import 'package:open_work/data/models/update_user_dto/update_user_dto_model.dart
 import 'package:open_work/data/models/user_info/user_info_model.dart';
 import 'package:open_work/data/models/user_info_base/user_info_base_model.dart';
 import 'package:open_work/data/models/user_login_dto/user_login_dto_model.dart';
+import 'package:open_work/data/models/worker_info/worker_info.dart';
 import 'package:open_work/data/models/worker_login_dto/worker_login_dto_model.dart';
 import 'package:open_work/data/models/worker_register_dto/worker_register_dto_model.dart';
 import 'package:open_work/data/repositories/storage_repository.dart';
 import 'package:open_work/services/network/api_service/api_client.dart';
+import 'package:open_work/utils/constants.dart';
 import '../../../data/models/my_response/my_response_model.dart';
 import '../../../data/models/user_register_dto/user_register_dto_model.dart';
 
@@ -100,6 +102,8 @@ class ApiService extends ApiClient {
       });
       if (response.statusCode! >= 200 && response.statusCode! < 300) {
         myResponse.data = response.data;
+      }else if(response.statusCode == 400){
+        myResponse.data = "Ushbu sana allaqachon band qilingan";
       }
     } catch (error) {
       debugPrint("CREATE BUSINESS ERROR:$error");
@@ -207,6 +211,7 @@ class ApiService extends ApiClient {
       Response response = await dio.get("${dio.options.baseUrl}users/me");
       if (response.statusCode! >= 200 && response.statusCode! < 300) {
         myResponse.data = UserInfoModel.fromJson(response.data);
+        print(response.data);
       }
     } catch (error) {
       debugPrint("GET CLIENT INFO ERROR:$error");
@@ -248,8 +253,8 @@ class ApiService extends ApiClient {
     MyResponse myResponse = MyResponse(errorMessage: '');
     try {
       Response response = await dio.put(
-        '${dio.options.baseUrl}/users',
-        data: updateUserDtoModel,
+        '${dio.options.baseUrl}users',
+        data: updateUserDtoModel.toJson(),
       );
       if (response.statusCode! >= 200 && response.statusCode! < 300) {
         myResponse.data = response.data;
@@ -261,5 +266,48 @@ class ApiService extends ApiClient {
     return myResponse;
   }
 
-//------------------------WORKERS---------------------------
+//------------------------WORKERS SEARCH---------------------------
+  Future<MyResponse> getWorkersSearch(
+      {required List<int> allowedSkillsId, required int sortOptions}) async {
+    MyResponse myResponse = MyResponse(errorMessage: '');
+    try {
+      Response response = await dio.post(
+        "${dio.options.baseUrl}workers/search",
+        data: {
+          "allowedSkillsId": allowedSkillsId,
+          "sortOptions": sortOptions,
+        },
+      );
+      if (response.statusCode! >= 200 && response.statusCode! < 300) {
+        myResponse.data = (response.data as List?)
+                ?.map((element) => WorkerInfoModel.fromJson(element))
+                .toList() ??
+            [];
+      }
+    } catch (error) {
+      debugPrint("GET WORKERS SEARCH: $error");
+      myResponse.errorMessage = error.toString();
+    }
+    return myResponse;
+  }
+
+//------------------------ALL WORKERS---------------------------
+  Future<MyResponse> getAllWorkers() async {
+    MyResponse myResponse = MyResponse(errorMessage: '');
+    try {
+      Response response = await dio.post(
+        "${dio.options.baseUrl}workers",
+      );
+      if (response.statusCode! >= 200 && response.statusCode! < 300) {
+        myResponse.data = (response.data as List?)
+            ?.map((element) => WorkerInfoModel.fromJson(element))
+            .toList() ??
+            [];
+      }
+    } catch (error) {
+      debugPrint("GET All WORKERS: $error");
+      myResponse.errorMessage = error.toString();
+    }
+    return myResponse;
+  }
 }

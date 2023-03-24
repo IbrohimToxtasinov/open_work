@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:open_work/data/models/form_status/form_status.dart';
 import 'package:open_work/data/models/my_response/my_response_model.dart';
 import 'package:open_work/data/models/user_login_dto/user_login_dto_model.dart';
@@ -41,6 +42,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     String userRole = StorageRepository.getString("user_role");
 
     if (token.isNotEmpty) {
+      debugPrint("$userRole USER TOKEN: $token");
       emit(
         state.copyWith(
           userRole: userRole == "client" ? UserRole.client : UserRole.worker,
@@ -78,9 +80,18 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     );
     if (myResponse.errorMessage.isEmpty) {
       emit(state.copyWith(
-        authStatus: AuthStatus.registered,
         formStatus: FormStatus.success,
+        authStatus: AuthStatus.registered,
       ));
+    }
+    else {
+      emit(
+        state.copyWith(
+          authStatus: AuthStatus.unauthenticated,
+          formStatus: FormStatus.failure,
+          errorText: myResponse.errorMessage,
+        ),
+      );
     }
   }
 
@@ -90,7 +101,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         userRegisterDtoModel: event.userRegisterDtoModel);
     if (myResponse.errorMessage.isEmpty) {
       emit(state.copyWith(authStatus: AuthStatus.registered));
-    } else {
+    } else { 
       emit(
         state.copyWith(
           authStatus: AuthStatus.unauthenticated,

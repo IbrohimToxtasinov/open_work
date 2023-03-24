@@ -1,14 +1,10 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:open_work/bloc/categories/categories_bloc.dart';
+import 'package:open_work/ui/widgets/client_home_screen_shimmer.dart';
+import 'package:open_work/ui/widgets/client_home_widget.dart';
 import 'package:open_work/ui/widgets/home_screen_appbar.dart';
-import 'package:open_work/ui/worker_box/worker_home_page/widget/categories_widget.dart';
-import 'package:zoom_tap_animation/zoom_tap_animation.dart';
-
-import '../../../utils/color.dart';
-import '../../../utils/my_utils.dart';
-import '../../worker_box/worker_home_page/widget/all_categories_title.dart';
-import '../../worker_box/worker_home_page/widget/carysel_slider.dart';
 
 class ClientHomeScreen extends StatelessWidget {
   const ClientHomeScreen({super.key});
@@ -18,87 +14,29 @@ class ClientHomeScreen extends StatelessWidget {
     return Scaffold(
       appBar: HomeScreenAppbar(
         rightText: "",
-        onTap: (){},
+        onTap: () {},
       ),
       body: Container(
-        padding: EdgeInsets.symmetric(horizontal: 10.w).r,
+        padding: EdgeInsets.symmetric(horizontal: 20.w).r,
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,
-        color: Color(0xFFE5E5E5),
-        child: CustomScrollView(
-          physics: const BouncingScrollPhysics(),
-          slivers: [
-            SliverToBoxAdapter(
-              child: SizedBox(height: 25.h),
-            ),
-            SliverToBoxAdapter(
-              child: Column(
-                children: [
-                  ZoomTapAnimation(
-                  onTap: () {},
-              child: Container(
-                margin: const EdgeInsets.only(left: 20, right: 20).r,
-                height: 50,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(15).r,
-                    color: Colors.white),
-                child: Row(
-                  children: [
-                    SizedBox(width: 10.w),
-                    const Icon(
-                      Icons.search,
-                      color: Colors.black54,
-                    ),
-                    SizedBox(width: 11.w),
-                    const Text(
-                      "Search anything",
-                      style:
-                      TextStyle(color: MyColors.TextColor, fontSize: 18),
-                    )
-                  ],
-                ),
-              ),
-            ),
-                  SizedBox(height: 25.h),
-                  const CaruselSliderWidget(),
-                  SizedBox(height: 10.h),
-                  AllCategoriesTitle(
-                    screenHeight: height(context),
-                    screenWidth: width(context),
-                    title: 'Category'.tr(),
-                  ),
-                  SizedBox(height: 10.h),
-                  CategoriesWidget(),
-                  SizedBox(height: 10.h),
-                  AllCategoriesTitle(
-                    screenHeight: height(context),
-                    screenWidth: width(context),
-                    title: 'Recommended'.tr(),
-                  ),
-                  SizedBox(height: 20.h),
+        color: const Color(0xFFE5E5E5),
+        child: BlocBuilder<CategoriesBloc, CategoriesState>(
+          builder: (context, state) {
+            if (state.status == Status.PURE) {
+              return const ClientHomeScreenShimmerLoader();
+            } else if (state.status == Status.LOADING) {
+              return const ClientHomeScreenShimmerLoader();
+            } else if (state.status == Status.SUCCESS) {
+              return const ClientHomeWidget();
+            } else if (state.status == Status.ERROR) {
+              return Center(
+                child: Text(state.error),
+              );
+            }
 
-                ],
-              ),
-            ),
-            SliverList(
-              delegate: SliverChildListDelegate(
-                List.generate(
-                  6,
-                  (index) => Padding(
-                    padding: EdgeInsets.only(bottom: 20.h).r,
-                    child: Container(
-                      width: 388.w,
-                      height: 128.h,
-                      decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(10.r)),
-                    ),
-                  ),
-                ),
-              ),
-            ),
-          ],
-        
+            return const SizedBox();
+          },
         ),
       ),
     );

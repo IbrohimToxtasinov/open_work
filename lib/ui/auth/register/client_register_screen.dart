@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:open_work/bloc/auth/auth_bloc.dart';
@@ -10,6 +9,7 @@ import 'package:open_work/ui/auth/widgets/auth_widget.dart';
 import 'package:open_work/ui/auth/widgets/my_text_field_widget.dart';
 import 'package:open_work/ui/auth/widgets/texts_widget.dart';
 import 'package:open_work/ui/widgets/global_button.dart';
+import 'package:open_work/ui/widgets/loading.dart';
 import 'package:open_work/ui/widgets/my_animated_snackbar.dart';
 import 'package:open_work/utils/color.dart';
 
@@ -147,8 +147,15 @@ class _ClientRegisterScreenState extends State<ClientRegisterScreen> {
                     if (state.authStatus == AuthStatus.registered) {
                       Navigator.pop(context);
                     }
-
-                    if(state.formStatus == FormStatus.loading){
+                    if (state.formStatus == FormStatus.loading) {
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          context = context;
+                          return const Loading();
+                        },
+                      );
+                    } else if (state.formStatus == FormStatus.failure) {
                       Navigator.pop(context);
                       MySnackBar(
                         context,

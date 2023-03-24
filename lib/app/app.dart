@@ -5,11 +5,17 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:open_work/bloc/auth/auth_bloc.dart';
 import 'package:open_work/bloc/busynesses/busynesses_bloc.dart';
 import 'package:open_work/bloc/categories/categories_bloc.dart';
+import 'package:open_work/bloc/client_profile/client_profile_bloc.dart';
+import 'package:open_work/bloc/get_all_workers/get_all_workers_bloc.dart';
+import 'package:open_work/bloc/workers_search/workers_search_bloc.dart';
+import 'package:open_work/cubits/connectivity/connectivity_cubit.dart';
+import 'package:open_work/bloc/worker_profile/worker_profile_bloc.dart';
 import 'package:open_work/cubits/tab/tab_cubit.dart';
 import 'package:open_work/data/repositories/auth_repo.dart';
 import 'package:open_work/data/repositories/categories_repo.dart';
-import 'package:open_work/ui/client_box/client_home_page/client_home_screen.dart';
-import 'package:open_work/ui/worker_box/worker_tab_box.dart';
+import 'package:open_work/data/repositories/client_profile_repo.dart';
+import 'package:open_work/data/repositories/get_all_workers_repo.dart';
+import 'package:open_work/data/repositories/workers_serch_repo.dart';
 import '../../utils/constants.dart';
 import 'package:adaptive_theme/adaptive_theme.dart';
 import '../ui/router.dart';
@@ -28,17 +34,33 @@ class App extends StatelessWidget {
         RepositoryProvider(
           create: (context) => CategoriesRepo(),
         ),
+        RepositoryProvider(
+          create: (context) => WorkersSearchRepo(),
+        ),
+        RepositoryProvider(
+          create: (context) => ClientProfileRepo(),
+        ),
+        RepositoryProvider(
+          create: (context) => GetAllWorkersRepo(),
+        ),
       ],
       child: MultiBlocProvider(providers: [
-        BlocProvider(
-          create: (context) => AuthBloc(
-            context.read<AuthRepo>(),
-          ),
-        ),
+        BlocProvider(create: (context) => ConnectivityCubit()),
+        BlocProvider(create: (context) => AuthBloc(context.read<AuthRepo>())),
         BlocProvider(
             create: (context) =>
                 CategoriesBloc(categoriesRepo: context.read<CategoriesRepo>())
                   ..add(FetchCategories())),
+        BlocProvider(
+          create: (context) => WorkersSearchBloc(
+            workersSearchRepo: context.read<WorkersSearchRepo>(),
+          ),
+        ),
+        BlocProvider(
+          create: (context) => GetAllWorkersBloc(
+            getAllWorkersRepo: context.read<GetAllWorkersRepo>(),
+          )..add(FetchAllWorkers()),
+        ),
         BlocProvider(
           create: (context) => AuthBloc(
             context.read<AuthRepo>(),
@@ -46,9 +68,16 @@ class App extends StatelessWidget {
         ),
         BlocProvider(create: (context) => BottomNavCubit()),
         BlocProvider(
+          create: (context) => BusynessesBloc(),
+        ),
+        BlocProvider(
+            create: (context) => ClientProfileBloc(
+                  clientProfileRepo: context.read<ClientProfileRepo>(),
+                )..add(GetClientInfoEvent())),
+        BlocProvider(
             create: (context) =>
-                BusynessesBloc()..add(GetWorkerBusynessesEvent(workerId: 12))),
-      ], child: MyApp()),
+                WorkerProfileBloc()..add(GetWorkerInfoEvent())),
+      ], child: const MyApp()),
     );
   }
 }
@@ -76,7 +105,6 @@ class MyApp extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           onGenerateRoute: MyRouter.generateRoute,
           initialRoute: splashPage,
-          // home: ClientHomeScreen(),
         ),
       ),
     );

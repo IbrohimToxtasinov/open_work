@@ -26,4 +26,7 @@ class AppImages {
   static const docIcon = 'assets/icons/document.svg';
   static const iconMark = 'assets/icons/icon_mark.svg';
   static const iconShare = 'assets/icons/icon_share.svg';
+  static const iconBack='assets/icons/back_icon.svg';
+  static const iconStar='assets/icons/star_icon.svg';
+  static const iconBookMark='assets/icons/bookmark_icon.svg';
 }

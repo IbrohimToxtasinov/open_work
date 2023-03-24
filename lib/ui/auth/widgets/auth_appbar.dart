@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:open_work/utils/color.dart';
 
 class AuthAppBar extends StatelessWidget implements PreferredSize{
   const AuthAppBar({Key? key, required this.title}) : super(key: key);
@@ -20,6 +19,7 @@ class AuthAppBar extends StatelessWidget implements PreferredSize{
       leading: null,
       backgroundColor: const Color(0xFF002766),
       title: Text(title),
+      centerTitle:  true,
     );
   }
 
