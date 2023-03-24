@@ -1,6 +1,9 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:open_work/bloc/categories/categories_bloc.dart';
+import 'package:open_work/bloc/get_all_workers/get_all_workers_bloc.dart';
 import 'package:open_work/ui/worker_box/worker_home_page/widget/all_categories_title.dart';
 import 'package:open_work/ui/worker_box/worker_home_page/widget/carysel_slider.dart';
 import 'package:open_work/ui/worker_box/worker_home_page/widget/categories_widget.dart';
@@ -67,24 +70,38 @@ class ClientHomeWidget extends StatelessWidget {
             ],
           ),
         ),
-        SliverList(
-          delegate: SliverChildListDelegate(
-            List.generate(
-              6,
-              (index) => Padding(
-                padding: EdgeInsets.only(bottom: 20.h).r,
-                child: Container(
-                  width: 388.w,
-                  height: 128.h,
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(10.r),
-                  ),
-                ),
-              ),
-            ),
-          ),
-        ),
+        // BlocBuilder<GetAllWorkersBloc, GetAllWorkersState>(
+        //   builder: (context, state) {
+        //     if (state.status == Status.LOADING) {
+        //       return const Center(
+        //         child: CircularProgressIndicator(),
+        //       );
+        //     } else if (state.status == Status.SUCCESS) {
+        //       return SliverList(
+        //         delegate: SliverChildListDelegate(
+        //           List.generate(
+        //             state.workers.length,
+        //             (index) => Padding(
+        //               padding: EdgeInsets.only(bottom: 20.h).r,
+        //               child: Container(
+        //                 width: 388.w,
+        //                 height: 128.h,
+        //                 decoration: BoxDecoration(
+        //                   color: Colors.white,
+        //                   borderRadius: BorderRadius.circular(10.r),
+        //                 ),
+        //               ),
+        //             ),
+        //           ),
+        //         ),
+        //       );
+        //     } else if (state.status == Status.ERROR) {
+        //       return Center(child: Text(state.error));
+        //     } else {
+        //       return const SizedBox();
+        //     }
+        //   },
+        // ),
       ],
     );
   }

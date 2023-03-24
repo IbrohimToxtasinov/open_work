@@ -19,7 +19,7 @@ class WorkerInfoModel {
   final String name;
   final String surname;
   final String lastSeen;
-  final double rating;
+  final num rating;
   final String image;
   final int id;
 
@@ -33,7 +33,7 @@ class WorkerInfoModel {
         name: json["name"] as String? ?? "",
         surname: json["surname"] as String? ?? "",
         lastSeen: json["lastSeen"] as String? ?? "",
-        rating: json["rating"] ?? 0.0,
+        rating: json["rating"] as num? ?? 0.0,
         image: json["image"] as String? ?? "https://www.citypng.com/public/uploads/small/11639594360nclmllzpmer2dvmrgsojcin90qmnuloytwrcohikyurvuyfzvhxeeaveigoiajks5w2nytyfpix678beyh4ykhgvmhkv3r3yj5hi.png",
         id: json["id"] as int? ?? 0,
       );

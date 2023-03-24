@@ -78,7 +78,11 @@ class MyRouter {
         return navigateTo(ClientUpdateProfileScreen(
             userInfo: settings.arguments as UserInfoModel));
       case workerDetail:
-        return navigateTo(const WorkerDetailScreen());
+        return navigateTo(
+          WorkerDetailScreen(
+            worker: settings.arguments as WorkerInfoModel,
+          ),
+        );
       case categorySkills:
         return navigateTo(
             CategorySkills(categoryModel: settings.arguments as CategoryModel));
