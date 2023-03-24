@@ -1,5 +1,5 @@
-class Skill {
-  Skill({
+class SkillModel {
+  SkillModel({
     required this.id,
     required this.name,
     required this.description,
@@ -13,7 +13,7 @@ class Skill {
   final int categoryId;
   bool isSelected;
 
-  factory Skill.fromJson(Map<String, dynamic> json) => Skill(
+  factory SkillModel.fromJson(Map<String, dynamic> json) => SkillModel(
         id: json["id"] as int? ?? 0,
         name: json["name"] as String? ?? "",
         description: json["description"] as String? ?? "",

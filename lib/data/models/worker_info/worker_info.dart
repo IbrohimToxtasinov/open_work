@@ -1,4 +1,4 @@
-import 'package:open_work/data/models/skil/skil_model.dart';
+import 'package:open_work/data/models/skill/skill_model.dart';
 
 class WorkerInfoModel {
   WorkerInfoModel({
@@ -15,7 +15,7 @@ class WorkerInfoModel {
 
   final String email;
   final String phone;
-  final List<Skill> skills;
+  final List<SkillModel> skills;
   final String name;
   final String surname;
   final String lastSeen;
@@ -28,7 +28,7 @@ class WorkerInfoModel {
         email: json["email"] as String? ?? "",
         phone: json["phone"] as String? ?? "",
         skills: (json['skills'] as List? ?? [])
-            .map((e) => Skill.fromJson(e))
+            .map((e) => SkillModel.fromJson(e))
             .toList(),
         name: json["name"] as String? ?? "",
         surname: json["surname"] as String? ?? "",

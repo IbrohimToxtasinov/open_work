@@ -29,15 +29,12 @@ class CategoriesWidget extends StatelessWidget {
             child: ListView.separated(
               physics: const BouncingScrollPhysics(),
               separatorBuilder: (context, index) => SizedBox(width: 26.w),
-              // padding: const EdgeInsets.only(left: 24, right: 24).w,
               itemCount: state.categories.length,
               scrollDirection: Axis.horizontal,
               itemBuilder: (context, index) {
                 return CategoryItem(
                   onCategoryTap: (){
-                    for(var i = 0; i < state.categories[index].skills.length; i++){
-                      state.categories[index].skills[i].isSelected = false;
-                    }
+                    BlocProvider.of<CategoriesBloc>(context).add(MakeSkillsUnselected());
                     Navigator.pushNamed(context, categorySkills,
                         arguments: state.categories[index]);
                   },
