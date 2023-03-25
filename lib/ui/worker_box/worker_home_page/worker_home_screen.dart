@@ -39,11 +39,12 @@ class WorkerHomeScreen extends StatelessWidget {
               length: 2, child: SingleChildScrollView(
                 child: Column(
             children: [
-                TabBar(tabs: [
+                const TabBar(tabs: [
                   Tab(child: Text("Old"),),
                   Tab(child: Text("New"),),
                 ],),
-                SizedBox(
+                Container(
+                  margin: EdgeInsets.only(top: 12.h),
                   width: MediaQuery.of(context).size.width,
                   height: MediaQuery.of(context).size.height,
                   child: TabBarView(children: [
