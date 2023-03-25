@@ -4,7 +4,7 @@ import 'package:dio/dio.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:open_work/data/models/my_response/my_response_model.dart';
 import 'package:open_work/data/models/worker_business.dart';
-import 'package:open_work/data/models/worker_info/worker_info.dart';
+import 'package:open_work/data/models/worker_info/worker_info_model.dart';
 import 'package:open_work/services/network/worker_api_service/worker_api_client.dart';
 
 class WorkerApiService extends WorkerApiClient {

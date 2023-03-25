@@ -1,20 +1,16 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:open_work/data/models/comment/comment_model.dart';
 import 'package:open_work/utils/color.dart';
 
 class CommentItem extends StatelessWidget {
   const CommentItem({
     super.key,
-    required this.name,
-    required this.comment,
-    required this.online,
-    required this.surname,
+    required this.commentModel,
   });
 
-  final String name;
-  final String surname;
-  final String comment;
-  final String online;
+  final CommentModel commentModel;
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +34,7 @@ class CommentItem extends StatelessWidget {
                 border: Border.all(width: 1, color: Colors.black)),
             child: Center(
               child: Text(
-                "${name[0]}${surname[0]}",
+                "${commentModel.user.name[0]}${commentModel.user.surname[0]}",
                 style:
                     const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
               ),
@@ -52,7 +48,7 @@ class CommentItem extends StatelessWidget {
               children: [
                 SizedBox(height: 20.h),
                 Text(
-                  "$name $surname",
+                  "${commentModel.user.name} ${commentModel.user.surname}",
                   style: TextStyle(
                     fontSize: 18.sp,
                     color: MyColors.neutralBlack,
@@ -61,7 +57,9 @@ class CommentItem extends StatelessWidget {
                 ),
                 SizedBox(height: 4.h),
                 Text(
-                  online,
+                  DateFormat.yMMMMd()
+                      .format(DateTime.parse(commentModel.created))
+                      .toString(),
                   style: TextStyle(
                     fontStyle: FontStyle.normal,
                     color: MyColors.neutral3,
@@ -72,7 +70,7 @@ class CommentItem extends StatelessWidget {
                 ),
                 SizedBox(height: 4.h),
                 Text(
-                  comment,
+                  commentModel.content,
                   style: TextStyle(
                     fontSize: 14.sp,
                     color: MyColors.neutralBlack,

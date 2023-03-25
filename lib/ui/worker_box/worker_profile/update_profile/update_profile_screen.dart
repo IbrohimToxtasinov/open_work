@@ -6,7 +6,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:open_work/bloc/worker_profile/worker_profile_bloc.dart';
 import 'package:open_work/data/models/form_status/form_status.dart';
-import 'package:open_work/data/models/worker_info/worker_info.dart';
+import 'package:open_work/data/models/worker_info/worker_info_model.dart';
 import 'package:open_work/ui/widgets/global_button.dart';
 import 'package:open_work/ui/widgets/phone_input_component.dart';
 import 'package:open_work/ui/widgets/update_profile_text_field.dart';

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:open_work/bloc/categories/categories_bloc.dart';
+import 'package:open_work/bloc/comments/comments_bloc.dart';
 import 'package:open_work/bloc/get_worker_by_id/get_single_worker_bloc.dart';
 import 'package:open_work/data/repositories/get_single_worker_repo.dart';
 import 'package:open_work/ui/widgets/my_appbar.dart';
@@ -51,6 +52,8 @@ class WorkerDetailScreen extends StatelessWidget {
                         const CustomTextBold(text: "Reviews"),
                         InkWell(
                           onTap: () {
+                            BlocProvider.of<CommentsBloc>(context)
+                                .add(FetchComments(workerId: 28));
                             Navigator.pushNamed(
                               context,
                               commentsScreen,
