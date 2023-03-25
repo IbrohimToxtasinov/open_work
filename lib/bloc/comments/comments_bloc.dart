@@ -15,6 +15,7 @@ class CommentsBloc extends Bloc<CommentsEvent, CommentsState> {
       : super(CommentsState(
       status: Status.PURE, error: "", comments: const [])) {
     on<FetchComments>(fetchComments);
+    on<CreateComment>(createComment);
   }
 
   final CommentsRepo commentsRepo;
@@ -24,6 +25,17 @@ class CommentsBloc extends Bloc<CommentsEvent, CommentsState> {
     MyResponse myResponse = await commentsRepo.getWorkerCommentsById(workerId: event.workerId);
     if (myResponse.errorMessage.isEmpty) {
       emit(state.copyWith(comments: myResponse.data, status: Status.SUCCESS));
+    } else {
+      emit(
+          state.copyWith(error: myResponse.errorMessage, status: Status.ERROR));
+    }
+  }
+
+  createComment(CreateComment event, Emitter<CommentsState> emit) async {
+    emit(state.copyWith(status: Status.LOADING));
+    MyResponse myResponse = await commentsRepo.createComment(commentCreateDtoModel: event.commentCreateDtoModel);
+    if (myResponse.errorMessage.isEmpty) {
+      emit(state.copyWith(status: Status.SUCCESS));
     } else {
       emit(
           state.copyWith(error: myResponse.errorMessage, status: Status.ERROR));
