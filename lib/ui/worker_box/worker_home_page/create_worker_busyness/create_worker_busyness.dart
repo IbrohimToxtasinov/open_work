@@ -24,51 +24,53 @@ class _CreateBusynessPageState extends State<CreateBusynessPage> {
 
   @override
   Widget build(BuildContext context) {
+    DateTime now = DateTime.now();
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Create busyness"),
-      ),
+          title: const Center(
+              child: Text("Create busyness",
+                  style: TextStyle(color: Colors.red)))),
       body: BlocConsumer<BusynessesBloc, BusynessesState>(
-          listener: (context, state) {
-        if (state.status == FormStatus.creatingInSuccess) {
-          MyUtils.getMyToast(message: "Busyness create");
-          Navigator.pop(context);
-        }
-      }, builder: (context, state) {
-        if (state.status == FormStatus.gettingInProgress) {
-          return const Center(
-            child: CircularProgressIndicator(),
-          );
-        } else if (state.status == FormStatus.gettingInSuccess) {
-          return Padding(
-            padding: const EdgeInsets.only(right: 20,left: 20),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Image.asset(AppImages.busynes),
-                SizedBox(height: 30.h),
-                Padding
-                  (
-                  padding: const EdgeInsets.only(left: 10,right: 10).r,
-                  child: Row(
+        listener: (context, state) {
+          if (state.status == FormStatus.creatingInSuccess) {
+            MyUtils.getMyToast(message: "Busyness create");
+            Navigator.pop(context);
+          }
+        },
+        builder: (context, state) {
+          if (state.status == FormStatus.gettingInProgress) {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          } else if (state.status == FormStatus.gettingInSuccess) {
+            return Padding(
+              padding: EdgeInsets.only(right: 20.w, left: 20.w),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Image.asset(AppImages.busynes),
+                  SizedBox(height: 30.h),
+                  Padding(
+                    padding: EdgeInsets.only(left: 10.w, right: 10.w),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          "${TimeUtils.birthDate(startDate)} ${TimeUtils.birthHourDate(startDate)}",
+                          style: MyTextStyle.aeonikRegular,
+                        ),
+                        Text(
+                          "${TimeUtils.birthDate(endDate)} ${TimeUtils.birthHourDate(endDate)}",
+                          style: MyTextStyle.aeonikRegular,
+                        ),
+                      ],
+                    ),
+                  ),
+                  SizedBox(height: 15.h),
+                  Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(
-                        "${TimeUtils.birthDate(startDate)} ${TimeUtils.birthHourDate(startDate)}",
-                        style: MyTextStyle.aeonikRegular,
-                      ),
-                      Text(
-                        "${TimeUtils.birthDate(endDate)} ${TimeUtils.birthHourDate(endDate)}",
-                        style: MyTextStyle.aeonikRegular,
-                      ),
-                    ],
-                  ),
-                ),
-                SizedBox(height: 15.h),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    ZoomTapAnimation(
+                      ZoomTapAnimation(
                         onTap: () {
                           DatePicker.showDateTimePicker(context,
                               showTitleActions: true, onChanged: (date) {
@@ -77,19 +79,28 @@ class _CreateBusynessPageState extends State<CreateBusynessPage> {
                           }, onConfirm: (date) {
                             startDate = date;
                             setState(() {});
-                          }, currentTime: DateTime.now());
+                          },
+                              currentTime: DateTime.now(),
+                              minTime: now,
+                              theme: const DatePickerTheme(
+                                  doneStyle: TextStyle(
+                                      color: Colors.lightBlueAccent,
+                                      fontWeight: FontWeight.w500),
+                                  cancelStyle: TextStyle(color: MyColors.red)));
                         },
                         child: Container(
                           height: 45.h,
                           width: 140.w,
                           decoration: BoxDecoration(
                               color: MyColors.red,
-                              borderRadius: BorderRadius.circular(20)),
-                          child: Center(
-                            child: Text("Start Busyness"),
+                              borderRadius: BorderRadius.circular(20).r),
+                          child: const Center(
+                            child: Text("Start Busyness",
+                                style: TextStyle(color: MyColors.white)),
                           ),
-                        )),
-                    ZoomTapAnimation(
+                        ),
+                      ),
+                      ZoomTapAnimation(
                         onTap: () {
                           DatePicker.showDateTimePicker(context,
                               showTitleActions: true, onChanged: (date) {
@@ -98,48 +109,66 @@ class _CreateBusynessPageState extends State<CreateBusynessPage> {
                           }, onConfirm: (date) {
                             endDate = date;
                             setState(() {});
-                          }, currentTime: DateTime.now());
+                          },
+                              currentTime: DateTime.now(),
+                              minTime: now,
+                              theme: const DatePickerTheme(
+                                  doneStyle: TextStyle(
+                                      color: Colors.lightBlueAccent,
+                                      fontWeight: FontWeight.w500),
+                                  cancelStyle: TextStyle(color: MyColors.red)));
                         },
                         child: Container(
                           height: 45.h,
                           width: 140.w,
                           decoration: BoxDecoration(
-
                               color: Colors.lightBlueAccent,
-                              borderRadius: BorderRadius.circular(20)),
-                          child: Center(
-                            child: Text("End Busyness",style: MyTextStyle.aeonikRegular,selectionColor: MyColors.white,),
+                              borderRadius: BorderRadius.circular(20.h)),
+                          child: const Center(
+                            child: Text(
+                              "End Busyness",
+                              style: TextStyle(color: MyColors.white),
+                              selectionColor: MyColors.white,
+                            ),
                           ),
-                        )),
-                  ],
-                ),
-                SizedBox(height: 200.h),
-                ZoomTapAnimation(
-                  onTap: () {
-                    context.read<BusynessesBloc>().add(CreateBusynessesEvent(
-                        starts: startDate, ends: endDate));
-                  },
-                  child: Container(
-                    width: double.infinity,
-                    height: 50.h,
-                    decoration: BoxDecoration(
-                      color: MyColors.red,
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    child: const Center(
-                      child: Text("Create busyness"),
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 200.h),
+                  ZoomTapAnimation(
+                    onTap: () {
+                      if (startDate.millisecond < endDate.millisecond) {
+                        context.read<BusynessesBloc>().add(
+                            CreateBusynessesEvent(
+                                starts: startDate, ends: endDate));
+                      } else {
+                        MyUtils.getMyToast(message: "Kiritilgan sana noto'ri");
+                      }
+                    },
+                    child: Container(
+                      width: double.infinity,
+                      height: 50.h,
+                      decoration: BoxDecoration(
+                        color: MyColors.red,
+                        borderRadius: BorderRadius.circular(12.h),
+                      ),
+                      child: const Center(
+                        child: Text("Create busyness",
+                            style: TextStyle(color: MyColors.white)),
+                      ),
                     ),
                   ),
-                ),
-              ],
-            ),
-          );
-        } else {
-          return Center(
-            child: Text(state.errorMessage.toString()),
-          );
-        }
-      }),
+                ],
+              ),
+            );
+          } else {
+            return Center(
+              child: Text(state.errorMessage.toString()),
+            );
+          }
+        },
+      ),
     );
   }
 }
