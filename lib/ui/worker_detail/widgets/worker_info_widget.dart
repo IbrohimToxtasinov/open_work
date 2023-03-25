@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:open_work/data/models/worker_info/worker_info.dart';
+import 'package:open_work/data/models/worker_info/worker_info_model.dart';
 import 'package:open_work/utils/app_images.dart';
 import 'package:open_work/utils/style.dart';
 

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:open_work/data/models/worker_info/worker_info.dart';
+import 'package:open_work/data/models/worker_info/worker_info_model.dart';
 import 'package:zoom_tap_animation/zoom_tap_animation.dart';
 
 import '../../../utils/color.dart';
