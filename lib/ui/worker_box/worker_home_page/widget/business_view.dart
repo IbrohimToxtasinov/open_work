@@ -19,7 +19,6 @@ class BusinessView extends StatelessWidget {
           borderRadius: BorderRadius.circular(15).r, color: Colors.white),
       child: Row(
         children: [
-
           SizedBox(width: 10.w),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -28,8 +27,29 @@ class BusinessView extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
+                  const Text(
+                    "Start Busyness",
+                    style: TextStyle(
+                        color: MyColors.red,
+                        fontSize: 16,
+                        fontWeight: FontWeight.w400),
+                  ),
+                  SizedBox(width: 136.h),
+                  const Text(
+                    "End Busyness",
+                    style: TextStyle(
+                        color: Colors.lightBlueAccent,
+                        fontSize: 16,
+                        fontWeight: FontWeight.w400),
+                  ),
+                ],
+              ),
+              SizedBox(height: 10.h),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
                   Text(
-                    "${TimeUtils.birthDate(DateTime.parse(workerBusiness.start ))} ${TimeUtils.birthHourDate(DateTime.parse(workerBusiness.start ))}",
+                    "${TimeUtils.birthDate(DateTime.parse(workerBusiness.start))} ${TimeUtils.birthHourDate(DateTime.parse(workerBusiness.start))}",
                     style: const TextStyle(
                         color: Colors.black,
                         fontSize: 16,
@@ -37,24 +57,23 @@ class BusinessView extends StatelessWidget {
                   ),
                   SizedBox(width: 20.w),
                   Text(
-                      "${TimeUtils.birthDate(DateTime.parse(workerBusiness.end ))} ${TimeUtils.birthHourDate(DateTime.parse(workerBusiness.end ))}",
-                      style: const TextStyle(
-                          color: Colors.black,
-                          fontSize: 16,
-                          fontWeight: FontWeight.w400),
-                  )],
+                    "${TimeUtils.birthDate(DateTime.parse(workerBusiness.end))} ${TimeUtils.birthHourDate(DateTime.parse(workerBusiness.end))}",
+                    style: const TextStyle(
+                        color: Colors.black,
+                        fontSize: 16,
+                        fontWeight: FontWeight.w400),
+                  )
+                ],
               ),
-
               SizedBox(height: 10.h),
               Row(
                 children: [
                   Container(
-                    width: 53.w,
-                    height: 30.h,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(8).r,
-                        color: MyColors.orange),
-                  ),
+                      width: 53.w,
+                      height: 30.h,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(8).r,
+                          color: MyColors.orange)),
                   SizedBox(width: 10.w),
                   Container(
                     width: 68.w,
@@ -62,6 +81,9 @@ class BusinessView extends StatelessWidget {
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(8).r,
                         color: MyColors.purple),
+                    child: Center(
+                        child: Text(
+                            "${DateTime.parse(workerBusiness.end).millisecond - DateTime.parse(workerBusiness.start).millisecond}")),
                   )
                 ],
               )
