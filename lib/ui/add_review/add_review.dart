@@ -51,7 +51,7 @@ class _AddReviewScreenState extends State<AddReviewScreen> {
               alignment: Alignment.center,
             ),
             const Text(
-              'How was your experience\nwith Dr.Ibrohim Toxtasinov?',
+              'How was your experience\nwith Ibrohim Toxtasinov?',
               style: TextStyle(
                 fontWeight: FontWeight.w600,
                 fontSize: 18,
@@ -112,7 +112,7 @@ class _AddReviewScreenState extends State<AddReviewScreen> {
                   );
                 } else if (state.status == Status.SUCCESS) {
                   Navigator.pop(context);
-                  Navigator.popUntil(context, (route) => route.isCurrent);
+                  Navigator.pushNamedAndRemoveUntil(context, commentsScreen, (route) => true);
                 } else if (state.status == Status.ERROR) {
                   showDialog(
                     context: context,
