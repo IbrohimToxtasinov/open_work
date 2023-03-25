@@ -5,8 +5,8 @@ import 'package:open_work/data/models/category/category_model.dart';
 import 'package:open_work/utils/color.dart';
 import 'package:zoom_tap_animation/zoom_tap_animation.dart';
 
-import '../../../../utils/icons/app_icons.dart';
-import '../../../../utils/style.dart';
+import '../../utils/icons/app_icons.dart';
+import '../../utils/style.dart';
 
 class CategoryItem extends StatelessWidget {
   final CategoryModel data;

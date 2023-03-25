@@ -4,15 +4,15 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:open_work/bloc/categories/categories_bloc.dart';
 import 'package:open_work/bloc/get_all_workers/get_all_workers_bloc.dart';
-import 'package:open_work/ui/worker_box/worker_home_page/widget/all_categories_title.dart';
+import 'package:open_work/ui/widgets/all_categories_title.dart';
 import 'package:open_work/ui/worker_box/worker_home_page/widget/carysel_slider.dart';
-import 'package:open_work/ui/worker_box/worker_home_page/widget/categories_widget.dart';
+import 'package:open_work/ui/client_box/client_home_page/widget/categories_widget.dart';
 import 'package:open_work/utils/color.dart';
 import 'package:open_work/utils/constants.dart';
 import 'package:open_work/utils/my_utils.dart';
 import 'package:zoom_tap_animation/zoom_tap_animation.dart';
 
-import '../all_workers/widgets/worker_item.dart';
+import '../../../all_workers/widgets/worker_item.dart';
 
 class ClientHomeWidget extends StatelessWidget {
   const ClientHomeWidget({super.key});

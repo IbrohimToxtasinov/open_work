@@ -3,15 +3,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../bloc/categories/categories_bloc.dart';
 import '../../../../utils/constants.dart';
-import 'categoryItem.dart';
+import '../../../widgets/categoryItem.dart';
 
 class CategoriesWidget extends StatelessWidget {
-  final bool isFromHome;
-
-  const CategoriesWidget({this.isFromHome = false, Key? key}) : super(key: key);
+  const CategoriesWidget({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context){
+  Widget build(BuildContext context) {
     return BlocBuilder<CategoriesBloc, CategoriesState>(
       builder: (context, state) {
         if (state.status == Status.PURE) {
@@ -34,8 +32,10 @@ class CategoriesWidget extends StatelessWidget {
               scrollDirection: Axis.horizontal,
               itemBuilder: (context, index) {
                 return CategoryItem(
-                  onCategoryTap: (){
-                    for(var i = 0; i < state.categories[index].skills.length; i++){
+                  onCategoryTap: () {
+                    for (var i = 0;
+                        i < state.categories[index].skills.length;
+                        i++) {
                       state.categories[index].skills[i].isSelected = false;
                     }
                     Navigator.pushNamed(context, categorySkills,
