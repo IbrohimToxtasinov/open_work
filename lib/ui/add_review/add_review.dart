@@ -65,8 +65,7 @@ class _AddReviewScreenState extends State<AddReviewScreen> {
                 const SizedBox(height: 10),
                 TextFormFieldWidget(reviewController: reviewController),
                 const SizedBox(height: 10),
-                const Text(
-                    'Would you recommend Dr. Ibrohim Toxtasinov to your friends?'),
+                const Text('Are you satisfied with the work of the worker?'),
                 Row(
                   children: [
                     Flexible(
