@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:open_work/bloc/categories/categories_bloc.dart';
 import 'package:open_work/ui/widgets/client_home_screen_shimmer.dart';
-import 'package:open_work/ui/widgets/client_home_widget.dart';
+import 'package:open_work/ui/client_box/client_home_page/widget/client_home_widget.dart';
 import 'package:open_work/ui/widgets/home_screen_appbar.dart';
 
 class ClientHomeScreen extends StatelessWidget {

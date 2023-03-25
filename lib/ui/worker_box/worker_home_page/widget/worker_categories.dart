@@ -1,22 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:open_work/bloc/categories/categories_bloc.dart';
+import 'package:open_work/ui/widgets/categoryItem.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import '../../../../bloc/categories/categories_bloc.dart';
-import '../../../../utils/constants.dart';
-import 'categoryItem.dart';
+import 'package:open_work/ui/worker_box/worker_home_page/subscreens/add_skills_screen/add_skills_screen.dart';
 
-class CategoriesWidget extends StatelessWidget {
-  final bool isFromHome;
-
-  const CategoriesWidget({this.isFromHome = false, Key? key}) : super(key: key);
+class WorkerCategories extends StatelessWidget {
+  const WorkerCategories({super.key});
 
   @override
-  Widget build(BuildContext context){
+  Widget build(BuildContext context) {
     return BlocBuilder<CategoriesBloc, CategoriesState>(
       builder: (context, state) {
         if (state.status == Status.PURE) {
           return const Center(
-            child: Text("hali data yo'q"),
+            child: Text("No data"),
           );
         } else if (state.status == Status.LOADING) {
           return const Center(
@@ -27,16 +25,21 @@ class CategoriesWidget extends StatelessWidget {
             height: 110.h,
             width: double.infinity,
             child: ListView.separated(
+              padding: EdgeInsets.only(left: 26.w),
+              shrinkWrap: true,
               physics: const BouncingScrollPhysics(),
               separatorBuilder: (context, index) => SizedBox(width: 26.w),
               itemCount: state.categories.length,
               scrollDirection: Axis.horizontal,
               itemBuilder: (context, index) {
                 return CategoryItem(
-                  onCategoryTap: (){
-                    BlocProvider.of<CategoriesBloc>(context).add(MakeSkillsUnselected());
-                    Navigator.pushNamed(context, categorySkills,
-                        arguments: state.categories[index]);
+                  onCategoryTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => AddSkillsScreen(
+                              skills: state.categories[index].skills),
+                        ));
                   },
                   data: state.categories[index],
                 );

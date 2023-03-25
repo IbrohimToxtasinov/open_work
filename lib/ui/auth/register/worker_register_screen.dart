@@ -140,6 +140,7 @@ class _WorkerRegisterScreenState extends State<WorkerRegisterScreen> {
                 BlocListener<ConfirmationBloc, ConfirmationState>(
                   listener: (context, state) {
                     if (state.confirmStatus == ConfirmStatus.confirmed) {
+                      MyUtils.getMyToast(message: "Email confirmed");
                       _formKey.currentState!.validate();
                       print(_userNameController.text);
                       print(_surNameController.text);
@@ -162,24 +163,8 @@ class _WorkerRegisterScreenState extends State<WorkerRegisterScreen> {
                     onTap: () {
                       BlocProvider.of<ConfirmationBloc>(context)
                           .add(SendCode(email: _emailController.text));
-                      Navigator.pushNamed(context, confirmationScreen);
-
-                      // _formKey.currentState!.validate();
-                      // print(_userNameController.text);
-                      // print(_surNameController.text);
-                      // print(_emailController.text);
-                      // print(_passwordController.text);
-                      // BlocProvider.of<AuthBloc>(context).add(
-                      //   RegisterWorker(
-                      //     workerRegisterDtoModel: WorkerRegisterDtoModel(
-                      //         name: _userNameController.text,
-                      //         surname: _surNameController.text,
-                      //         email: _emailController.text,
-                      //         password: _passwordController.text,
-                      //         phone: phoneText,
-                      //         image: ""),
-                      //   ),
-                      // );
+                      Navigator.pushNamed(context, confirmationScreen,
+                          arguments: _emailController.text);
                     },
                     isActive: true,
                     buttonText: "Create account",
