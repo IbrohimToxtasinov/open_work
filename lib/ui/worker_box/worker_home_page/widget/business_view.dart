@@ -12,6 +12,9 @@ class BusinessView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    DateTime start = DateTime.parse(workerBusiness.start);
+    DateTime end = DateTime.parse(workerBusiness.end);
+
     return Container(
       margin: const EdgeInsets.only(left: 20, right: 20).r,
       height: 126.h,
@@ -68,22 +71,17 @@ class BusinessView extends StatelessWidget {
               SizedBox(height: 10.h),
               Row(
                 children: [
-                  Container(
-                      width: 53.w,
-                      height: 30.h,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(8).r,
-                          color: MyColors.orange)),
+                  Text("Davomiyligi:"),
                   SizedBox(width: 10.w),
                   Container(
-                    width: 68.w,
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
                     height: 30.h,
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(8).r,
                         color: MyColors.purple),
                     child: Center(
                         child: Text(
-                            "${DateTime.parse(workerBusiness.end).millisecond - DateTime.parse(workerBusiness.start).millisecond}")),
+                            getTimeString(end.difference(start).inSeconds))),
                   )
                 ],
               )
@@ -92,5 +90,29 @@ class BusinessView extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  String getTimeString(int inSeconds) {
+    String timeText = "";
+    int days = 0;
+    int hours = 0;
+    int min = 0;
+
+    if (inSeconds >= 24 * 60 * 60) {
+      days = inSeconds ~/ (24 * 60 * 60);
+      hours = (inSeconds - 24 * 60 * 60 * days) ~/ (60 * 60);
+      min = (inSeconds - 24 * 60 * 60 * days - 60 * 60 * hours) ~/ 60;
+    } else {
+      if (60 * 60 >= inSeconds) {
+        hours = (inSeconds ~/ (60 * 60));
+        min = (inSeconds - 60 * 60 * hours) ~/ 60;
+      } else {
+        min = inSeconds ~/ 60;
+      }
+    }
+
+    timeText = "${days} kun, ${hours} soat, ${min} mins ";
+
+    return timeText;
   }
 }
