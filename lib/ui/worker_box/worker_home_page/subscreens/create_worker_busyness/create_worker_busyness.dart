@@ -138,7 +138,7 @@ class _CreateBusynessPageState extends State<CreateBusynessPage> {
                   SizedBox(height: 200.h),
                   ZoomTapAnimation(
                     onTap: () {
-                      if (startDate.millisecond <= endDate.millisecond) {
+                      if (startDate.millisecond < endDate.millisecond) {
                         context.read<BusynessesBloc>().add(
                             CreateBusynessesEvent(
                                 starts: startDate, ends: endDate));
