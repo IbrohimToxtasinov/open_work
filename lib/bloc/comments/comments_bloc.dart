@@ -5,6 +5,8 @@ import 'package:open_work/data/models/comment/comment_model.dart';
 import 'package:open_work/data/models/my_response/my_response_model.dart';
 import 'package:open_work/data/repositories/comment_repo.dart';
 
+import '../../data/models/comment_create_dto/comment_create_dto_model.dart';
+
 part 'comments_event.dart';
 part 'comments_state.dart';
 

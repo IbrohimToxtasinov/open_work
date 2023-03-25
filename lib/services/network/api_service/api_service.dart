@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:open_work/data/models/category/category_model.dart';
+import 'package:open_work/data/models/comment/comment_model.dart';
 import 'package:open_work/data/models/comment_create_dto/comment_create_dto_model.dart';
 import 'package:open_work/data/models/update_user_dto/update_user_dto_model.dart';
 import 'package:open_work/data/models/user_info/user_info_model.dart';
@@ -155,7 +156,7 @@ class ApiService extends ApiClient {
           await dio.get("${dio.options.baseUrl}comments/worker/$workerId?page=1");
       if (response.statusCode! >= 200 && response.statusCode! < 300) {
         myResponse.data = (response.data as List?)
-                ?.map((e) => CategoryModel.fromJson(e))
+                ?.map((e) => CommentModel.fromJson(e))
                 .toList() ??
             [];
       }
