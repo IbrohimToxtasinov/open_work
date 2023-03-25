@@ -7,3 +7,9 @@ class FetchComments extends CommentsEvent {
 
   FetchComments({required this.workerId});
 }
+
+class CreateComment extends CommentsEvent {
+  final CommentCreateDtoModel commentCreateDtoModel;
+
+  CreateComment({required this.commentCreateDtoModel});
+}

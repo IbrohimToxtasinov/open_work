@@ -9,15 +9,6 @@ class ContactMeBottonWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {
-        showModalBottomSheet(
-          backgroundColor: Colors.transparent,
-          context: context,
-          builder: (context) {
-            return const ContactWidget();
-          },
-        );
-      },
       child: Container(
         height: 72.h,
         width: myWidth(context) * 0.9,
