@@ -30,17 +30,7 @@ class WorkerHomeScreen extends StatelessWidget {
         physics: const BouncingScrollPhysics(),
         child: Column(
           children: [
-            AllCategoriesTitle(
-              screenHeight: height(context),
-              screenWidth: width(context),
-              title: 'Categories',
-            ),
             const WorkerCategories(),
-            AllCategoriesTitle(
-              screenHeight: height(context),
-              screenWidth: width(context),
-              title: 'Busynesses',
-            ),
             BlocConsumer<BusynessesBloc, BusynessesState>(
               listener: (context, state) {
                 if (state.status == FormStatus.creatingInSuccess) {
