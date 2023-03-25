@@ -40,16 +40,16 @@ class WorkerHomeScreen extends StatelessWidget {
                 child: Column(
             children: [
                 const TabBar(tabs: [
-                  Tab(child: Text("Old"),),
                   Tab(child: Text("New"),),
+                  Tab(child: Text("Old"),),
                 ],),
                 Container(
                   margin: EdgeInsets.only(top: 12.h),
                   width: MediaQuery.of(context).size.width,
                   height: MediaQuery.of(context).size.height,
                   child: TabBarView(children: [
-                    BusynessesList(busynesses: state.busynesses[0],),
                     BusynessesList(busynesses: state.busynesses[1],),
+                    BusynessesList(busynesses: state.busynesses[0],),
                   ]),
                 )
             ],
