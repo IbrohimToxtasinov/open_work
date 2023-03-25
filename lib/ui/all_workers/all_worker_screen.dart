@@ -31,7 +31,7 @@ class AllWorkerScreen extends StatelessWidget {
                         Navigator.pushNamed(
                           context,
                           workerDetail,
-                          arguments: 17,
+                          arguments: 31,
                           // arguments: state.workers[index].id,
                         );
                       },

@@ -12,12 +12,12 @@ class BusynessesState extends Equatable {
 
   FormStatus status;
   String errorMessage;
-  List<WorkerBusiness> busynesses;
+  List<List<WorkerBusiness>> busynesses;
 
   BusynessesState copyWith({
     FormStatus? status,
     String? errorMessage,
-    List<WorkerBusiness>? busynesses,
+    List<List<WorkerBusiness>>? busynesses,
   }) =>
       BusynessesState(
           status: status ?? this.status,

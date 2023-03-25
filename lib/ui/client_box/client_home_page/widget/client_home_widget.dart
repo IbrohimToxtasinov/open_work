@@ -4,15 +4,15 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:open_work/bloc/categories/categories_bloc.dart';
 import 'package:open_work/bloc/get_all_workers/get_all_workers_bloc.dart';
-import 'package:open_work/ui/widgets/all_categories_title.dart';
-import 'package:open_work/ui/worker_box/worker_home_page/widget/carysel_slider.dart';
 import 'package:open_work/ui/client_box/client_home_page/widget/categories_widget.dart';
-import 'package:open_work/utils/color.dart';
+
+import 'package:open_work/ui/client_box/client_home_page/widgets/search_skills_button.dart';
+import 'package:open_work/ui/worker_box/worker_home_page/widget/carysel_slider.dart';
 import 'package:open_work/utils/constants.dart';
 import 'package:open_work/utils/my_utils.dart';
-import 'package:zoom_tap_animation/zoom_tap_animation.dart';
 
 import '../../../all_workers/widgets/worker_item.dart';
+import '../../../widgets/all_categories_title.dart';
 
 class ClientHomeWidget extends StatelessWidget {
   const ClientHomeWidget({super.key});
@@ -29,33 +29,7 @@ class ClientHomeWidget extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              ZoomTapAnimation(
-                onTap: () {
-                  BlocProvider.of<CategoriesBloc>(context).add(MakeSkillsUnselected());
-                  Navigator.pushNamed(context, allSkills);
-                },
-                child: Container(
-                  height: 50.h,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(15.r),
-                      color: Colors.white),
-                  child: Row(
-                    children: [
-                      SizedBox(width: 10.w),
-                      const Icon(
-                        Icons.search,
-                        color: Colors.black54,
-                      ),
-                      SizedBox(width: 11.w),
-                      Text(
-                        "Search anything",
-                        style: TextStyle(
-                            color: MyColors.TextColor, fontSize: 18.sp),
-                      )
-                    ],
-                  ),
-                ),
-              ),
+              const SearchSkillsButton(),
               SizedBox(height: 25.h),
               const CaruselSliderWidget(),
               SizedBox(height: 10.h),
@@ -65,7 +39,7 @@ class ClientHomeWidget extends StatelessWidget {
                 title: 'Category'.tr(),
               ),
               SizedBox(height: 10.h),
-              CategoriesWidget(),
+              const CategoriesWidget(),
               SizedBox(height: 10.h),
               AllCategoriesTitle(
                 screenHeight: height(context),
@@ -79,8 +53,8 @@ class ClientHomeWidget extends StatelessWidget {
         BlocBuilder<GetAllWorkersBloc, GetAllWorkersState>(
           builder: (context, state) {
             if (state.status == Status.LOADING) {
-              return SliverToBoxAdapter(
-                child: const Center(
+              return const SliverToBoxAdapter(
+                child: Center(
                   child: CircularProgressIndicator(),
                 ),
               );
@@ -109,7 +83,7 @@ class ClientHomeWidget extends StatelessWidget {
               return SliverToBoxAdapter(
                   child: Center(child: Text(state.error)));
             } else {
-              return SliverToBoxAdapter(child: const SizedBox());
+              return const SliverToBoxAdapter(child: SizedBox());
             }
           },
         ),
