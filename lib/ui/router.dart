@@ -57,7 +57,7 @@ class MyRouter {
       case createBusynessScreen:
         return navigateTo(const CreateBusynessPage());
       case confirmationScreen:
-        return navigateTo(const ConfirmationScreen());
+        return navigateTo( ConfirmationScreen(email:  settings.arguments as String,));
       case role:
         return navigateTo(const RoleScreen());
       case clientInfo:

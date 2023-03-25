@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:open_work/bloc/confirmation/confirmation_bloc.dart';
 import 'package:open_work/ui/auth/widgets/auth_appbar.dart';
 import 'package:open_work/ui/widgets/global_button.dart';
 import 'package:open_work/utils/color.dart';
@@ -7,7 +9,9 @@ import 'package:open_work/utils/style.dart';
 import 'package:pinput/pinput.dart';
 
 class ConfirmationScreen extends StatelessWidget {
-  const ConfirmationScreen({super.key});
+  const ConfirmationScreen({super.key, required this.email});
+
+  final String email;
 
   @override
   Widget build(BuildContext context) {
@@ -60,8 +64,17 @@ class ConfirmationScreen extends StatelessWidget {
                 Pinput(
                   length: 6,
                   toolbarEnabled: false,
-
-                  //inputFormatters: [Formatter()],
+                  onChanged: (code) {
+                    if (code.length == 6) {
+                      BlocProvider.of<ConfirmationBloc>(context).add(
+                        CheckCode(
+                          email: email,
+                          code: int.parse(code),
+                        ),
+                      );
+                      Navigator.pop(context);
+                    }
+                  },
                 ),
                 SizedBox(
                   height: 58.h,
@@ -76,7 +89,9 @@ class ConfirmationScreen extends StatelessWidget {
                       textAlign: TextAlign.center,
                     ),
                     InkWell(
-                      onTap: () {},
+                      onTap: () {
+                        BlocProvider.of<ConfirmationBloc>(context).add(SendCode(email: email));
+                      },
                       child: Text(
                         "Resend Code",
                         style: MyTextStyle.aeonikRegular.copyWith(
