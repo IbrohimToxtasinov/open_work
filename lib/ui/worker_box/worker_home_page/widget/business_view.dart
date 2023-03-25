@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:open_work/data/models/worker_business.dart';
 import '../../../../utils/color.dart';
+import '../../../../utils/date_format.dart';
 
 class BusinessView extends StatelessWidget {
   const BusinessView({Key? key, required this.workerBusiness})
@@ -28,18 +29,22 @@ class BusinessView extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-
-                    workerBusiness.start.toString(),
+                    "${TimeUtils.birthDate(DateTime.parse(workerBusiness.start ))} ${TimeUtils.birthHourDate(DateTime.parse(workerBusiness.start ))}",
                     style: const TextStyle(
                         color: Colors.black,
                         fontSize: 16,
                         fontWeight: FontWeight.w400),
                   ),
-                ],
+                  SizedBox(width: 20.w),
+                  Text(
+                      "${TimeUtils.birthDate(DateTime.parse(workerBusiness.end ))} ${TimeUtils.birthHourDate(DateTime.parse(workerBusiness.end ))}",
+                      style: const TextStyle(
+                          color: Colors.black,
+                          fontSize: 16,
+                          fontWeight: FontWeight.w400),
+                  )],
               ),
-              SizedBox(height: 8.h),
-              Text(workerBusiness.end.toString(),
-                  style: TextStyle(color: MyColors.LightishGrey)),
+
               SizedBox(height: 10.h),
               Row(
                 children: [
