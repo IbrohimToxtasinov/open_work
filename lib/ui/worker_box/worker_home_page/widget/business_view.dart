@@ -35,12 +35,16 @@ class BusinessView extends StatelessWidget {
                         fontSize: 16,
                         fontWeight: FontWeight.w400),
                   ),
-                ],
+                  SizedBox(width: 20.w),
+                  Text(
+                      "${TimeUtils.birthDate(DateTime.parse(workerBusiness.end ))} ${TimeUtils.birthHourDate(DateTime.parse(workerBusiness.end ))}",
+                      style: const TextStyle(
+                          color: Colors.black,
+                          fontSize: 16,
+                          fontWeight: FontWeight.w400),
+                  )],
               ),
-              SizedBox(height: 8.h),
-              Text(
-                  "${TimeUtils.birthDate(DateTime.parse(workerBusiness.end ))} ${TimeUtils.birthHourDate(DateTime.parse(workerBusiness.end ))}",
-                  style: TextStyle(color: MyColors.LightishGrey)),
+
               SizedBox(height: 10.h),
               Row(
                 children: [
