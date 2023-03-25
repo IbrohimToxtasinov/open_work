@@ -111,12 +111,8 @@ class _AddReviewScreenState extends State<AddReviewScreen> {
                     }),
                   );
                 } else if (state.status == Status.SUCCESS) {
-                  BlocProvider.of<CommentsBloc>(context).add(
-                    FetchComments(
-                      workerId: 28,
-                    ),
-                  );
                   Navigator.pop(context);
+                  Navigator.popUntil(context, (route) => route.isCurrent);
                 } else if (state.status == Status.ERROR) {
                   showDialog(
                     context: context,
