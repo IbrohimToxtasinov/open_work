@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:open_work/bloc/auth/auth_bloc.dart';
 import 'package:open_work/data/models/form_status/form_status.dart';
-import 'package:open_work/data/models/user_register_dto/user_register_dto_model.dart';
 import 'package:open_work/data/models/worker_register_dto/worker_register_dto_model.dart';
 import 'package:open_work/ui/auth/widgets/auth_appbar.dart';
 import 'package:open_work/ui/auth/widgets/auth_widget.dart';
