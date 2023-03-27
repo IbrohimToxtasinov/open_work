@@ -71,7 +71,7 @@ class ClientHomeWidget extends StatelessWidget {
                           Navigator.pushNamed(
                             context,
                             workerDetail,
-                            arguments: state.workers[index],
+                            arguments: state.workers[index].id,
                           );
                         },
                       );

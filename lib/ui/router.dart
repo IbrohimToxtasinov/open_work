@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import 'package:open_work/data/models/category/category_model.dart';
 import 'package:open_work/data/models/user_info/user_info_model.dart';
@@ -87,11 +88,11 @@ class MyRouter {
         );
       case addCommentScreen:
         return navigateTo(
-          const AddReviewScreen(),
+           AddReviewScreen(workerInfoModel: settings.arguments as WorkerInfoModel,),
         );
       case commentsScreen:
         return navigateTo(
-          const CommentsScreen(),
+           CommentsScreen(workerInfoModel: settings.arguments as WorkerInfoModel),
         );
       case categorySkills:
         return navigateTo(

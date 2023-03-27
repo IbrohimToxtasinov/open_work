@@ -8,15 +8,18 @@ import 'package:open_work/ui/widgets/single_icon_appbar.dart';
 import 'package:open_work/utils/constants.dart';
 import 'package:open_work/utils/icons/app_icons.dart';
 
+import '../../data/models/worker_info/worker_info_model.dart';
+
 class CommentsScreen extends StatelessWidget {
-  const CommentsScreen({Key? key}) : super(key: key);
+  const CommentsScreen({Key? key, required this.workerInfoModel}) : super(key: key);
+  final WorkerInfoModel workerInfoModel;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: SingleIconAppBar(
         onTap: () {
-          Navigator.pushNamed(context, addCommentScreen);
+          Navigator.pushNamed(context, addCommentScreen,arguments: workerInfoModel);
         },
         title: 'Reviews',
         svgIcon: AppIcons.addCommentIcon,
