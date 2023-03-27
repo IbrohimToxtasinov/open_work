@@ -2,9 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:open_work/bloc/categories/categories_bloc.dart';
+import 'package:open_work/bloc/comments/comments_bloc.dart';
 import 'package:open_work/bloc/get_worker_by_id/get_single_worker_bloc.dart';
 import 'package:open_work/data/repositories/get_single_worker_repo.dart';
+import 'package:open_work/ui/widgets/global_button.dart';
 import 'package:open_work/ui/widgets/my_appbar.dart';
+import 'package:open_work/ui/worker_detail/widgets/contact_widget.dart';
 import 'package:open_work/ui/worker_detail/widgets/custom_text_bold.dart';
 import 'package:open_work/utils/color.dart';
 import 'package:open_work/utils/constants.dart';
@@ -51,6 +54,8 @@ class WorkerDetailScreen extends StatelessWidget {
                         const CustomTextBold(text: "Reviews"),
                         InkWell(
                           onTap: () {
+                            BlocProvider.of<CommentsBloc>(context)
+                                .add(FetchComments(workerId: 28));
                             Navigator.pushNamed(
                               context,
                               commentsScreen,
@@ -73,7 +78,19 @@ class WorkerDetailScreen extends StatelessWidget {
                     SizedBox(height: 16.h),
                     const GridViewWidget(),
                     const Expanded(child: SizedBox()),
-                    const ContactMeBottonWidget(),
+                    GlobalButton(
+                      isActive: true,
+                      buttonText: "Contact me",
+                      onTap: () {
+                        showModalBottomSheet(
+                          backgroundColor: Colors.transparent,
+                          context: context,
+                          builder: (context) {
+                            return const ContactWidget();
+                          },
+                        );
+                      },
+                    ),
                     SizedBox(height: 24.h),
                   ],
                 ),

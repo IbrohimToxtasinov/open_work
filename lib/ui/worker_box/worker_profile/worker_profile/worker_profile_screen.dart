@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:open_work/bloc/auth/auth_bloc.dart';
 import 'package:open_work/bloc/worker_profile/worker_profile_bloc.dart';
 import 'package:open_work/data/models/form_status/form_status.dart';
-import 'package:open_work/data/models/worker_info/worker_info.dart';
+import 'package:open_work/data/models/worker_info/worker_info_model.dart';
 import 'package:open_work/ui/widgets/little_global_button.dart';
 import 'package:open_work/ui/worker_box/worker_profile/worker_profile/widget/appbar.dart';
 import 'package:open_work/ui/worker_box/worker_profile/worker_profile/widget/menu_item.dart';

@@ -1,6 +1,6 @@
 import 'package:image_picker/image_picker.dart';
 import 'package:open_work/data/models/form_status/form_status.dart';
-import 'package:open_work/data/models/worker_info/worker_info.dart';
+import 'package:open_work/data/models/worker_info/worker_info_model.dart';
 
 import 'package:open_work/utils/file_importer/file_importer.dart';
 
@@ -66,7 +66,7 @@ class WorkerProfileBloc extends Bloc<WorkerProfileEvent, WorkerProfileState> {
       email: event.email,
       phone: event.phone,
       password: event.password,
-      file: event.image!,
+      file: event.image,
     );
     if (myResponse.errorMessage.isEmpty) {
       emit(state.copyWith(status: FormStatus.updateWorkerInfoInSuccess));

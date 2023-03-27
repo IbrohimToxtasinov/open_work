@@ -19,4 +19,12 @@ class TimeUtils {
     final format = DateFormat.Hm().format(dateTime).toString();
     return format;
   }
+  static String birthDate2(DateTime dateTime) {
+    final format = DateFormat.yMMMMd().format(dateTime);
+    return format;
+  }
+  static String birthHourDate2(DateTime dateTime) {
+    final format = DateFormat.Hm().format(dateTime);
+    return format;
+  }
 }

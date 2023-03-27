@@ -5,38 +5,23 @@ import 'package:open_work/bloc/confirmation/confirmation_bloc.dart';
 import 'package:open_work/ui/auth/widgets/auth_appbar.dart';
 import 'package:open_work/ui/widgets/global_button.dart';
 import 'package:open_work/utils/color.dart';
-import 'package:open_work/utils/my_utils.dart';
 import 'package:open_work/utils/style.dart';
 import 'package:pinput/pinput.dart';
 
-class ConfirmationScreen extends StatefulWidget {
+class ConfirmationScreen extends StatelessWidget {
   const ConfirmationScreen({super.key, required this.email});
-  final String email;
-  @override
-  State<ConfirmationScreen> createState() => _ConfirmationScreenState();
-}
 
-class _ConfirmationScreenState extends State<ConfirmationScreen> {
-  TextEditingController pinController = TextEditingController();
+  final String email;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButton: Padding(
         padding: EdgeInsets.only(left: 40.w).r,
-        child: BlocListener<ConfirmationBloc, ConfirmationState>(
-          listener: (context, state) {
-            if (state.confirmStatus == ConfirmStatus.confirmed) {
-              return MyUtils.getMyToast(message: "urrrrrraaaa");
-            }
-          },
-          child: GlobalButton(
-            isActive: true,
-            buttonText: "Send",
-            onTap: () {
-              BlocProvider.of<ConfirmationBloc>(context).add(CheckCode(
-                  email: widget.email, code: pinController.text as int));
-            },
-          ),
+        child: GlobalButton(
+          isActive: true,
+          buttonText: "Send",
+          onTap: () {},
         ),
       ),
       backgroundColor: const Color(0xFF002766),
@@ -68,7 +53,7 @@ class _ConfirmationScreenState extends State<ConfirmationScreen> {
                   textAlign: TextAlign.center,
                 ),
                 Text(
-                  widget.email,
+                  "shadulislam@gmail.com",
                   style: MyTextStyle.aeonikSemiBold
                       .copyWith(fontSize: 18.sp, color: MyColors.neutral100),
                   textAlign: TextAlign.center,
@@ -77,11 +62,19 @@ class _ConfirmationScreenState extends State<ConfirmationScreen> {
                   height: 24.h,
                 ),
                 Pinput(
-                  controller: pinController,
                   length: 6,
                   toolbarEnabled: false,
-
-                  //inputFormatters: [Formatter()],
+                  onChanged: (code) {
+                    if (code.length == 6) {
+                      BlocProvider.of<ConfirmationBloc>(context).add(
+                        CheckCode(
+                          email: email,
+                          code: int.parse(code),
+                        ),
+                      );
+                      Navigator.pop(context);
+                    }
+                  },
                 ),
                 SizedBox(
                   height: 58.h,
@@ -96,7 +89,9 @@ class _ConfirmationScreenState extends State<ConfirmationScreen> {
                       textAlign: TextAlign.center,
                     ),
                     InkWell(
-                      onTap: () {},
+                      onTap: () {
+                        BlocProvider.of<ConfirmationBloc>(context).add(SendCode(email: email));
+                      },
                       child: Text(
                         "Resend Code",
                         style: MyTextStyle.aeonikRegular.copyWith(

@@ -13,6 +13,7 @@ import 'package:open_work/ui/widgets/global_button.dart';
 import 'package:open_work/ui/widgets/loading.dart';
 import 'package:open_work/ui/widgets/my_animated_snackbar.dart';
 import 'package:open_work/utils/color.dart';
+import 'package:open_work/utils/my_utils.dart';
 
 import '../../../utils/constants.dart';
 
@@ -127,6 +128,7 @@ class _ClientRegisterScreenState extends State<ClientRegisterScreen> {
                 BlocListener<ConfirmationBloc, ConfirmationState>(
                   listener: (context, state) {
                     if (state.confirmStatus == ConfirmStatus.confirmed) {
+                      MyUtils.getMyToast(message: "Email confirmed");
                       _formKey.currentState!.validate();
                       print(_userNameController.text);
                       print(_surNameController.text);
@@ -146,22 +148,7 @@ class _ClientRegisterScreenState extends State<ClientRegisterScreen> {
                   child: GlobalButton(
                     onTap: () {
                       BlocProvider.of<ConfirmationBloc>(context).add(SendCode(email: _emailController.text));
-                      Navigator.pushNamed(context, confirmationScreen, arguments:  _emailController.text);
-
-                      // _formKey.currentState!.validate();
-                      // print(_userNameController.text);
-                      // print(_surNameController.text);
-                      // print(_emailController.text);
-                      // print(_passwordController.text);
-                      // BlocProvider.of<AuthBloc>(context).add(
-                      //   RegisterClient(
-                      //     userRegisterDtoModel: UserRegisterDtoModel(
-                      //         name: _userNameController.text,
-                      //         surname: _surNameController.text,
-                      //         email: _emailController.text,
-                      //         password: _passwordController.text),
-                      //   ),
-                      // );
+                      Navigator.pushNamed(context, confirmationScreen,arguments: _emailController.text);
                     },
                     isActive: true,
                     buttonText: "Create account",

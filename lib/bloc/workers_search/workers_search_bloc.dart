@@ -3,7 +3,7 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:open_work/bloc/categories/categories_bloc.dart';
 import 'package:open_work/data/models/my_response/my_response_model.dart';
-import 'package:open_work/data/models/worker_info/worker_info.dart';
+import 'package:open_work/data/models/worker_info/worker_info_model.dart';
 import 'package:open_work/data/repositories/workers_serch_repo.dart';
 
 part 'workers_search_event.dart';

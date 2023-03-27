@@ -3,9 +3,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:shimmer/shimmer.dart';
 
 class WorkerHomeScreenShimmerLoader extends StatelessWidget {
-  const WorkerHomeScreenShimmerLoader({Key? key,})
-      : super(key: key);
-   @override
+  const WorkerHomeScreenShimmerLoader({
+    Key? key,
+  }) : super(key: key);
+  @override
   Widget build(BuildContext context) {
     return Shimmer.fromColors(
       direction: ShimmerDirection.ltr,

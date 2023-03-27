@@ -17,7 +17,15 @@ class BusynessesBloc extends Bloc<BusynessesEvent, BusynessesState> {
     emit(state.copyWith(status: FormStatus.gettingInProgress));
     MyResponse myResponse = await getIt<BusynessRepository>().getBusynesses(workerId: event.workerId, itemCount: 100);
     if(myResponse.errorMessage.isEmpty){
-      emit(state.copyWith(status: FormStatus.gettingInSuccess,busynesses: myResponse.data as List<WorkerBusiness>));
+      List<List<WorkerBusiness>> result = [[],[]];
+      for(WorkerBusiness i in myResponse.data){
+        if(DateTime.parse(i.start).isBefore(DateTime.now())){
+          result[0].add(i);
+        }else{
+          result[1].add(i);
+        }
+      }
+      emit(state.copyWith(status: FormStatus.gettingInSuccess,busynesses: result));
     }else{
       emit(state.copyWith(status: FormStatus.gettingInFailure,errorMessage: myResponse.errorMessage));
     }
