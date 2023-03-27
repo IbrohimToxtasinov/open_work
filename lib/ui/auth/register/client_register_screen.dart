@@ -146,7 +146,7 @@ class _ClientRegisterScreenState extends State<ClientRegisterScreen> {
                   child: GlobalButton(
                     onTap: () {
                       BlocProvider.of<ConfirmationBloc>(context).add(SendCode(email: _emailController.text));
-                      Navigator.pushNamed(context, confirmationScreen);
+                      Navigator.pushNamed(context, confirmationScreen, arguments:  _emailController.text);
 
                       // _formKey.currentState!.validate();
                       // print(_userNameController.text);

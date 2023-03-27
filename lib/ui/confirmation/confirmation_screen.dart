@@ -1,23 +1,42 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:open_work/bloc/confirmation/confirmation_bloc.dart';
 import 'package:open_work/ui/auth/widgets/auth_appbar.dart';
 import 'package:open_work/ui/widgets/global_button.dart';
 import 'package:open_work/utils/color.dart';
+import 'package:open_work/utils/my_utils.dart';
 import 'package:open_work/utils/style.dart';
 import 'package:pinput/pinput.dart';
 
-class ConfirmationScreen extends StatelessWidget {
-  const ConfirmationScreen({super.key});
+class ConfirmationScreen extends StatefulWidget {
+  const ConfirmationScreen({super.key, required this.email});
+  final String email;
+  @override
+  State<ConfirmationScreen> createState() => _ConfirmationScreenState();
+}
 
+class _ConfirmationScreenState extends State<ConfirmationScreen> {
+  TextEditingController pinController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButton: Padding(
         padding: EdgeInsets.only(left: 40.w).r,
-        child: GlobalButton(
-          isActive: true,
-          buttonText: "Send",
-          onTap: () {},
+        child: BlocListener<ConfirmationBloc, ConfirmationState>(
+          listener: (context, state) {
+            if (state.confirmStatus == ConfirmStatus.confirmed) {
+              return MyUtils.getMyToast(message: "urrrrrraaaa");
+            }
+          },
+          child: GlobalButton(
+            isActive: true,
+            buttonText: "Send",
+            onTap: () {
+              BlocProvider.of<ConfirmationBloc>(context).add(CheckCode(
+                  email: widget.email, code: pinController.text as int));
+            },
+          ),
         ),
       ),
       backgroundColor: const Color(0xFF002766),
@@ -49,7 +68,7 @@ class ConfirmationScreen extends StatelessWidget {
                   textAlign: TextAlign.center,
                 ),
                 Text(
-                  "shadulislam@gmail.com",
+                  widget.email,
                   style: MyTextStyle.aeonikSemiBold
                       .copyWith(fontSize: 18.sp, color: MyColors.neutral100),
                   textAlign: TextAlign.center,
@@ -58,6 +77,7 @@ class ConfirmationScreen extends StatelessWidget {
                   height: 24.h,
                 ),
                 Pinput(
+                  controller: pinController,
                   length: 6,
                   toolbarEnabled: false,
 
