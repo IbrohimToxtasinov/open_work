@@ -5,7 +5,6 @@ import 'package:open_work/bloc/auth/auth_bloc.dart';
 import 'package:open_work/bloc/worker_profile/worker_profile_bloc.dart';
 import 'package:open_work/data/models/form_status/form_status.dart';
 import 'package:open_work/data/models/worker_info/worker_info_model.dart';
-import 'package:open_work/ui/widgets/little_global_button.dart';
 import 'package:open_work/ui/worker_box/worker_profile/worker_profile/widget/appbar.dart';
 import 'package:open_work/ui/worker_box/worker_profile/worker_profile/widget/menu_item.dart';
 import 'package:open_work/utils/color.dart';
@@ -13,6 +12,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:open_work/utils/constants.dart';
 
 import '../../../../bloc/busynesses/busynesses_bloc.dart';
+import '../../../../utils/my_utils.dart';
 
 class WorkerProfileScreen extends StatefulWidget {
   const WorkerProfileScreen({Key? key}) : super(key: key);
@@ -119,9 +119,12 @@ class _WorkerProfileScreenState extends State<WorkerProfileScreen> {
                       icon: Icons.logout,
                       text: "Log out",
                       onTap: () {
-                        _logOutDialog(() {
-                          context.read<AuthBloc>().add(LogOut());
-                        });
+                        MyUtils.logOutDialog(
+                          title: "Rostdan ham akkountdan chiqishni xohlaysizmi?",
+                            onTap: () {
+                              context.read<AuthBloc>().add(LogOut());
+                            },
+                            context: context);
                       },
                       color: Colors.deepOrange,
                     ),
@@ -146,44 +149,4 @@ class _WorkerProfileScreenState extends State<WorkerProfileScreen> {
     );
   }
 
-  _logOutDialog(VoidCallback onTap) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          backgroundColor: MyColors.white,
-          title: const Text(
-            "Rostdan ham akkountdan chiqishni xohlaysizmi?",
-            textAlign: TextAlign.center,
-          ),
-          actions: <Widget>[
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                SizedBox(
-                  width: 120.w,
-                  child: LittleGlobalButton(
-                    isActive: true,
-                    buttonText: "Yo'q",
-                    onTap: () => Navigator.of(context).pop(),
-                  ),
-                ),
-                SizedBox(
-                  width: 120.w,
-                  child: LittleGlobalButton(
-                    isActive: true,
-                    buttonText: "Ha",
-                    onTap: () {
-                      onTap.call();
-                      Navigator.pop(context);
-                    },
-                  ),
-                )
-              ],
-            ),
-          ],
-        );
-      },
-    );
-  }
 }

@@ -2,16 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:open_work/bloc/busynesses/busynesses_bloc.dart';
-import 'package:open_work/ui/widgets/all_categories_title.dart';
 import 'package:open_work/ui/widgets/home_screen_appbar.dart';
 import 'package:open_work/ui/worker_box/worker_home_page/widget/bussynesess_list.dart';
 import 'package:open_work/ui/worker_box/worker_home_page/widget/worker_categories.dart';
 import 'package:open_work/ui/worker_box/worker_home_page/widget/worker_home_screen.shimmer.dart';
 import 'package:open_work/utils/color.dart';
 import 'package:open_work/utils/constants.dart';
-import 'package:open_work/utils/my_utils.dart';
 import '../../../data/models/form_status/form_status.dart';
 
+// ignore: must_be_immutable
 class WorkerHomeScreen extends StatelessWidget {
   WorkerHomeScreen({Key? key}) : super(key: key);
   int workerId = 0;
@@ -37,6 +36,10 @@ class WorkerHomeScreen extends StatelessWidget {
                   context
                       .read<BusynessesBloc>()
                       .add(GetWorkerBusynessesEvent(workerId: workerId));
+                }else if (state.status == FormStatus.deletingInSuccess){
+                  context
+                      .read<BusynessesBloc>()
+                      .add(GetWorkerBusynessesEvent(workerId: workerId));
                 }
               },
               builder: (context, state) {
@@ -45,6 +48,7 @@ class WorkerHomeScreen extends StatelessWidget {
                 } else if (state.status == FormStatus.gettingInProgress) {
                   return const WorkerHomeScreenShimmerLoader();
                 } else if (state.status == FormStatus.gettingInSuccess) {
+
                   return DefaultTabController(
                       length: 2,
                       child: SingleChildScrollView(
@@ -81,7 +85,7 @@ class WorkerHomeScreen extends StatelessWidget {
                     child: Text(state.errorMessage.toString()),
                   );
                 }
-                return SizedBox();
+                return const SizedBox();
               },
             ),
           ],

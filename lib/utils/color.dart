@@ -12,6 +12,9 @@ static const Color primaryMain = Color(0xFF69B22A);
   static const Color mainLight = Color(0xFFFFFFFF);
 
   static const Color red = Color(0xFFFB5353);
+  static const Color red2 = Color(0xFFF39696FF);
+
+
   static const Color whiteBlack = Color(0xFFE2E2E2);
 
   // Neutral
