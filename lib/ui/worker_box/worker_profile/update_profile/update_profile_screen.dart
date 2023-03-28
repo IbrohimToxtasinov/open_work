@@ -247,29 +247,28 @@ class _WorkerUpdateProfileScreenState extends State<WorkerUpdateProfileScreen> {
                         padding: EdgeInsets.only(
                             left: 18.0.r, right: 18.0.r, bottom: 20.r),
                         child: GlobalButton(
-                            isActive: true,
-                            buttonText: 'Update Profile',
-                            onTap: () {
-                              if (formGlobalKey.currentState!.validate()) {
-                                formGlobalKey.currentState!.save();
-                                if (xFile != null) {
-                                  BlocProvider.of<WorkerProfileBloc>(context)
-                                      .add(
-                                    UpdateWorkerInfoEvent(
-                                      password: passwordController.text,
-                                      phone:
-                                          MyUtils.getPhoneNumber(phoneNumber),
-                                      email: emailController.text,
-                                      surname: surNameController.text,
-                                      name: userNameController.text,
-                                      image: xFile!,
-                                    ),
-                                  );
-                                } else {
-                                  MyUtils.getMyToast(message: "Rasm  tanlang");
-                                }
+                          isActive: true,
+                          buttonText: 'Update Profile',
+                          onTap: () {
+                            if (formGlobalKey.currentState!.validate()) {
+                              formGlobalKey.currentState!.save();
+                              if (xFile != null) {
+                                BlocProvider.of<WorkerProfileBloc>(context).add(
+                                  UpdateWorkerInfoEvent(
+                                    password: passwordController.text,
+                                    phone: MyUtils.getPhoneNumber(phoneNumber),
+                                    email: emailController.text,
+                                    surname: surNameController.text,
+                                    name: userNameController.text,
+                                    image: xFile!,
+                                  ),
+                                );
+                              } else {
+                                MyUtils.getMyToast(message: "Rasm  tanlang");
                               }
-                            }),
+                            }
+                          },
+                        ),
                       )
                     ],
                   ),
