@@ -1,4 +1,3 @@
-import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:image_picker/image_picker.dart';
@@ -30,7 +29,9 @@ class WorkerApiService extends WorkerApiClient {
         myResponse.data = response.data;
         myResponse.statusCode = response.statusCode;
       }else if(response.statusCode == 400){
-        myResponse.data = "Siz bu vaqtda bo'sh emasiz";
+        myResponse.errorMessage = "Siz bu vaqtda bo'sh emasiz";
+        myResponse.statusCode = response.statusCode;
+
       }
     } catch (e) {
       myResponse.errorMessage = e.toString();
