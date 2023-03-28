@@ -1,8 +1,11 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:open_work/utils/color.dart';
 import 'package:open_work/utils/style.dart';
+
+import '../ui/widgets/little_global_button.dart';
 
 class MyUtils {
   static showSnackBar(BuildContext context, String? text) {
@@ -53,6 +56,47 @@ class MyUtils {
       fontSize: 16.0,
     );
   }
+  static  logOutDialog({required VoidCallback onTap, required context,required String title}) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          backgroundColor: MyColors.white,
+          title:  Text(
+            title,
+            textAlign: TextAlign.center,
+          ),
+          actions: <Widget>[
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                SizedBox(
+                  width: 100.w,
+                  child: LittleGlobalButton(
+                    isActive: true,
+                    buttonText: "Yo'q",
+                    onTap: () => Navigator.of(context).pop(),
+                  ),
+                ),
+                SizedBox(
+                  width: 100.w,
+                  child: LittleGlobalButton(
+                    isActive: true,
+                    buttonText: "Ha",
+                    onTap: () {
+                      onTap.call();
+                      Navigator.pop(context);
+                    },
+                  ),
+                )
+              ],
+            ),
+          ],
+        );
+      },
+    );
+  }
+
 }
 
 String getFileType(String url) {

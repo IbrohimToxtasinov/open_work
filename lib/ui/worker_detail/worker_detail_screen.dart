@@ -59,6 +59,7 @@ class WorkerDetailScreen extends StatelessWidget {
                             Navigator.pushNamed(
                               context,
                               commentsScreen,
+                              arguments: state.workerInfo
                             );
                           },
                           child: const CustomTextBold(text: "See reviews"),
