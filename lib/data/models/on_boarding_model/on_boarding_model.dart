@@ -14,18 +14,18 @@ class OnboardingModel {
   static List<OnboardingModel> onboardingItem = [
     OnboardingModel(
       imagePath: AppImages.onBoardingFirst,
-      title: 'Lorem ipsum dolor sit amet, consetetur',
-      subtitle: "Lorem ipsum dolor sit amet",
+      title: 'Use our services for home services',
+      subtitle: "High quality",
     ),
     OnboardingModel(
       imagePath: AppImages.onBoardingSecond,
-      subtitle: "Lorem ipsum dolor sit.",
-      title: "Lorem ipsum dolor sit amet",
+      subtitle: "We are happy to serve",
+      title: "Fast services",
     ),
     OnboardingModel(
       imagePath: AppImages.onBoardingThird,
-      subtitle: "Lorem ipsum",
-      title: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed',
+      subtitle: "Our services affordable",
+      title: 'Hire workers for your needed chores',
     ),
   ];
 }
