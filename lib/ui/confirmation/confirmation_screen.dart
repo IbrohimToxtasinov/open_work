@@ -53,7 +53,7 @@ class ConfirmationScreen extends StatelessWidget {
                   textAlign: TextAlign.center,
                 ),
                 Text(
-                  "shadulislam@gmail.com",
+                  email,
                   style: MyTextStyle.aeonikSemiBold
                       .copyWith(fontSize: 18.sp, color: MyColors.neutral100),
                   textAlign: TextAlign.center,

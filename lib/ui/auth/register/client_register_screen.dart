@@ -14,7 +14,6 @@ import 'package:open_work/ui/widgets/loading.dart';
 import 'package:open_work/ui/widgets/my_animated_snackbar.dart';
 import 'package:open_work/utils/color.dart';
 import 'package:open_work/utils/my_utils.dart';
-
 import '../../../utils/constants.dart';
 
 class ClientRegisterScreen extends StatefulWidget {
