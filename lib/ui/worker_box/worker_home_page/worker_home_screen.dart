@@ -8,12 +8,31 @@ import 'package:open_work/ui/worker_box/worker_home_page/widget/worker_categorie
 import 'package:open_work/ui/worker_box/worker_home_page/widget/worker_home_screen.shimmer.dart';
 import 'package:open_work/utils/color.dart';
 import 'package:open_work/utils/constants.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../../data/models/form_status/form_status.dart';
 
 // ignore: must_be_immutable
-class WorkerHomeScreen extends StatelessWidget {
-  WorkerHomeScreen({Key? key}) : super(key: key);
-  int workerId = 0;
+class WorkerHomeScreen extends StatefulWidget {
+  // Obtain shared preferences.
+  const WorkerHomeScreen({Key? key}) : super(key: key);
+
+  @override
+  State<WorkerHomeScreen> createState() => _WorkerHomeScreenState();
+}
+
+class _WorkerHomeScreenState extends State<WorkerHomeScreen> {
+  getIntValuesSF() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    int? workerId = prefs.getInt('intValue');
+    id = workerId ?? 0;
+  }
+
+  late int id;
+  @override
+  void initState() {
+    getIntValuesSF();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -35,11 +54,12 @@ class WorkerHomeScreen extends StatelessWidget {
                 if (state.status == FormStatus.creatingInSuccess) {
                   context
                       .read<BusynessesBloc>()
-                      .add(GetWorkerBusynessesEvent(workerId: workerId));
-                }else if (state.status == FormStatus.deletingInSuccess){
+                      .add(GetWorkerBusynessesEvent(workerId: id));
+                } else if (state.status == FormStatus.deletingInSuccess) {
+                  print("ammmmmmmmmmmmmmmmmm$id");
                   context
                       .read<BusynessesBloc>()
-                      .add(GetWorkerBusynessesEvent(workerId: workerId));
+                      .add(GetWorkerBusynessesEvent(workerId: id));
                 }
               },
               builder: (context, state) {
@@ -48,7 +68,6 @@ class WorkerHomeScreen extends StatelessWidget {
                 } else if (state.status == FormStatus.gettingInProgress) {
                   return const WorkerHomeScreenShimmerLoader();
                 } else if (state.status == FormStatus.gettingInSuccess) {
-
                   return DefaultTabController(
                       length: 2,
                       child: SingleChildScrollView(

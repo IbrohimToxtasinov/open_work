@@ -21,7 +21,6 @@ class CreateBusynessPage extends StatefulWidget {
 class _CreateBusynessPageState extends State<CreateBusynessPage> {
   DateTime startDate = DateTime.now();
   DateTime endDate = DateTime.now();
-
   @override
   Widget build(BuildContext context) {
     DateTime now = DateTime.now();
