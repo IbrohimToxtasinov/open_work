@@ -31,7 +31,7 @@ class WorkerTabBox extends StatelessWidget {
           ),
           bottomNavigationBar: BottomNavigationBar(
             currentIndex: index,
-           
+            backgroundColor: Colors.grey.shade100,
             onTap: (value) {
               context.read<BottomNavCubit>().changePageIndex(value);
             },

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:open_work/utils/app_images.dart';
+import 'package:open_work/utils/color.dart';
 
 class HomeScreenAppbar extends StatelessWidget implements PreferredSize {
   const HomeScreenAppbar({
@@ -13,7 +14,7 @@ class HomeScreenAppbar extends StatelessWidget implements PreferredSize {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      backgroundColor: const Color(0xFFE5E5E5),
+      backgroundColor: MyColors.white,
       elevation: 0,
       title: Image.asset(
         AppImages.appbarLogo,
@@ -23,7 +24,7 @@ class HomeScreenAppbar extends StatelessWidget implements PreferredSize {
       actions: [
         TextButton(
           onPressed: rightText.isEmpty?null:onTap,
-          child: Text(rightText,style:  TextStyle(color: Colors.black),),
+          child: Text(rightText,style:const   TextStyle(color: Colors.black),),
         ),
         const SizedBox(width: 10)
       ],

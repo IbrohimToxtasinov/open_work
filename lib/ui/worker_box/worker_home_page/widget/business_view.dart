@@ -34,7 +34,16 @@ class BusinessView extends StatelessWidget {
         margin: const EdgeInsets.only(left: 20, right: 20).r,
         height: 126.h,
         decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(15).r, color: Colors.white),
+            borderRadius: BorderRadius.circular(15).r, color: Colors.white,
+         boxShadow: [
+           BoxShadow(
+             color: Colors.grey.shade300,
+             spreadRadius: 6,
+             blurRadius: 4,
+             offset: const Offset(2,3)
+           )
+         ]
+        ),
         child: Row(
           children: [
             SizedBox(width: 10.w),

@@ -37,53 +37,50 @@ class _WorkerHomeScreenState extends State<WorkerHomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: MyColors.editBackground,
+      backgroundColor: MyColors.white,
       appBar: HomeScreenAppbar(
         rightText: "Add business",
         onTap: () {
           Navigator.pushNamed(context, createBusynessScreen);
         },
       ),
-      body: SingleChildScrollView(
-        physics: const BouncingScrollPhysics(),
-        child: Column(
-          children: [
-            const WorkerCategories(),
-            BlocConsumer<BusynessesBloc, BusynessesState>(
-              listener: (context, state) {
-                if (state.status == FormStatus.creatingInSuccess) {
-                  context
-                      .read<BusynessesBloc>()
-                      .add(GetWorkerBusynessesEvent(workerId: id));
-                } else if (state.status == FormStatus.deletingInSuccess) {
-                  print("ammmmmmmmmmmmmmmmmm$id");
-                  context
-                      .read<BusynessesBloc>()
-                      .add(GetWorkerBusynessesEvent(workerId: id));
-                }
-              },
-              builder: (context, state) {
-                if (state.status == FormStatus.pure) {
-                  return const WorkerHomeScreenShimmerLoader();
-                } else if (state.status == FormStatus.gettingInProgress) {
-                  return const WorkerHomeScreenShimmerLoader();
-                } else if (state.status == FormStatus.gettingInSuccess) {
-                  return DefaultTabController(
+
+      body: Column(
+        children: [
+          const WorkerCategories(),
+          BlocConsumer<BusynessesBloc, BusynessesState>(
+            listener: (context, state) {
+              if (state.status == FormStatus.creatingInSuccess) {
+                context
+                    .read<BusynessesBloc>()
+                    .add(GetWorkerBusynessesEvent(workerId: workerId));
+              }else if (state.status == FormStatus.deletingInSuccess){
+                context
+                    .read<BusynessesBloc>()
+                    .add(GetWorkerBusynessesEvent(workerId: workerId));
+              }
+            },
+            builder: (context, state) {
+                if (state.status == FormStatus.gettingInProgress) {
+                return const WorkerHomeScreenShimmerLoader();
+              } else if (state.status == FormStatus.gettingInSuccess) {
+                return Expanded(
+                  child: DefaultTabController(
                       length: 2,
-                      child: SingleChildScrollView(
-                        child: Column(
-                          children: [
-                            const TabBar(
-                              tabs: [
-                                Tab(
-                                  child: Text("New"),
-                                ),
-                                Tab(
-                                  child: Text("Old"),
-                                ),
-                              ],
-                            ),
-                            Container(
+                      child: Column(
+                        children: [
+                          const TabBar(
+                            tabs: [
+                              Tab(
+                                child: Text("New"),
+                              ),
+                              Tab(
+                                child: Text("Old"),
+                              ),
+                            ],
+                          ),
+                          Expanded(
+                            child: Container(
                               margin: EdgeInsets.only(top: 12.h),
                               width: MediaQuery.of(context).size.width,
                               height: MediaQuery.of(context).size.height,
@@ -95,20 +92,20 @@ class _WorkerHomeScreenState extends State<WorkerHomeScreen> {
                                   busynesses: state.busynesses[0],
                                 ),
                               ]),
-                            )
-                          ],
-                        ),
-                      ));
-                } else if (state.status == FormStatus.gettingInFailure) {
-                  return Center(
-                    child: Text(state.errorMessage.toString()),
-                  );
-                }
-                return const SizedBox();
-              },
-            ),
-          ],
-        ),
+                            ),
+                          )
+                        ],
+                      )),
+                );
+              } else if (state.status == FormStatus.gettingInFailure) {
+                return Center(
+                  child: Text(state.errorMessage.toString()),
+                );
+              }
+              return const SizedBox();
+            },
+          ),
+        ],
       ),
     );
   }
