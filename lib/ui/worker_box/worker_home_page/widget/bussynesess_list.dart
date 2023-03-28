@@ -13,7 +13,7 @@ class BusynessesList extends StatelessWidget {
   Widget build(BuildContext context) {
     return busynesses.isEmpty?Lottie.asset(AppIcons.emptyWorkers):ListView.separated(
       physics: const BouncingScrollPhysics(),
-      padding: const EdgeInsets.only(bottom: 200),
+      padding: const EdgeInsets.only(bottom: 200,top: 20),
       separatorBuilder: (context, index) => SizedBox(
         width: 10.w,
         height: 20,
