@@ -53,11 +53,11 @@ class _WorkerHomeScreenState extends State<WorkerHomeScreen> {
               if (state.status == FormStatus.creatingInSuccess) {
                 context
                     .read<BusynessesBloc>()
-                    .add(GetWorkerBusynessesEvent(workerId: workerId));
+                    .add(GetWorkerBusynessesEvent(workerId: id));
               }else if (state.status == FormStatus.deletingInSuccess){
                 context
                     .read<BusynessesBloc>()
-                    .add(GetWorkerBusynessesEvent(workerId: workerId));
+                    .add(GetWorkerBusynessesEvent(workerId: id));
               }
             },
             builder: (context, state) {
